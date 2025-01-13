@@ -11,31 +11,89 @@ body {
 	flex-flow: column;
 	color: white;
 }
-.main-block {
+main {
 	display: flex;
 	flex-flow: column;
 	align-self: center;
-    align-items: center;
+	align-items: center;
 	font-family: var(--font-regular);
 	border-radius: 5px;
-    background-color: rgba(37, 26, 58, 0.378);
-    font-size: 24px;
-    width: 1000px;
-    padding: 15px;
+	background-color: rgba(37, 26, 58, 0.378);
+	font-size: 24px;
+	width: 1000px;
+	padding: 15px;
+	> p {
+		padding: 5px;
+	}
+}
+@media (max-width: 1250px) {
+	main {
+		width: 80%;
+	}
 }
 .banner {
-    font-family: var(--font-header);
+	font-family: var(--font-header);
 	display: flex;
 	flex-flow: column;
 	align-self: center;
-    font-size: 24pt;
-    height: 210px;
-    margin: 0px;
-    align-items: center;
-    > h1 {
-        margin-bottom: 0;
-    }
-    > p {
-        margin-top: 0;
-    }
+	font-size: 24pt;
+	height: 210px;
+	margin: 0px;
+	align-items: center;
+	> h1 {
+		margin-bottom: 0;
+	}
+	> p {
+		margin-top: 0;
+	}
+}
+.other-pages {
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+	width: 310px;
+	> a {
+		border: solid rgb(33, 156, 204) 2px;
+		border-radius: 10px;
+
+		padding: 6px;
+		padding-left: 12px;
+		padding-right: 12px;
+
+		color: white;
+		font-size: 36px;
+		text-decoration: none;
+
+		background-color: rgb(58, 54, 161);
+		transition: background 0.1s ease;
+
+		&:hover {
+			background-color: rgb(38, 35, 105);
+		}
+	}
+}
+.socials {
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+	width: 350px;
+}
+.social_button {
+	width: 64px;
+		height: 64px;
+	background-color: rgba(18, 14, 120, 0);
+	> img {
+		width: 56px;
+		height: 56px;	
+		border-radius: 15px;
+		border: solid 2px rgb(33, 156, 204);
+		transition: filter 0.1s ease;
+		&:hover {
+			filter: brightness(0.80);
+		}
+	}
+}
+hr {
+	color: white;
+	width: 80%;
 }
