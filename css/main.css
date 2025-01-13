@@ -1,0 +1,190 @@
+html {
+	--font-regular: Quicksand, ui-rounded, 'Hiragino Maru Gothic ProN', Arial, Quicksand, Comfortaa, Manjari, Calibri, source-sans-pro, sans-serif;
+	--font-header: var(--font-regular);
+	--font-code: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+	font-size: 16px;
+	line-height: 1.5;
+}
+body {
+	background: linear-gradient(to right, #0006, transparent, #0006), url(../media/snowfall_gradient.png);
+	display: flex;
+	flex-flow: column;
+	color: white;
+}
+.banner {
+	font-family: var(--font-header);
+	display: flex;
+	flex-flow: row;
+	align-self: center;
+}
+.main-block {
+	display: flex;
+	flex-flow: column;
+	align-self: center;
+	font-family: var(--font-regular);
+	background-color: rgb(35, 28, 52);
+	border-radius: 5px;
+}
+.main-block {
+	width: 1000px;
+	display: flex;
+	flex-flow: column;
+	background-color: rgb(113, 119, 189);
+	border-style: solid;
+	border-color: rgb(156, 161, 208);
+	border-width: 2px;
+	border-radius: 5px;
+	font-size: 28px;
+}
+article {
+	color: rgb(22, 29, 79);
+	background-color: rgb(159, 165, 241);
+	margin: 15px;
+	border: solid rgb(63, 72, 149) 2px;
+	border-radius: 10px;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+p {
+	font-size: 22px;
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+header {
+	display: flex;
+	flex-flow: column;
+	justify-content: flex-start;
+}
+.article-header {
+	display: flex;
+	flex-flow: row;
+	margin-top: -15px;
+	align-items:first baseline;
+	justify-content: space-between;
+	> .article-date {
+		font-size: 20px;
+		color: rgba(54, 53, 72, 0.8)
+	}
+}
+hr {
+	color: rgb(22, 29, 79);
+	margin-left: 0px;
+	margin-right: 350px;
+	margin-top: -35px;
+	margin-bottom: 25px;
+}
+h2 {
+	font-weight: 400;
+	font-size: 24pt;
+	margin-top: 0px;
+	margin-bottom: 5px;
+}
+@media (max-width: 1250px) {
+	.main-block {
+		width: 80%;
+	}
+}
+main {
+	display: flex;
+	flex-flow: column;
+	
+	> ul {
+		display: flex;
+		flex-flow: row;
+		list-style: none;
+		background-color: rgb(85, 94, 192);
+		border-radius: 10px;
+		margin-top: 0px;
+		margin-right: auto;
+		padding-left: 0;
+		>  li {
+			display: flex;
+			align-self: stretch; /* Keeps all items the same height */
+			&:first-child {
+				> a, p {
+					border-top-left-radius: 6px;
+					border-bottom-left-radius: 6px;
+				}
+			}
+			&:last-child {
+				> a, p {
+					border-top-right-radius: 6px;
+					border-bottom-right-radius: 6px;
+					border-right: 2px rgb(197, 201, 237) solid;
+				}
+			}
+			> p {
+				margin: 0px;
+				font-size: 16px;
+				display: flex;
+				padding: 15px;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				color: white;
+				transition: color 0.1s ease;
+				border: 2px solid rgb(197, 201, 237);
+				border-right: 1px;
+			}
+			> a {
+				font-size: 16px;
+				display: flex;
+				padding: 15px;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				color: white;
+				transition: color 0.1s ease;
+				border: 2px solid rgb(197, 201, 237);
+				border-right: 1px;
+				color: rgb(225, 184, 240);
+			}
+			>  a:hover {
+				color: rgb(184, 106, 236);
+			}
+		}
+	}
+}
+.navigation {
+	display: flex;
+	flex-flow: row;
+
+	> ul {
+		display: flex;
+		list-style: none;
+		background-color: rgb(85, 94, 192);
+		border-radius: 5px;
+		padding-right: -5px;
+		margin-top: 17.5px;
+		margin-left: 15px;
+		padding-left: 0;
+		>  li {
+			&:first-child {
+				> a {
+					border-top-left-radius: 6px;
+					border-bottom-left-radius: 6px;
+				}
+			}
+			&:last-child {
+				> a {
+					border-top-right-radius: 6px;
+					border-bottom-right-radius: 6px;
+					border-right: 2px rgb(156, 161, 208) solid;
+				}
+			}
+			> a {
+				display: flex;
+				padding: 15px;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				text-decoration: none;
+				color: white;
+				transition: background 0.1s ease;
+				border: 2px solid rgb(156, 161, 208);
+				border-right: 1px;
+			}
+			>  a:hover {
+				background-color: rgb(67, 74, 146);
+			}
+		}
+	}
+	
+}
