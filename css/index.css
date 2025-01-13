@@ -1,0 +1,41 @@
+html {
+	--font-regular: Quicksand, ui-rounded, 'Hiragino Maru Gothic ProN', Arial, Quicksand, Comfortaa, Manjari, Calibri, source-sans-pro, sans-serif;
+	--font-header: var(--font-regular);
+	--font-code: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+	font-size: 16px;
+	line-height: 1.5;
+}
+body {
+	background: linear-gradient(to right, #0006, transparent, #0006), url(../media/snowfall_gradient.png);
+	display: flex;
+	flex-flow: column;
+	color: white;
+}
+.main-block {
+	display: flex;
+	flex-flow: column;
+	align-self: center;
+    align-items: center;
+	font-family: var(--font-regular);
+	border-radius: 5px;
+    background-color: rgba(37, 26, 58, 0.378);
+    font-size: 24px;
+    width: 1000px;
+    padding: 15px;
+}
+.banner {
+    font-family: var(--font-header);
+	display: flex;
+	flex-flow: column;
+	align-self: center;
+    font-size: 24pt;
+    height: 210px;
+    margin: 0px;
+    align-items: center;
+    > h1 {
+        margin-bottom: 0;
+    }
+    > p {
+        margin-top: 0;
+    }
+}
