@@ -1,0 +1,58 @@
+html {
+	--font-regular: Quicksand, ui-rounded, 'Hiragino Maru Gothic ProN', Arial, Quicksand, Comfortaa, Manjari, Calibri, source-sans-pro, sans-serif;
+	--font-header: var(--font-regular);
+	--font-code: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+	font-size: 16px;
+	line-height: 1.5;
+}
+body {
+	background: linear-gradient(to right, #0006, transparent, #0006), rgb(41, 41, 41);
+    font-family: var(--font-regular);
+	display: flex;
+	flex-flow: column;
+	color: white;
+}
+table {
+    border-radius: 5px;
+    border-spacing: 0;
+    > tr, th, td {
+        text-align: center;
+        border: white solid 1px;
+        padding: 5px;
+        padding-right: 10px;
+        padding-left: 10px;
+        background-color: rgb(50, 50, 50);
+        > a {
+            color: rgb(174, 101, 253);
+            &:hover {
+                color: rgb(207, 161, 255);
+            }
+        }
+    }
+    th {
+        background-color: rgb(30, 30, 30);
+    }
+    th:first-of-type {
+        border-top-left-radius: 10px;
+    }
+    th:last-of-type {
+        border-top-right-radius: 10px;
+    }
+    tr:last-of-type td:first-of-type {
+        border-bottom-left-radius: 10px;
+    }
+    tr:last-of-type td:last-of-type {
+        border-bottom-right-radius: 10px;
+    }
+}
+.main-block {
+    background-color: rgb(63, 63, 63);
+    width: 1000px;
+    border: solid white 1px;
+    border-radius: 5px;
+    display: flex;
+    flex-flow: column;
+    align-self: center;
+    margin: 50px;
+    padding: 50px;
+}

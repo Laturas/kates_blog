@@ -40,11 +40,19 @@ main {
 	height: 210px;
 	margin: 0px;
 	align-items: center;
-	> h1 {
-		margin-bottom: 0;
+	> a {
+		color: white;
+		text-decoration: none;
+		> h1 {
+			margin-bottom: 0;
+		}
 	}
 	> p {
 		margin-top: 0;
+	}
+	> h2 {
+		margin-top: 0;
+		font-size: 24pt;
 	}
 }
 .other-pages {
@@ -77,23 +85,70 @@ main {
 	flex-flow: row;
 	justify-content: space-between;
 	width: 350px;
-}
-.social_button {
-	width: 64px;
-		height: 64px;
-	background-color: rgba(18, 14, 120, 0);
-	> img {
+	> a {
+		background-color: rgba(18, 14, 120, 0);
 		width: 56px;
-		height: 56px;	
-		border-radius: 15px;
-		border: solid 2px rgb(33, 156, 204);
-		transition: filter 0.1s ease;
-		&:hover {
-			filter: brightness(0.80);
+		height: 56px;
+		> img {
+			width: 56px;
+			height: 56px;	
+			border-radius: 15px;
+			border: solid 2px rgb(33, 156, 204);
+			transition: filter 0.1s ease;
+			&:hover {
+				filter: brightness(0.80);
+			}
 		}
 	}
 }
 hr {
 	color: white;
 	width: 80%;
+}
+.project {
+	display: flex;
+	flex-flow: row;
+	&.reverse {
+		flex-flow: row-reverse;
+		> div > h2, p {
+			text-align: right;
+		}
+	}
+	align-self: flex-start;
+	align-items: center;
+	margin-left: 30px;
+	margin-right: 55px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	> div {
+		display: flex;
+		flex-flow: column;
+		padding-left: 25px;
+		> h2 {
+			font-size: 24pt;
+			margin: 0;
+			padding: 0;
+		}
+		> p {
+			font-size: 16pt;
+			margin: 0;
+			padding: 0;
+		}
+		> a {
+			background-color: rgba(18, 14, 120, 0);
+			width: 128px;
+			height: 128px;
+			> img {
+				background-color: black;
+				width: 128px;
+				height: 128px;	
+				border-radius: 30px;
+				border: solid 2px white;
+				transition: filter 0.1s ease;
+				&:hover {
+					filter: brightness(0.80);
+				}
+			}
+		}
+	}
 }
