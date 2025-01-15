@@ -45,6 +45,11 @@ article {
 	padding-left: 30px;
 	padding-right: 30px;
 }
+a {
+	&:hover {
+		cursor: pointer;
+	}
+}
 p {
 	font-size: 22px;
 	margin-top: 10px;
@@ -187,4 +192,14 @@ main {
 		}
 	}
 	
+}
+iframe {
+	width: 900px;
+	height: 1000px;
+	@media (max-width: 1250px) {
+		.main-block {
+			width: 100%;
+		}
+	}
+    border: none;
 }

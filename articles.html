@@ -5,6 +5,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Kate's Blog</title>
 	<link rel="stylesheet" href="css/main.css">
+	<script src="./js/jquery-3.7.1.min.js"></script> 
+	<script>
+		function load_article(article_url) {
+			$("#article_body").empty(); 
+			$("#article_body").load(article_url); 
+
+			window.history.pushState({}, null, article_url);
+		}
+	</script>
 </head>
 <body>
 	<header class="banner">
@@ -17,99 +26,19 @@
 					<a href="./index.html">Home</a>
 				</li>
 				<li>
-					<a href="./articles.html">Articles</a>
+					<a onclick="load_article('./article_list.html')">Articles</a>
 				</li>
 				<li>
 					<a href="./projects.html">Projects</a>
 				</li>
 			</ul>
 		</nav>
-		<article>
-			<header class="article-header">
-				<h1 class="article-title">
-					Articles
-				</h1>
-				<p class="article-date">
-					January 12 2025
-				</p>
-			</header>
-			<hr>
-			<main>
-				<p>
-					This is the complete list of my articles! Feel free to give them a read
-				</p>
-				<h2>
-					Meta
-				</h2>
-				<ul>
-					<li>
-						<p>Jan 12 2025</p>
-					</li>
-					<li>
-						<a href="./articles/this-blog-is-a-thing-now.html">So... this blog is a thing now!</a>
-					</li>
-					<li>
-						<p>
-							My first blog post!
-						</p>
-					</li>
-				</ul>
-				<h2>
-					Math
-				</h2>
-				<p>
-					Number theory, combinatorics, group theory, and more! I also do a lot of math work involving computers,
-					but as long as the focus is on the math, it'll end up here
-				</p>
-				<ul>
-					<li>
-						<p>Jan 13 2025</p>
-					</li>
-					<li>
-						<a href="./articles/sophomores-dream.html">The hunt for the Sophomore's Dream</a>
-					</li>
-					<li>
-						<p>
-							Documenting my quest to calculate 1.2 million digits of the Sophomore's Dream constant
-						</p>
-					</li>
-				</ul>
-				<h2>
-					Techy stuffs
-				</h2>
-				<p>
-					Anything related to programming, computers, or computer science.
-				</p>
-				<ul>
-					<li>
-						<p>Jan 14 2025</p>
-					</li>
-					<li>
-						<a href="./articles/pinetree-development.html">The making of Pinetree</a>
-					</li>
-					<li>
-						<p>
-							How I built Pinetree, my desktop mp3 player application utilizing egui and rodio in Rust.
-						</p>
-					</li>
-				</ul>
-				<ul>
-					<li>
-						<p>Jan 14 2025</p>
-					</li>
-					<li>
-						<a href="./index.html">Safety in Programming Languages</a>
-					</li>
-					<li>
-						<p>
-							Strategies and designs for handling safety in programming languages.
-						</p>
-					</li>
-				</ul>
-				<h2>
-					More coming soon!!
-				</h2>
-			</main>
+		<article id="article_body">
 		</article>
+		<script>
+			if ($('#article_body').is(':parent')) {
+				load_article('./article_list.html');
+			}
+		</script>
 	</div>
 </body>

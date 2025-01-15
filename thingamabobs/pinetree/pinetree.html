@@ -9,9 +9,15 @@
 <body>
 	<div class="main-block">
 		<main>
-			<h1>
-				Pinetree MP3 Player
-			</h1>
+			<header>
+				<img src="./Pinetree Logo.png" alt="Pinetree logo">
+				<h1>
+					Pinetree MP3 Player
+				</h1>
+				<p>
+					By Isokate
+				</p>
+			</header>
 			<p>
 				This is the official download/info page for Pinetree - a lightweight desktop MP3 player application.
 			</p>
@@ -19,55 +25,98 @@
 				Pinetree was built so that I could track statistics on what music I listen to and such while also escaping the grasp of services like Spotify and Youtube Music.
 				There are some admittedly unusual design decisions, as I originally only intended for this project to be used by myself, but it has now been released publicly due to demand.
 			</p>
+			<p>
+				Pinetree tracks how long you listen to each song and stores it as a csv. For those worried, Pinetree runs entirely locally and does not share any data with anyone.
+			</p>
 			<h2>
 				Downloads
 			</h2>
-			<table>
-				<tr>
-					<th>
-						Download
-					</th>
-					<th>
-						Platform
-					</th>
-					<th>
-						Version
-					</th>
-				</tr>
-				<tr>
-					<td>
-						<a href="./Pinetree Windows x64 1.1.0.zip">Pinetree Windows x64 1.1.0.zip</a>
-					</td>
-					<td>
-						Windows x64
-					</td>
-					<td>
-						1.1.0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Not yet available :(
-					</td>
-					<td>
-						Linux x64
-					</td>
-					<td>
-						1.1.0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Not yet available :(
-					</td>
-					<td>
-						MacOS
-					</td>
-					<td>
-						1.1.0
-					</td>
-				</tr>
-			</table>
+			<div class="two_columns">
+				<div>
+					<img src="pinetree_example.jpg" alt="Example of the pinetree user interface">
+					<p class="greyed-out-text">
+						Example of the pinetree user interface
+					</p>
+				</div>
+				<div>
+					<table>
+						<tr>
+							<th>
+								Download
+							</th>
+							<th>
+								Platform
+							</th>
+							<th>
+								Version
+							</th>
+						</tr>
+						<tr>
+							<td>
+								<a href="./Pinetree Windows x64 1.1.0.zip">Pinetree Windows x64 1.1.0.zip</a>
+							</td>
+							<td>
+								Windows x64
+							</td>
+							<td>
+								1.1.0
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Not yet available :(
+							</td>
+							<td>
+								Linux x64
+							</td>
+							<td>
+								1.1.0
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Not yet available :(
+							</td>
+							<td>
+								MacOS
+							</td>
+							<td>
+								1.1.0
+							</td>
+						</tr>
+					</table>
+					<p>
+						Or, alternatively, you can find all of the <a href="https://github.com/Laturas/Pinetree">source code here!</a>
+					</p>
+				</div>
+			</div>
+			<h2>
+				Acknowledgements
+			</h2>
+			<p>
+				This project would not have been possible without the following:
+			</p>
+			<p>
+				- The user interface was created using <a href="https://github.com/emilk/egui">emilk's egui</a>
+			</p>
+			<p>
+				- Audio playing was handled with <a href="https://github.com/RustAudio/rodio">rodio</a>
+			</p>
 		</main>
 	</div>
+	<footer>
+		<p>
+			Thank you for checking out Pinetree! If you're interested in my other work, feel free to check it out below! :)
+		</p>
+		<a href="../../index.html">Kateland.dev</a>
+		<p>
+			Alternatively, you can find me at these places:
+		</p>
+		<nav class="socials">
+			<a href="https://bsky.app/profile/isokate.bsky.social"><img src="../../media/bluesky_logo.jpg" alt="Bluesky"/></a>
+			<a href="https://github.com/Laturas"><img src="../../media/github_logo.jpg" alt="Github"/></a>
+			<a href="https://x.com/isokate_"><img src="../../media/x_logo.jpg" alt="Twitter"/></a>
+			<a href="https://www.youtube.com/@Iso_kate"><img src="../../media/youtube_logo.png" alt="Youtube"/></a>
+		</nav class="socials">
+	</footer>
 </body>
