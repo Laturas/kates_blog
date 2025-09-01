@@ -56,6 +56,7 @@
 				<h2>
 					Basic Rules
 				</h2>
+				<hr>
 				<p>
 					The initial rules discovered by mxdys look like the following:
 				</p>
@@ -94,7 +95,7 @@
 					</p>
 					<p>
 						Let
-						$$f(b) = (b - 3)/2$$
+						$$f(b) = \frac{b - 3}{2}$$
 						$$f^{n+1} = f(f^n(b))$$
 						$$f^{0}(b) = b$$
 						Then
@@ -112,7 +113,7 @@
 					<p>
 						INDUCTIVE STEP: <br>
 
-						Let $$f^n(b) = (b+3)/2^n - 3$$
+						Let $$f^n(b) = \frac{b+3}{2^n} - 3$$
 						Then $$f^{n+1}(b) = \frac{(\frac{b + 3}{2^n} - 3) - 3}{2}$$
 						$$= \frac{\frac{b + 3}{2^n} - 6}{2}$$
 						$$= \frac{b + 3}{2^{n+1}} - 3$$
@@ -157,6 +158,7 @@
 				<h2>
 					The fundamental sequence
 				</h2>
+				<hr>
 				<p>
 					The halting problem of this machine, put another way, is about whether two sequences ever collide. Starting at 6, we can generate the successive values of the machine's sequence.
 				</p>
@@ -188,6 +190,7 @@
 				<h2>
 					Brute force computation
 				</h2>
+				<hr>
 				<p>
 					I have personally simulated out the sequence to 17 million terms, after which the terms exceed \(10^{4,800,000}\). The most factors of 2 any term had in the sequence was 24.
 				</p>
@@ -201,6 +204,7 @@
 				<h2>
 					Backwards Reasoning Approach
 				</h2>
+				<hr>
 				<p>
 					Simulating it forward doesn't seem to yield much. So what if we worked *backwards* from the powers of 2 to see what numbers can reach them?
 				</p>
@@ -208,7 +212,7 @@
 					We can show the following relation to be true:
 				</p>
 				<sub-block>
-					A number \(e\) is reachable by a value divisible by \(2^k\) if and only if: $$a = 2^k + k \bmod 2^{k+1} + 3$$
+					A number \(e\) is reachable by a value divisible by \(2^k\) if and only if: $$e = 2^k + k \bmod (2^{k+1} + 3)$$
 				</sub-block>
 				<button id="btn_br_proof" class="proof-button"></button>
 				<sub-block id="br_proof">
@@ -217,7 +221,7 @@
 						$$e = 2^k(2a + 1) + k + 3a$$
 						For some a. So if we solve for \(a\) we get:
 						$$\frac{e - k - 2^k}{2^{k+1} + 3} = a$$
-						Thus for this to be an integer, we have \(e = 2^k + k \bmod 2^{k + 1} + 3\)
+						Thus for this to be an integer, we have \(e = 2^k + k \bmod (2^{k + 1} + 3)\)
 					</p>
 					<p>
 						QED
@@ -254,7 +258,7 @@
 				</p>
 				<sub-block>
 					Step 1 - Find for which n the following is satisfiable:
-					<p>\(2^{an + b} = m(2^k + k) - c\) \(\bmod \text{ } m(2^{k+1} + 3)\)</p>
+					<p>\(2^{an + b} = m(2^k + k) - c\) \(\bmod \text{ } (m(2^{k+1} + 3))\)</p>
 					Update \(a\) and \(b\) accordingly. If unsatisfiable, stop.
 					<br>
 					Step 2 - Solve for \(\frac{2^{an + b} + c}{m} = 2^k(2a + 1) + k + 3a\). This yields:
@@ -269,16 +273,17 @@
 				<h2>
 					So close, yet so far
 				</h2>
+				<hr>
 				<p>
-					With some brute force, I computed the families of all reachable powers of 2 in 6 steps that don't use a number more divisible by 2 than 16.
-					As said earlier, as you add more backwards steps, more restrictions are placed on what powers of 2 are reachable. This causes the powers of 2 you have to go out to to grow extremely quickly. I believe the smallest value that reaches a power of 2 within 6 steps is \(\frac{2^{55} + 1440407}{2481875}\). But even this is an outliar, most sequences have a smallest member whose power of 2 is raised to the thousands
+					With some brute force, I computed the families of all reachable powers of two in 6 steps that don't use a number with more than four factors of two.
+					As said earlier, adding more backwards steps adds more restrictions onto what powers of two are reachable. This causes the powers of two you have to go out to to grow extremely quickly. I believe the smallest value that reaches a power of two within 6 steps is \(\frac{2^{55} + 1440407}{2481875}\). But even this is an outliar, most sequences have a smallest member whose power of two is raised to the thousands
 				</p>
 				<p>
 					A path to proving nonhalting for our sequence would be as follows. We know our sequence is bounded from above by \(2.5^n\). If we can prove that for a sequence of \(k\) steps, the minimum power of 2 reachable in that many steps is some sufficient lower bound like \(2^{k^2}\), this would let us prove our sequence starting from \(6\) never halts via induction.
 					Informally, our sequence would get longer and longer but the distance it would have to travel to reach a power of 2 would provably grow faster than it could keep up with.
 				</p>
 				<p>
-					I tried, a lot, to come up with such a proof. Alas, I return empty-handed. Which is unfortunate too, because it is almost doable. If you showed, for example, within 2 steps outside of some trivial cases you encounter a point where \(n\) has to be greater than 0 to satisfy the formula in step 1, that would let you place a strong enough bound to construct the inductive proof.
+					I tried, a lot, to come up with such a proof. Alas, I return empty-handed. Which is made all the more unfortunate by the fact that it is almost doable. For example, if you showed within two steps (outside of some trivial cases) you encounter a point where \(n\) has to be greater than 0 to satisfy the formula in step 1, that would let you place a strong enough bound to construct the inductive proof.
 				</p>
 
 				<p>
@@ -288,11 +293,12 @@
 				<h2>
 					A "Probviousness" Argument
 				</h2>
+				<hr>
 				<p>
 					I do want to at least leave you with my argument for why I think it is easy to say this machine is probviously nonhalting, based on the previous section.
 				</p>
 				<p>
-					Using the algorithm above, having a value with a small starting value reach a power of 2 after some obscene number of steps would require \(n = 0\) consistently *in a row* for millions/billions/whatever iterations. This, obviously, seems like it should never happen given that m and c grow very differently. It would be quite surprising to believe that they can line up for an arbitrarily long time.
+					Using the algorithm above, having a value with a small starting value reach a power of 2 after some obscene number of steps would require \(n = 0\) consistently <i>in a row</i> for millions/billions/whatever iterations. This, obviously, seems like it should never happen given that m and c grow very differently. It would be quite surprising to believe that they can line up for an arbitrarily long time.
 				</p>
 				<p>
 					I don't know how to get the exact chance of this occuring, maybe using the euler totient function? If you have an idea, let me know.
