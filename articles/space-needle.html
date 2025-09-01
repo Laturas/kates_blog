@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Kate's Blog</title>
+	<link rel="stylesheet" href="../css/main.css">
+	<link rel="stylesheet" href="../css/katex.min.css">
+	<script defer src="../js/katex.min.js"></script>
+	<!-- Automatically renders math in text elements -->
+	<script defer src="../js/auto-render.min.js"onload="renderMathInElement(document.body);"></script>
+
+</head>
+<body>
+	<header class="banner">
+		<h1>Kate's Blog</h1>
+	</header>
+	<div class="main-block">
+		<nav class="navigation">
+			<ul>
+				<li>
+					<a href="../index.html">Home</a>
+				</li>
+				<li>
+					<a href="../articles.html">Articles</a>
+				</li>
+				<li>
+					<a href="../projects.html">Projects</a>
+				</li>
+			</ul>
+		</nav>
+		<article id="article_body">
+			<header class="article-header">
+				<h1 class="article-title">
+					All About Space Needle
+				</h1>
+				<p class="article-date">
+					August 28 2025
+				</p>
+			</header>
+			<hr>
+			<main>
+				<p>
+					Few turing machines have captured my interest quite like this one.
+				<p>
+					<tm-code><a href="https://bbchallenge.org/1RB1LA_1LC0RE_1LF1LD_0RB0LA_1RC1RE_---0LD">1RB1LA​_1LC0RE​_1LF1LD​_0RB0LA​_1RC1RE​_---0LD</a></tm-code>, or as I've personally dubbed it, "Space Needle" is a 6 state, 2 symbol turing machine that was initially discovered by Discord user "mxdys", reporting that it was a potential cryptid. I rediscovered it a little while later, and found it had recieved barely any attention or examination.
+					I decided to take a closer look, learn a lot more about it, and try my hand at seeing how hard it really is.
+				</p>
+				<p>
+					Turns out, it's pretty hard! I think at least.
+				</p>
+				<p>
+					After examining it on and off for over a month, I am ready to now admit defeat. This blog post will serve as a compilation of everything I have learned about this machine, in hopes that one day someone will be able to follow in my footsteps and find a way to finally prove whether it halts once and for all.
+				</p>
+				<img src="../media/spaceneedle/spaceneedle.png" alt="The spacetime diagram of Space Needle, representing the tape over time as the machine runs">
+				<h2>
+					Basic Rules
+				</h2>
+				<p>
+					The initial rules discovered by mxdys look like the following:
+				</p>
+				<centered-sub-block>
+					$$\text{START}= (3,1)$$
+					$$(0,2+c) \rightarrow (4+c,1)$$
+					$$(1,c) \rightarrow \text{HALT}$$
+					$$(2+2b,c) \rightarrow (7+5b+c,1)$$
+					$$(3+2b,c) \rightarrow (b,4+b+c)$$
+				</centered-sub-block>
+				<p>
+					These rules look scary. It has two variables that seem to depend on each other in a nontrivial way, similar to BMO1 which remains unsolved. However, we can simplify this in a way that completely eliminates the second variable.
+				</p>
+				<p>
+					Which yields following problem:
+				</p>
+				<sub-block>
+					Let \(f(b) = b + k + 3a\) such that \(k, a\) are non-negative integers satisfying \(2^k(2a+1)\).
+					<br><br>
+					Now consider the iterated application of the function \(f^{n + 1}(b) = f(f^{n}(b))\). Does there exist an \(n\) such that \(f^n(6)\) is a power of 2?
+				</sub-block>
+				<p>
+					The proof that these two statements are equivalent isn't exactly trivial, but it isn't that interesting. It's just a proof by induction and a lot of algebra.
+					I've rewritten my proof below for those curious.
+				</p>
+				<button id="button_sequence_rewrite_proof" class="proof-button">VVV Click to view proof VVV</button>
+				<sub-block id="sequence_rewrite_proof">
+					<p>
+						PROOF:
+					</p>
+					<p>
+						the key is to notice that whenever \(b\) is even, \(c\) gets mapped to 1. Thus it's possible to rewrite the rules to map between each \((b_1, 1) \rightarrow (b_2, 1)\) directly and eliminate the need to have a c variable.
+					</p>
+					<p>
+						LEMMA 1:
+					</p>
+					<p>
+						Let
+						$$f(b) = (b - 3)/2$$
+						$$f^{n+1} = f(f^n(b))$$
+						$$f^{0}(b) = b$$
+						Then
+						$$f^n(b) = \frac{b+3}{2^n}-3$$
+					</p>
+					<p>
+						PROOF OF LEMMA 1:
+					</p>
+					<p>
+						BASE CASE:
+						$$f(b) = \frac{b - 3}{2} $$ $$= \frac{b - 3 + 6}{2} - \frac{6}{2}$$ $$= \frac{b + 3}{2} - 3$$
+						Thus the base case holds
+						
+					</p>
+					<p>
+						INDUCTIVE STEP: <br>
+
+						Let $$f^n(b) = (b+3)/2^n - 3$$
+						Then $$f^{n+1}(b) = \frac{(\frac{b + 3}{2^n} - 3) - 3}{2}$$
+						$$= \frac{\frac{b + 3}{2^n} - 6}{2}$$
+						$$= \frac{b + 3}{2^{n+1}} - 3$$
+
+						Thus \(f^n(b) = \frac{b+3}{2^{n}}-3\) for all n and b via induction
+					</p>
+					<p>
+						QED
+					</p>
+					<p>
+						When \(n\) equals the number of times that \(b+3\) can be divided by 2, this gives us the value of b in the last iteration before applying the even b rule. However, now we need to derive the rule for what happens to c.
+						It's clear that \(c = 1 + S + 4n\) where \(S = \sum_{k=1}^{n} f^k(b)\), as this follows from the original definition. So to get a clear formula for c, we just need to wrangle that S term.
+					</p>
+					<p>
+						$$\sum_{k=1}^{n} f^k(b) = \sum_{k=1}^{n} (\frac{b+3}{2^k}-3)$$
+						$$= -3n + \sum_{k=1}^{n}\frac{b+3}{2^k}-3$$
+
+						Now we can apply the geometric series formula:
+						\(S = a \frac{1 - r^n} {1 - r}\) where in our case,
+
+						\(a = \frac{b+3}{2}\) and \(r = \frac{1}{2}\)
+						<br>
+						Therefore:
+						$$S = \frac{b+3}{2} \cdot \frac{1 - \frac{1}{2^n}} {\frac{1}{2}}$$ $$= (b + 3)*(1 - \frac{1}{2^n}) = (b + 3) - \frac{b+3}{2^n}$$
+						And \(S = (b + 3) - \frac{b+3}{2^n} - 3n\) <br>
+
+						Therefore $$(b, 1) \rightarrow (\frac{b+3}{2^n}-3, n + b - \frac{b+3}{2^n} + 4)$$
+					</p>
+					<p>
+						From here, you just apply the \((2+2b,c) \rightarrow (7+5b+c,1)\) once. Which is... an algebraic nightmare, so will be left as an exercise to the reader.
+					</p>
+					<p>
+						Thus we've completely eliminated the need for \(c\), yielding a direct formula from each \((b_1, 1) \rightarrow (b_2, 1)\):
+						$$b \rightarrow b + v(b) + \frac{3}{2} * (\frac{b+3}{2^{v(b)}} - 1)$$
+						Where \(v(b)\) is the largest power of 2 dividing b, and the sequence halts upon hitting a value 3 less than a power of 2. <br>
+						That "+3"-ness is quite ugly though. If we shift \(b\) by \(+3\) as well as the halting problem and starting condition we get an alternate, much cleaner but equivalent formulation:
+						$$b \rightarrow b + v(b) + \frac{3}{2} * (\frac{b}{2^{v(b)}} - 1)$$
+						Which we can express as the desired problem.<br>
+						QED
+					</p>
+				</sub-block>
+				<h2>
+					The fundamental sequence
+				</h2>
+				<p>
+					The halting problem of this machine, put another way, is about whether two sequences ever collide. Starting at 6, we can generate the successive values of the machine's sequence.
+				</p>
+				<sub-block>
+					\(6\) \(\rightarrow\) \(10\) \(\rightarrow\) \(17\) \(\rightarrow\) \(41\) \(\rightarrow\) \(101\) \(\rightarrow\) \(251\) \(\rightarrow\) \(626\) \(\rightarrow\) \(1095\) \(\rightarrow\) \(2736\) \(\rightarrow\) \(2995\) \(\rightarrow\cdots\)
+				</sub-block>
+				<p>
+					Something interesting to note, it's actually possible to extend this sequence backwards two steps. 2 maps to 3 which maps to 6 which continues on to our original sequence.
+					Space Needle works with a slightly modified formulation where b and the halting problem is shifted by -3 (see proof). So you could interpret the machine as starting at 3, (with no ones on the tape) and avoiding 2 because it isn't representable on the tape.
+				</p>
+				<p>
+					So maybe reformulating the problem for the specific sequence as "can a power of 2 other than 1 ever map to another power of 2" could yield some results, although I was unable to find a way to use it.
+				</p>
+				<p>
+					The growth rate of this sequence can be trivially bounded from above by \(b(\frac{5}{2})^n\). This comes from the fact that the most a term can grow in one step is the zero multiples of 2 case, in which repeatedly applying yields that growth rate.
+				</p>
+				<p>
+					A lower bound is harder to derive. I was able to at one point derive a very loose lower bound of \(\frac{1.22^n}{\log_2(n)}\). This comes from looking at the minimum growth rate across two applications of the function. If a number in the sequence is highly divisible by 2, after the application of the function it will grow by a small amount and thus no longer be highly divisible by 2. This forces the next iteration to grow faster than the first.
+				</p>
+				<p>
+					I have lost the notes of my proof for this, unfortunately. So feel free to take it with a grain of salt. Although with how loose of a lower bound this is I would be surprised if it's wrong.
+				</p>
+				<p>
+					LegionMammal was able to find the average growth rate of the function, characterized as \(O(1.92006^x)\) plus a random walk on the log-scale. This comes from examining the expected drift rate after taking the logarithm since it can be interpreted as a pseudo-random walk, which is \(\sum_{k=0}^{\infty} \frac{1}{2^{k+1}} \ln(1+\frac{3}{2^{k+1}})\). This yields \(0.652355x\) which when exponentiated back gives that growth rate.
+				</p>
+				<img src="../media/spaceneedle/GrowthRate.JPG" alt="The growth rates of the bounds, graphed for comparison">
+				<p>
+					(purple = \(2.5^x\), black = \(\frac{1.22^n}{\log_2(n)}\), green = \(1.922^x\))
+				</p>
+				<p>
+					Because the adherance to the growth rate isn't necessarily very strict, it doesn't seem to be possible to apply Baker's Theorem in the same way that is used to show that the distance between any two \(3^a\) and \(2^b\) get larger as a and b sufficiently increase.
+				</p>
+				<h2>
+					Brute force computation
+				</h2>
+				<p>
+					I have personally simulated out the sequence to 17 million terms, after which the terms exceed \(10^{4,800,000}\). The most factors of 2 any term had in the sequence was 24.
+				</p>
+				<p>
+					Andrew Ducharme also simulated out the sequence pretty far, and kept track of the drift from the powers of 2 above and below each term. This revealed a clear trend, that each successive term in the sequence appears to get further and further from halting.
+				</p>
+				<div style="max-width: 400px; align-self: center; align-items: center; display: flex; flex-flow: column;"><img src="../media/spaceneedle/aducharmedistance.webp" alt="The distance from powers of 2 after a certain number of iterations"></div>
+				<p>
+					In the above graph, blue dots represent b_t, yellow is the distance from the closest power of 2 below b_t, and green is distance from closest power of 2 above b_t
+				</p>
+				<h2>
+					Backwards Reasoning Approach
+				</h2>
+				<p>
+					Simulating it forward doesn't seem to yield much. So what if we worked *backwards* from the powers of 2 to see what numbers can reach them?
+				</p>
+				<p>
+					We can show the following relation to be true:
+				</p>
+				<sub-block>
+					A number \(e\) is reachable by a value divisible by \(2^k\) if and only if: $$a = 2^k + k \bmod 2^{k+1} + 3$$
+				</sub-block>
+				<button id="button_backwards_reasoning_proof" class="proof-button">VVV Click to view proof VVV</button>
+				<sub-block id="backwards_reasoning_proof">
+					<p>
+						Observe that in the formula for the mapping: \(f(2^ka) = 2^ka + k + 3a\) where a is odd. So if we want an arbitrary number to be reachable from below by a fixed \(k\), it has to satisfy the equation
+						$$e = 2^k(2a + 1) + k + 3a$$
+						For some a. So if we solve for \(a\) we get:
+						$$\frac{e - k - 2^k}{2^{k+1} + 3} = a$$
+						Thus for this to be an integer, we have \(e = 2^k + k \bmod 2^{k + 1} + 3\)
+					</p>
+					<p>
+						QED
+					</p>
+				</sub-block>
+				<p>
+					Since this formula works for any value, we can use \(e = 2^n\) to find every sequence that halts. And the best part is we can apply it as many times as we want to find any halting sequence we desire. As we extend the formula backwards to find longer and longer chains, this places more restrictions on what \(n\) can be.
+				</p>
+				<p>
+					For a simple example, let's find all \(2^n\) that are reachable by an odd number. We set \(k = 0\) and \(e = 2^n\) to get \(2^n = 1 \bmod 5\). This equation is satisfiable whenever \(n = 4t\) for integers t. Then we can plug back in to get our desired result:
+				</p>
+				<p>
+					$$2^{4t + 1} = 2^0(2a + 1) + 0 + 3a$$
+					$$\frac{2^{4t} - 1}{5} = a$$
+					$$\frac{2^{4t + 1} + 3}{5} = 2a + 1$$
+					Plugging in \(t = 0\) yields the trivial solution \(1 \rightarrow 1\), but for \(t = 1\) we get our first nontrivial solution \(7 \rightarrow 16\).
+				</p>
+				<p>
+					Here are some other values:
+				</p>
+				<centered-sub-block>
+					$$k = 0: 2^n = 1 \bmod 5 \rightarrow (n = 4t)$$
+					$$k = 1: 2^n = 3 \bmod 7 \rightarrow \text{no solutions}$$
+					$$k = 2: 2^n = 6 \bmod 11 \rightarrow (n = 10t + 9)$$
+					$$k = 3: 2^n = 11 \bmod 19 \rightarrow (n = 18t + 12)$$
+					$$k = 4: 2^n = 20 \bmod 35 \rightarrow \text{no solutions}$$
+					$$k = 5: 2^n = 37 \bmod 67 \rightarrow (n = 66t + 22)$$
+				</centered-sub-block>
+				<p>
+					However, the real fun part is we can continue this backwards as much as we want, substituting our new \(\frac{2^{an + b} + c}{m}\) into the formula to work backwards 2 steps, then 3, and so on.
+				</p>
+				<p>
+					If we start with \(\frac{2^{an + b} + c}{m}\), to find when it is reachable by a given \(k\), do the following:
+				</p>
+				<sub-block>
+					Step 1 - Find for which n the following is satisfiable: $$2^{an + b} = m(2^k + k) - c \bmod m(2^{k+1} + 3)$$
+					Update \(a\) and \(b\) accordingly. If unsatisfiable, stop.
+					<br>
+					Step 2 - Solve for \(\frac{2^{an + b} + c}{m} = 2^k(2a + 1) + k + 3a\). This yields:
+					$$\frac{2^{an + b} + c - m(2^k + k)}{m(2^{k+1} + 3)} = a$$
+					Solving for \(2^{k}(2a + 1)\) to set up for the next step we get
+					$$\frac{2^{an + b + k + 1} + 2^k(2c - m(3 - 2k))}{m(2^{k+1} + 3)}$$
+					Now let your next \(c = 2^k(2c - m(3 - 2*k))\), \(b = b + k + 1\) and \(m = m(2^{k+1} + 3)\). You're now ready for the next iteration, and you can repeat as many times as you'd like.
+				</sub-block>
+				<p>
+					For example, I can prove without actually checking that \(\frac{2^{85} + 243}{385}\) maps to a power of 2 in 3 steps because I derived it using the process above.
+				</p>
+				<h2>
+					So close, yet so far
+				</h2>
+				<p>
+					With some brute force, I computed the families of all reachable powers of 2 in 6 steps that don't use a number more divisible by 2 than 16.
+					As said earlier, as you add more backwards steps, more restrictions are placed on what powers of 2 are reachable. This causes the powers of 2 you have to go out to to grow extremely quickly. I believe the smallest value that reaches a power of 2 within 6 steps is \(\frac{2^{55} + 1440407}{2481875}\). But even this is an outliar, most sequences have a smallest member whose power of 2 is raised to the thousands
+				</p>
+				<p>
+					A path to proving nonhalting for our sequence would be as follows. We know our sequence is bounded from above by \(2.5^n\). If we can prove that for a sequence of \(k\) steps, the minimum power of 2 reachable in that many steps is some sufficient lower bound like \(2^{k^2}\), this would let us prove our sequence starting from \(6\) never halts via induction.
+					Informally, our sequence would get longer and longer but the distance it would have to travel to reach a power of 2 would provably grow faster than it could keep up with.
+				</p>
+				<p>
+					I tried, a lot, to come up with such a proof. Alas, I return empty-handed. Which is unfortunate too, because it is almost doable. If you showed, for example, within 2 steps outside of some trivial cases you encounter a point where \(n\) has to be greater than 0 to satisfy the formula in step 1, that would let you place a strong enough bound to construct the inductive proof.
+				</p>
+
+				<p>
+					The problem is that the c term in \(\frac{2^{an + b} + c}{m}\) is very hard to characterize, meaning when we find the modulus it's near impossible to put a bound on when the formula is satisfiable.
+					It just seems really hard to find a way to rule out the existence of some insane conspiracy among all the numbers to make a specific power of 2 reachable by a huge number of steps.
+				</p>
+				<h2>
+					A "Probviousness" Argument
+				</h2>
+				<p>
+					I do want to at least leave you with my argument for why I think it is easy to say this machine is probviously nonhalting, based on the previous section.
+				</p>
+				<p>
+					Using the algorithm above, having a value with a small starting value reach a power of 2 after some obscene number of steps would require \(n = 0\) consistently *in a row* for millions/billions/whatever iterations. This, obviously, seems like it should never happen given that m and c grow very differently. It would be quite surprising to believe that they can line up for an arbitrarily long time.
+				</p>
+				<p>
+					I don't know how to get the exact chance of this occuring, maybe using the euler totient function? If you have an idea, let me know.
+				</p>
+			</main>
+		</article>
+	</div>
+</body>
+<script>
+	function toggle_element(show_element, button_id, proof_id) {
+		button = document.getElementById(button_id);
+		if (show_element) {
+			document.getElementById(proof_id).style.display = "initial";
+			button.textContent = "[Click to hide proof]"
+			button.style.marginBottom = "0px";
+		} else {
+			document.getElementById(proof_id).style.display = "none";
+			button.textContent = "[Click to show proof]"
+			button.style.marginBottom = "12px";
+		}
+	}
+	
+	seq_rewrite_pressed = false;
+	document.getElementById('button_sequence_rewrite_proof').addEventListener('click', function() {
+		seq_rewrite_pressed = !seq_rewrite_pressed;
+		toggle_element(seq_rewrite_pressed, 'button_sequence_rewrite_proof', 'sequence_rewrite_proof');
+	});
+
+	toggle_element(seq_rewrite_pressed, 'button_sequence_rewrite_proof', 'sequence_rewrite_proof');
+
+	backward_reasoning_pressed = false;
+	document.getElementById('button_backwards_reasoning_proof').addEventListener('click', function() {
+		backward_reasoning_pressed = !backward_reasoning_pressed;
+		toggle_element(backward_reasoning_pressed, 'button_backwards_reasoning_proof', 'backwards_reasoning_proof');
+	});
+
+	toggle_element(backward_reasoning_pressed, 'button_backwards_reasoning_proof', 'backwards_reasoning_proof');
+</script>

@@ -46,6 +46,60 @@ article {
 	padding-right: 30px;
 	padding-bottom: 12px;
 }
+tm-code {
+	font-size: 13pt;
+}
+sub-block {
+	color: rgb(209, 212, 235);
+	background-color: rgb(87, 93, 187);
+	margin: 15px;
+	border: solid rgb(63, 72, 149) 2px;
+	border-radius: 10px;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	font-size: 15pt;
+}
+centered-sub-block {
+	color: rgb(209, 212, 235);
+	background-color: rgb(87, 93, 187);
+	margin: 15px;
+	border: solid rgb(63, 72, 149) 2px;
+	border-radius: 10px;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	font-size: 15pt;
+	align-items: center;
+	display: flex;
+	flex-flow: column;
+}
+.proof-button {
+	color: rgb(209, 212, 235);
+	background-color: rgb(114, 121, 214);
+	margin: 15px;
+	border: solid rgb(63, 72, 149) 2px;
+	border-radius: 10px;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	font-size: 15pt;
+	&:hover {
+		background-color: rgb(72, 76, 132);
+	}
+}
+img {
+	width: auto;
+	max-width: 80%;
+	max-height: 400px;
+	display: flex;
+	align-self: center;
+	border: solid rgb(200, 205, 255) 2px;
+	border-radius: 10px;
+}
 a {
 	&:hover {
 		cursor: pointer;
@@ -341,7 +395,7 @@ main {
 					border: 2px solid rgb(156, 161, 208);
 					border-bottom: 1px;
 					text-align: center;
-            		justify-content: center;
+					justify-content: center;
 				}
 				>  a:hover {
 					background-color: rgb(67, 74, 146);
@@ -359,5 +413,5 @@ iframe {
 			width: 100%;
 		}
 	}
-    border: none;
+	border: none;
 }
