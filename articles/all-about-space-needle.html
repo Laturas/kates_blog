@@ -239,12 +239,12 @@
 					Here are some other values:
 				</p>
 				<centered-sub-block>
-					$$k = 0: 2^n = 1 \bmod 5 \rightarrow (n = 4t)$$
-					$$k = 1: 2^n = 3 \bmod 7 \rightarrow \text{no solutions}$$
-					$$k = 2: 2^n = 6 \bmod 11 \rightarrow (n = 10t + 9)$$
-					$$k = 3: 2^n = 11 \bmod 19 \rightarrow (n = 18t + 12)$$
-					$$k = 4: 2^n = 20 \bmod 35 \rightarrow \text{no solutions}$$
-					$$k = 5: 2^n = 37 \bmod 67 \rightarrow (n = 66t + 22)$$
+					<p>\(k = 0:\) \(2^n = 1 \bmod 5\) \(\rightarrow (n = 4t)\)</p>
+					<p>\(k = 1:\) \(2^n = 3 \bmod 7 \)  \(\rightarrow \) \(\text{no solutions}\)</p>
+					<p>\(k = 2:\) \(2^n = 6 \bmod 11 \) \(\rightarrow \) \((n = 10t + 9)\)</p>
+					<p>\(k = 3:\) \(2^n = 11 \bmod 19\) \(\rightarrow \) \((n = 18t + 12)\)</p>
+					<p>\(k = 4:\) \(2^n = 20 \bmod 35\) \(\rightarrow \) \(\text{no solutions}\)</p>
+					<p>\(k = 5:\) \(2^n = 37 \bmod 67\) \(\rightarrow \) \((n = 66t + 22)\)</p>
 				</centered-sub-block>
 				<p>
 					However, the real fun part is we can continue this backwards as much as we want, substituting our new \(\frac{2^{an + b} + c}{m}\) into the formula to work backwards 2 steps, then 3, and so on.
@@ -253,7 +253,8 @@
 					If we start with \(\frac{2^{an + b} + c}{m}\), to find when it is reachable by a given \(k\), do the following:
 				</p>
 				<sub-block>
-					Step 1 - Find for which n the following is satisfiable: $$2^{an + b} = m(2^k + k) - c \bmod m(2^{k+1} + 3)$$
+					Step 1 - Find for which n the following is satisfiable:
+					<p>\(2^{an + b} = m(2^k + k) - c\) \(\bmod \text{ } m(2^{k+1} + 3)\)</p>
 					Update \(a\) and \(b\) accordingly. If unsatisfiable, stop.
 					<br>
 					Step 2 - Solve for \(\frac{2^{an + b} + c}{m} = 2^k(2a + 1) + k + 3a\). This yields:

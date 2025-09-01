@@ -53,7 +53,7 @@ tm-code {
 sub-block {
 	color: rgb(209, 212, 235);
 	background-color: rgb(87, 93, 187);
-	margin: 15px;
+	margin-top: 12px;
 	border: solid rgb(63, 72, 149) 2px;
 	border-radius: 10px;
 	padding-left: 30px;
@@ -61,11 +61,14 @@ sub-block {
 	padding-top: 12px;
 	padding-bottom: 12px;
 	font-size: 15pt;
+	> p {
+		font-size: 16pt;
+	}
 }
 centered-sub-block {
 	color: rgb(209, 212, 235);
 	background-color: rgb(87, 93, 187);
-	margin: 15px;
+	margin-top: 12px;
 	border: solid rgb(63, 72, 149) 2px;
 	border-radius: 10px;
 	padding-left: 30px;
@@ -76,6 +79,9 @@ centered-sub-block {
 	align-items: center;
 	display: flex;
 	flex-flow: column;
+	> p {
+		font-size: 16pt;
+	}
 }
 .proof-button {
 	color: rgb(209, 212, 235);
@@ -179,6 +185,7 @@ hr {
 @media (max-width: 700px) {
 	article {
 		margin: 0;
+		padding: 5px;
 	}
 	.main-block {
 		width: 100%;
