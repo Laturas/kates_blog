@@ -74,7 +74,7 @@
 					Which yields following problem:
 				</p>
 				<sub-block>
-					Let \(f(b) = b + k + 3a\) such that \(k, a\) are non-negative integers satisfying \(2^k(2a+1)\).
+					Let \(f(b) = b + k + 3a\) such that \(k, a\) are non-negative integers satisfying \(b = 2^k(2a+1)\).
 					<br><br>
 					Now consider the iterated application of the function \(f^{n + 1}(b) = f(f^{n}(b))\). Does there exist an \(n\) such that \(f^n(6)\) is a power of 2?
 				</sub-block>
@@ -88,7 +88,7 @@
 						PROOF:
 					</p>
 					<p>
-						the key is to notice that whenever \(b\) is even, \(c\) gets mapped to 1. Thus it's possible to rewrite the rules to map between each \((b_1, 1) \rightarrow (b_2, 1)\) directly and eliminate the need to have a c variable.
+						the key is to notice that whenever b is even, c gets mapped to 1. Thus it's possible to rewrite the rules to map between each \((b_1, 1) \rightarrow (b_2, 1)\) directly and eliminate the need to have a c variable.
 					</p>
 					<p>
 						LEMMA 1:
@@ -199,7 +199,7 @@
 				</p>
 				<div style="max-width: 400px; align-self: center; align-items: center; display: flex; flex-flow: column;"><img loading="lazy" src="../media/spaceneedle/aducharmedistance.webp" alt="The distance from powers of 2 after a certain number of iterations"></div>
 				<p>
-					In the above graph, blue dots represent b_t, yellow is the distance from the closest power of 2 below b_t, and green is distance from closest power of 2 above b_t
+					In the above graph, blue dots represent \(b_t\), yellow is the distance from the closest power of 2 below \(b_t\), and green is distance from closest power of 2 above \(b_t\)
 				</p>
 				<h2>
 					Backwards Reasoning Approach
