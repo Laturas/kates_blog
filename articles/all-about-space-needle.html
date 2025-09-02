@@ -42,8 +42,9 @@
 			<main>
 				<p>
 					Few turing machines have captured my interest quite like this one.
+				</p>
 				<p>
-					<tm-code><a href="https://bbchallenge.org/1RB1LA_1LC0RE_1LF1LD_0RB0LA_1RC1RE_---0LD">1RB1LA​_1LC0RE​_1LF1LD​_0RB0LA​_1RC1RE​_---0LD</a></tm-code>, or as I've personally dubbed it, "Space Needle" is a 6 state, 2 symbol turing machine that was initially discovered by Discord user "mxdys", reporting that it was a potential cryptid. I rediscovered it a little while later, and found it had recieved barely any attention or examination.
+					<tm-code><a href="https://bbchallenge.org/1RB1LA_1LC0RE_1LF1LD_0RB0LA_1RC1RE_---0LD">1RB1LA_1LC0RE_1LF1LD_0RB0LA_1RC1RE_<wbr>---0LD</a></tm-code>, or as I've personally dubbed it, "Space Needle" is a 6 state, 2 symbol turing machine that was initially discovered by Discord user "mxdys", reporting that it was a potential <a href="https://wiki.bbchallenge.org/wiki/Cryptids">cryptid</a>. I rediscovered it a little while later, and found it had recieved barely any attention or examination.
 					I decided to take a closer look, learn a lot more about it, and try my hand at seeing how hard it really is.
 				</p>
 				<p>
@@ -57,6 +58,32 @@
 					Basic Rules
 				</h2>
 				<hr>
+				<table>
+					<tr>
+						<th>State</th> <th>0</th> <th>1</th>
+					</tr>
+					<tr>
+						<td>A</td> <td>1RB</td> <td>1LA</td>
+					</tr>
+					<tr>
+						<td>B</td> <td>1LC</td> <td>0RE</td>
+					</tr>
+					<tr>
+						<td>C</td> <td>1LF</td> <td>1LD</td>
+					</tr>
+					<tr>
+						<td>D</td> <td>0RB</td> <td>0LA</td>
+					</tr>
+					<tr>
+						<td>E</td> <td>1RC</td> <td>1RE</td>
+					</tr>
+					<tr>
+						<td>F</td> <td>HALT</td> <td>0LD</td>
+					</tr>
+				</table>
+				<p>
+					The above table represents the transition table, or what the machine does at the absolute lowest level. However, staring at this won't get us very far. If you're anything like me, you want something mathy to work with.
+				</p>
 				<p>
 					The initial rules discovered by mxdys look like the following:
 				</p>
