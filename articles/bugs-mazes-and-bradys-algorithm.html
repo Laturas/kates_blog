@@ -213,15 +213,15 @@
 						<code-body>
 							<code-line>########</code-line><br>
 							<code-line>#      #</code-line><br>
-							<code-line>##   ###</code-line><br>
-							<code-line>#      #</code-line><br>
-							<code-line>#  #   #</code-line><br>
-							<code-line>#   # ##</code-line><br>
-							<code-line>#   # -#</code-line><br>
+							<code-line># ### ##</code-line><br>
+							<code-line># #   ##</code-line><br>
+							<code-line># #    #</code-line><br>
+							<code-line>#  # ###</code-line><br>
+							<code-line>#  #  -#</code-line><br>
 							<code-line>########</code-line><br>
 						</code-body>
 					</code-block>
-						</td> <td>88</td>
+						</td> <td>96</td>
 					</tr>
 					<tr>
 						<td>\(7 \times 7\)</td> <td>
@@ -239,24 +239,24 @@
 						</code-numberings>
 						<code-body>
 							<code-line>#########</code-line><br>
-							<code-line>#       #</code-line><br>
-							<code-line>## ##   #</code-line><br>
+							<code-line>#  ###  #</code-line><br>
+							<code-line>#      ##</code-line><br>
+							<code-line># # ##  #</code-line><br>
+							<code-line>#  #   ##</code-line><br>
 							<code-line>#  #    #</code-line><br>
-							<code-line>##  ##  #</code-line><br>
-							<code-line>#  #  ###</code-line><br>
-							<code-line>#       #</code-line><br>
-							<code-line>##    #-#</code-line><br>
+							<code-line>#   # ###</code-line><br>
+							<code-line>#  #-  -#</code-line><br>
 							<code-line>#########</code-line><br>
 						</code-body>
 					</code-block>
-						</td> <td>204</td>
+						</td> <td>218</td>
 					</tr>
 				</table>
 				<p>
 					Note that I am excluding the outer walls and they're there implicitly. This doesn't change the actual values. The ending cell is also left undefined because my code terminates the simulation upon reaching it so it never gets defined.
 				</p>
 				<p>
-					\(8 \times 8\) will take much longer to solve. I've left my code running for a while to try and find some long-running configurations but running it to completion will likely require some further optimizations. As of writing, the best my code has found is \(308\) but discord user @dyuan has found a configuration running for 372 steps!
+					\(8 \times 8\) will take much longer to solve. I've left my code running for a while to try and find some long-running configurations but running it to completion will likely require some further optimizations. As of writing, the best my code has found is \(346\) but discord user @dyuan has found a configuration running for 468 steps!
 					Given that it seems to be growing exponentially, I expect \(8 \times 8\) to be in the ballpark of 400 to 500.
 				</p>
 				<h2>
