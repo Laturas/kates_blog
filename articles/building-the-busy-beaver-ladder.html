@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Building the Busy Beaver Ladder</title>
+	<link rel="stylesheet" href="../css/main.css">
+	<link rel="stylesheet" href="../css/katex.min.css">
+	<script defer src="../js/katex.min.js"></script>
+	<!-- Automatically renders math in text elements -->
+	<script defer src="../js/auto-render.min.js"onload="renderMathInElement(document.body);"></script>
+	<link rel="icon" type="image/png" href="../media/favicon.png"> 
+</head>
+<body>
+	<header class="banner">
+		<h1>Katelyn's Blog</h1>
+	</header>
+	<div class="main-block">
+		<nav class="navigation">
+			<ul>
+				<li>
+					<a href="../index.html">Home</a>
+				</li>
+				<li>
+					<a href="../articles.html">Articles</a>
+				</li>
+				<li>
+					<a href="../projects.html">Projects</a>
+				</li>
+			</ul>
+		</nav>
+		<article id="article_body">
+			<header class="article-header">
+				<h1 class="article-title">
+					Building the Busy Beaver Ladder
+				</h1>
+				<p class="article-date">
+					September 15 2025
+				</p>
+			</header>
+			<hr>
+			<main>
+				<sub-block>Note: This article is in its "draft" stage. There are most likely many improvements to still be made and it is subject to change significantly if necessary.</sub-block>
+				<p>
+					Gaze not into the abyss of arithmetical statements, or it will gaze back.
+				</p>
+                <p>
+                    Turing Machines are fascinating little devices for encoding mathematical problems. It asks the question of if a turing machine with a set of instructions ever reaches a specific instruction (the halt state).
+
+                    The way this is worded will be important later. 
+                </p>
+                <p>
+                    It turns out you can encode any "there exists" problem into the halting problem of a turing machine! But of course, that's not all the problems that exist. For example, you cannot encode the twin prime conjecture (directly at least, to my knowledge) into a turing machine.
+                    That's a "for all x, there exists a y" problem which is too much for our machines to handle.
+                </p>
+                <p>
+                    That's where Scott Aaronson's Beeping Turing Machines come in. We can move one level up and ask if a specific state is reached infinitely often. Or, for all times that state is reached, there exists a following step for which that state is reached again. The machine "quasihalts" if the machine is only reached finitely many times.
+                </p>
+                <p>
+                    You can encode a lot more problems using this construction, but eventually you again run into a wall. How would you encode the problem, "for all collatz maps defined by k (map an integer n to \((2k + 1)n + 1\) if n is odd, \(\frac{n}{2}\) if it's even), there exists an integer such that repeatedly applying this rule goes to infinity"?
+                </p>
+				<p>
+					A new construction was created by Bram Cohen, named the Beeping Booping Turing Machine. Every time you reach a boop state, count how many times a beep state was reached previously and output that number. The machine "pseudoquasihalts" if there exists a number that is output infinitely often.
+				</p>
+				<p>
+					And that's where the ladder was stuck. While you can encode probably most interesting problems with only those 2 extra rungs, you can't encode <strong>every</strong> problem. One may ask, is there a way to generalize these two constructions?
+				</p>
+				<p>
+					That's what I hope to answer today.
+				</p>
+				<h2>
+					The Problem of Oracles
+				</h2>
+				<hr>
+				<p>
+					Each of the previous two rungs are equivalent to equipping a turing machine with an oracle that can solve the halting problem of the run below. To solve a machine's beeping halting problem, you need to solve its regular halting problem. And similar for the beeping booping halting problem and the beeping halting problem.
+				</p>
+				<p>
+					While the notion of generalized oracle turing machines is well established, the constructions of them leave a lot to be desired. There are a lot of strange, unnatural (in my opinion) choices you have to make in regards to how a turing machine communicates with its oracle, and the exact nature of the oracle itself.
+				</p>
+				<p>
+					The reason the beeping, and beeping booping extensions are nice is that they have a few key properties. For one, each builds off the last, introducing only a single new "sound" per halting problem level and a rule for interpreting said sound.
+				</p>
+				<p>
+					For another, and in my opinion the most important part, it does not actually change the execution of the base turing machine. The transition table is enough to describe the behavior of a turing machine on the tape for all time. It only changes the question you're asking about it.
+				</p>
+				<p>
+					A generalized method of constructing arbitrary difficulty halting problems should retain these two properties.
+				</p>
+				<h2>
+					The Order N Halting Problem
+				</h2>
+				<hr>
+				<p>
+					Let an order-n "sound" correspond to a unique output upon reaching a specific instruction (or set of instructions). Let the "tone" of the sound be the exact nature of the output, relying on the quantity and tone of every previous order n-1 sound that comes before it, but after the previous order n sound (or the beginning of tape execution).
+					<br>Note that the order 1 sound has a singular tone that it always plays (corresponding to the fact that there are no order 0 sounds between two order 1 sounds).
+				</p>
+				<p>
+					With those definitions out of the way, let the following be my new definition of the order-n halting problem:
+				</p>
+				<sub-block>
+					<p>
+						<strong>Definition 1:</strong> Order-n Halting Problem
+					</p>
+					<p>
+						If n is even, let the order-n halting problem be defined as, "does a specific tone of order-n sound occur infinitely often?". If n is odd, let the order-n halting problem be defined as, "Do infinitely many tones of order-n sound occur infinitely often?"
+					</p>
+					<p>
+						A machine order-n halts in the even case on the first step that a specific tone of order-n sound occurs that will later occur infinitely often.
+					</p>
+					<p>
+						A machine order-n halts in the odd case on the first step in which all finitely many infinitely playing tones of the order-n sound have been played.
+					</p>
+				</sub-block>
+				<p>
+					And now, I offer a proof that each jump to a higher order halting problem is equivalent to a higher order arithmetical hierarchy level.
+				</p>
+				<p>
+					<strong>Theorem:</strong> The order-n halting problem of a turing machine (definition 1) is equivalent to either a \(\Sigma_n\) or \(\Pi_n\) statement.
+				</p>
+				<button id="btn_turing_jmp_proof" class="proof-button"></button>
+				<sub-block id="turing_jmp_proof">
+					<p>
+						Proof by induction
+					</p>
+					<p>
+						<strong>Base case:</strong> For this case to work for all higher order machines I only need to prove the case for order-2. The halting problem for order 2 is "There exists an order-2 tone that repeats infinitely often". This is an \(\exists \forall \exists\) statement making it \(\Sigma_2\).
+					</p>
+					<p>
+						<strong>Inductive step:</strong> Assume the order-n halting problem of an order-n turing machine is equivalent to \(\Sigma_n\) or \(\Pi_n\). We will prove then that the order-(n+1) halting problem of an order-(n+1) turing machine is equivalent to \(\Sigma_{n+1}\).
+					</p>
+					<p>
+						<strong>Case 1:</strong> n is even.
+					</p>
+					<p>
+						By inductive hypothesis, the order-n halting problem is \(\Sigma_n\). The order n+1 halting problem is asking a question about whether infinitely many sets of order-n tones will be played infinitely often. This is a universal quantifier applied to the halting problem of order n.
+
+						This implies that the order-(n+1) halting problem is \(\Pi_{n+1}\).
+					</p>
+					<p>
+						<strong>Case 2:</strong> n is odd.
+					</p>
+					<p>
+						By inductive hypothesis, the order-n halting problem is \(\Pi_n\). Order n+1 will have the halting problem of there existing a tone of n+1 such that a \(Pi_n\) statement. Since determining a tone of order-n requires quanitfication over all tones leading to it, this applies an existential quantifier to a \(\Pi_n\) statement, making this halting problem \(\Sigma_{n+1}\)
+					</p>
+					<p>
+						Thus by inductive hypothesis, both are true.
+						<br><br>
+						QED
+					</p>
+					<p>
+						<strong>Remark 1:</strong> This stuff isn't my strong suit, so please let me know if there's a mistake here!
+						<br>
+						<strong>Remark 2:</strong> Order 1 is the only violation this pattern, hence I started at order 2.
+					</p>
+				</sub-block>
+				<p>
+					You may have some questions about this construction. Allow me to explain.
+				</p>
+				<p>
+					<strong>"Why did you leave the exact way that a tone is defined for an order-n sound unexplained?"</strong>
+				</p>
+				<p>
+					Because it doesn't actually matter! All that matters is that we can map one-to-one between a tone and the sequence of lower level tones that created it which is always possible.
+				</p>
+				<p>
+					<strong>"Give me a way to define arbitrary order tones!"</strong>
+				</p>
+				<p>
+					Not a question, but sure fine. Here's a construction that can define all tones of arbitrary order.
+				</p>
+				<button id="btn_tonemap_proof" class="proof-button"></button>
+				<sub-block id="tonemap_proof">
+					<p>
+						Define the base case order-1 sound to always have a tone of 1.
+					</p>
+					<p>
+						Now, to derive the next highest tone, take the number that corresponds to the tone of each previous lower order sound, and based on the position in the list, and raise it to the power of the next prime number. Then multiply them all together to get the new tone for the higher order sound.
+					</p>
+					<p>
+						As an example, for an order 3 construction, if you had "(buzz) 3 5 5 7 (buzz)" the tone of the second buzz would be \(2^{3} \cdot 3^{5} \cdot 5^{5} \cdot 7^{7}\)
+					</p>
+					<p>
+						You can continue on, creating larger and larger towers where the height of the exponential tower corresponds to the order of the sound - 1. At all stages, a unique tone will be defined based on the order, tone, and count of each lower level sound by the fundamental theorem of arithmetic. A nice property is that aside from needing to distinguish between different kinds of "1"s, a tone of order n only needs to look at towers of height n - 2.
+					</p>
+					<p>
+						As such, a way to distinguish arbitrarily high order tones exists.
+					</p>
+					<p>
+						QED
+					</p>
+					<p>
+						<strong>Remark: </strong> As said earlier, you don't need to use this prime number construction if you don't want to. It was just the easiest to illustrate. No matter what construction you use to define a tone (assuming it fits the requirements), the number of steps in a machine's halting problem will remain identical.
+					</p>
+				</sub-block>
+				<p>
+					<strong>"Why the distinction between the odd and even case?"</strong>
+				</p>
+				<p>
+					Because the arithmetical hierarchy makes that distinction. A \(\Pi_0\) statement corresponds to "\(\forall\)", \(\Pi_1\) corresponds to "\(\forall \exists\)", \(\Pi_2\) corresponds to "\(\forall \exists \forall\)" and so on. The value last quantifier depends on the parity of the n in \(\Pi_n\).
+					I think it's perfectly natural to think that higher order halting problems should make the distinction.
+				</p>
+				<p>
+					<strong>"Can a state transition have multiple sounds attached to it?"</strong>
+				</p>
+				<p>
+					I think there's a strong case for allowing the overloading of states! However, to make things cleaner I won't be considering overloaded states in this article.
+				</p>
+				<p>
+					If you allow the overloading of states, you'd need to specify the order in which the sounds are played. Perhaps in increasing order of the sound's order.
+				</p>
+				<p>
+					One thing to note is that any behavior you could get with an overloaded state is also possible to achieve without overloading by adding sufficient instructions.
+				</p>
+				<p>
+					Both systems are sufficiently powerful to do anything interesting that the other can do. I'm curious what people think is better. Let me know!
+				</p>
+				<p>
+					<strong>"Can you give an example of a construction of a machine with a higher order (>2) halting problem?"</strong>
+				</p>
+				<p>
+					Here's a trivial example that we can use to examine what higher order halting problems look like. Take the machine with the following transition table:
+				</p>
+				<table>
+					<tr>
+						<th>State</th> <th>0</th> <th>1</th>
+					</tr>
+					<tr>
+						<td>A</td> <td>1LB (Boop)</td> <td>1RA (Beep)</td>
+					</tr>
+					<tr>
+						<td>B</td> <td>0RA (Buzz)</td> <td>0LB</td>
+					</tr>
+				</table>
+				<p>
+					This really simple machine just counts up in binary on the tape forever. It obviously doesn't halt as it doesn't have a halt state. The order-1 halting problem would be do you always encounter a 1 on the tape moving right, which translates to "does there always exist a binary number with a 1 in the expansion"? To which the answer should obviously be yes, so this machine doesn't order-1 halt.
+				</p>
+				<p>
+					The order-2 halting problem asks if there is some string of consecutive 1s for which there are infinitely many binary numbers that contain that string of 1s. The answer to this is also yes, so this machine order-2 halts at step 1.
+				</p>
+				<p>
+					The order-3 halting problem asks if there are infinitely many starting strings of consecutive 1s that appear infinitely often. Again, because this is binary, the answer is yes so this machine does not order-3 halt.
+				</p>
+				<p>
+					Wait... what?
+				</p>
+				<h3>
+					A machine order-n halting DOES NOT imply that it order-(n+1) halts!
+				</h3>
+				<p>
+					You may be asking something along the lines of "Katelyn, what the hell have you done?" or "did you do something wrong?". Worry not! I can explain!
+				</p>
+				<p>
+					This was a really surprising result to me at first. However, as it turns out, this was <i>already</i> a property of the standard halting problem and the beeping halting problem, you probably just never thought about it like that.
+				</p>
+				<p>
+					You'll often see the halting problem phrased in terms of "undefined transitions". In essence, it is asking if a given state is ever reached. So for a machine to not quasihalt, it needs to reach a state infinitely many times.
+					Thus, if you define the halting problem on a state that a machine that doesn't quasihalt on, it necessarily has to halt, otherwise that transition would never be reached in the first place and it trivially quasihalts for that state.
+				</p>
+				<p>
+					So in fact, the order of implication for odd n is that if a machine is order-n nonhalting, then it order-(n-1) halts. And the contrapositive is that if it does not order-(n-1) halt, it order-(n) halts.
+					<br><br>
+					Quick note in case it's necessary, this doesn't let you solve the halting problem. A machine order-(n-1) halting for odd n does not let you determine if it order-n halts or not.
+				</p>
+				<h2>
+					Higher Order Busy Beavers and Notation
+				</h2>
+				<hr>
+				<p>
+					We can define higher order busy beaver functions now, using these higher order halting problems.
+					<br><br>
+					Let \(\text{BB}_k(n)\) denote the greatest number of steps made by an n-state turing machine with k unique sounds before order-k halting.
+					I suspect very few values of these are truly solvable beyond the initial busy beaver domain. You may have more luck with \(\text{BBi}_k(n)\), where in this case
+					n denotes the number of instructions.
+				</p>
+				<h3>
+					Properties of Higher Order Busy Beavers
+				</h3>
+				<p>
+					<strong>Theorem 1:</strong> Each \(\text{BB}_{k + 1}(n)\) grows uncomputably faster than \(\text{BB}_{k}(n)\) for all k. This is true because if you had a function that acted as a combination of \(\text{BB}_k(n)\) and any computable function, you could bound \(\text{BB}_{k+1}(n)\) and solve the order-(k+1) halting problem with only an order-k halting oracle, which is impossible.
+				</p>
+				<p>
+					<strong>Theorem 2:</strong> For even k, determining whether a machine has order-(k+1) halted is as hard as solving the order-k halting problem. For odd k, determining a machine hasn't order-(k+1) halted is as hard as solving the order-k halting problem.
+				</p>
+				<button id="btn_halt_diff_proof" class="proof-button"></button>
+				<sub-block id="halt_diff_proof">
+					<p>
+						<strong>Case 1:</strong> Assume k is even. Assume we have a step for which we suspect a machine has order-(k+1) halted.
+					</p>
+					<p>
+						By definition, to prove that it has order-(k+1) halted you have to prove that all finitely many tones of the order-(k+1) sound that is going to be played infinitely often has been played at least once.
+						<br><br>
+						If you have a list of all such known infinitely playing tones, all you need to do is construct a new machine that follows the same rules except it has exceptions not to play an order-(k+1) sound that has any of those finite tones. Then you can run an order-k halting oracle to prove whether it will ever find a counterexample. This completes case 1 minus one detail that will be proven at the end.
+					</p>
+					<p>
+						<strong>Case 2:</strong> Assume k is odd. Assume we have a step for which we suspect a machine has order-(k+1) halted.
+					</p>
+					<p>
+						Like last time, we address the definition of order-(k+1) halting. In this case, k+1 is even so it halts on the first step that a specific tone of order-(k+1) sound occurs that will later occur infinitely often.
+					</p>
+					<p>
+						To show it hasn't halted, we need to show that it will eventually encounter another tone of order-(k+1). To show this, build a new machine that ends up with the exact same values on the tape, but only plays a sequence of order-k sounds if it will produce our desired order-(k+1) tone. Now we apply our order-k oracle. If the oracle says it doesn't order-k halt, then we know that eventually it will stop playing that order-(k+1) tone eventually. Meaning our machine has not yet halted. This partially completes case 2.
+					</p>
+					<p>
+						Quick address for both cases. This sets an upper bound on the difficulty, but a lower bound is trivially derived by the fact that if you could solve these problems with an order-(k-1) oracle, then you could solve the order-k halting problem with an order-(k-1) oracle which is impossible. Doing so will be left as an exercise.
+					</p>
+					<p>
+						QED
+					</p>
+				</sub-block>
+				<p>
+					<strong>Remark:</strong> I cannot find a way to prove \(\text{BB}_{k+1}(n) \geq \text{BB}_{k}(n)\) for all k and n. If you do have a proof (even if it's just for the even or odd case) please send it my way!
+				</p>
+				<h3>
+					Extended Standard TM Notation
+				</h3>
+				<br>
+				<p>
+					If we want any hope of solving higher order busy beavers, ideally we'd have a way of compactly representing a machine with oracles attached.
+				</p>
+				<p>
+					Fortunately, I propose a relatively simple addition to the standard notation used for representing a TM code. We can add a single number at each state representing the order of the sound it makes.
+					<br><br>
+					Say we had a machine with the following transition table:
+				</p>
+				<table>
+					<tr>
+						<th>State</th> <th>0</th> <th>1</th>
+					</tr>
+					<tr>
+						<td>A</td> <td>1RB (Beep)</td> <td>1LA</td>
+					</tr>
+					<tr>
+						<td>B</td> <td>1LC</td> <td>0RE</td>
+					</tr>
+					<tr>
+						<td>C</td> <td>1LF</td> <td>1LD (Beep)</td>
+					</tr>
+					<tr>
+						<td>D</td> <td>0RB</td> <td>0LA (Buzz)</td>
+					</tr>
+					<tr>
+						<td>E</td> <td>1RC (Boop)</td> <td>1RE</td>
+					</tr>
+					<tr>
+						<td>F</td> <td>HALT / undefined</td> <td>0LD</td>
+					</tr>
+				</table>
+				<p>
+					Then we could represent it with the following TM code, where each state is represented with 4 characters now: <br>
+				</p>
+				<code-block style="font-size: 16pt; max-width: 80%; align-self: center; text-align: center;">
+					<code-line>1RB11LA0_<wbr>1LC00RE0_<wbr>1LF01LD1_<wbr>0RB00LA2_<wbr>1RC11RE0_<wbr>----0LD0</code-line>
+				</code-block>
+				<p>
+					(Note: This is just the Space Needle transition table with random sounds added. This exact configuration likely doesn't do anything interesting)
+				</p>
+				<p>
+					This feels like a relatively natural way to extend the existing notation without running into weird conflicts. However, the write symbol of one state and the sound order of the previous can seem to merge which is only saved by the fact that each state is 4 characters wide. If we go beyond 9 symbols, or 9 oracle levels, this notation will run into some trouble.
+				</p>
+				<p>
+					If you really want to be sure you can distinguish between write symbol and oracle level, you could also index oracle levels with a, b, c, ... (lowercase) with a being the default no oracle.
+				</p>
+				<code-block style="font-size: 16pt; max-width: 80%; align-self: center; text-align: center;">
+					<code-line>1RBb1LAa_<wbr>1LCa0REa_<wbr>1LFa1LDb_<wbr>0RBa0LAc_<wbr>1RCb1REa_<wbr>----0LDa</code-line>
+				</code-block>
+				<p>
+					I think there's merit to both notations. Love to hear what people think on this.
+				</p>
+				<h3>
+					Known values of \(\text{BB}_k(n)\)
+				</h3>
+				<hr>
+				<table>
+					<tr>
+						<th>Domain</th> <th>n=1</th> <th>n=2</th> <th>n=3</th> <th>n=4</th>
+					</tr>
+					<tr>
+						<td>\(\text{BB}_0\)</td> <td>1</td> <td>6</td> <td>21</td> <td>107</td>
+					</tr>
+					<tr>
+						<td>\(\text{BB}_1\)</td> <td>1</td> <td>6</td> <td>55</td> <td>\(\geq 32,779,478\)</td>
+					</tr>
+					<tr>
+						<td>\(\text{BB}_2\)</td> <td>1</td> <td>\(\geq\) 17</td> <td>???</td> <td>???</td>
+					</tr>
+					<tr>
+						<td>\(\text{BB}_3\)</td> <td>---</td> <td>???</td> <td>???</td> <td>???</td>
+					</tr>
+				</table>
+				<p>
+					As mentioned earlier, very few values of higher order busy beavers are known! While these problems get incredibly hard very quickly, I would hope that \(\text{BB}_1(4), \text{BB}_2(2), \text{BB}_2(3), \text{BB}_3(2), \text{BB}_4(2)\) can all be solved.
+				</p>
+				<p>
+					The current bound for \(\text{BB}_2(2)\) comes from <tm-code>1RB01LA0_0LA11RA2</tm-code> / <tm-code>1RBa1LAa_0LAb1RAc</tm-code>.
+				</p>
+				<p>
+					I think the possibility that you encounter cryptids by \(\text{BB}_2(4)\) or \(\text{BB}_3(3)\) is real.
+				</p>
+				<p>
+					Extending this to solve multi-symbol machines would also be a worthwhile endeavor! As far as I know, research into higher order multi-symbol machines is basically nonexistent as of this moment.
+				</p>
+				<h2>
+					A Quick Note for the Googologists
+				</h2>
+				<hr>
+				<p>
+					Now that we've defined all \(\text{BB}_k(n)\) for all natural k and n, some may get the temptation to start climbing highter.
+					<br><br>
+					Define the diagonalized \(\text{BB}_{\omega}(n) = \text{BB}_n(n)\). This is a monsterously fast growing function, that has to eventually outgrow all uncomputably faster growing \(\text{BB}_k(n)\) functions.
+				</p>
+				<p>
+					This feels very much like the definition of the fast growing hierarchy! And indeed, we can take this and go as high as we want. By defining \(\text{BB}_{\omega + 1}(n) = \text{BB}_{\omega}(\text{BB}_{\omega}(...(n)))\) with \(\text{BB}_{\omega}(n)\) nestings. You can go on and on to define \(\text{BB}_{\omega^\omega}(n)\), \(\text{BB}_{\varepsilon_0}(n)\), all the way up the ordinal hierarchy to \(\text{BB}_{\Gamma_0}(n)\) and beyond.
+				</p>
+				<p>
+					I'll be conservative with it though, and define a number \(D = \text{BB}_{\omega}(10^{100})\). This is a very big number. A big dam number, if you will! However, I don't expect that any amount of diagonalization across transfinite ordinal busy beavers would be able to beat the likes of Rayo's number anyways.
+				</p>
+			</main>
+		</article>
+	</div>
+</body>
+<script>
+	function toggle_element(show_element, button_id, proof_id) {
+		button = document.getElementById(button_id);
+		if (show_element) {
+			document.getElementById(proof_id).style.display = "";
+			button.textContent = "[Click to hide proof]"
+			button.style.marginBottom = "0px";
+		} else {
+			document.getElementById(proof_id).style.display = "none";
+			button.textContent = "[Click to show proof]"
+			button.style.marginBottom = "12px";
+		}
+	}
+	
+	halt_diff_pressed = false;
+	document.getElementById('btn_halt_diff_proof').addEventListener('click', function() {
+		halt_diff_pressed = !halt_diff_pressed;
+		toggle_element(halt_diff_pressed, 'btn_halt_diff_proof', 'halt_diff_proof');
+	});
+
+	toggle_element(halt_diff_pressed, 'btn_halt_diff_proof', 'halt_diff_proof');
+
+
+	turing_jump_pressed = false;
+
+	document.getElementById('btn_turing_jmp_proof').addEventListener('click', function() {
+		turing_jump_pressed = !turing_jump_pressed;
+		toggle_element(turing_jump_pressed, 'btn_turing_jmp_proof', 'turing_jmp_proof');
+	});
+
+	toggle_element(turing_jump_pressed, 'btn_turing_jmp_proof', 'turing_jmp_proof');
+
+	tonemap_pressed = false;
+
+	document.getElementById('btn_tonemap_proof').addEventListener('click', function() {
+		tonemap_pressed = !tonemap_pressed;
+		toggle_element(tonemap_pressed, 'btn_tonemap_proof', 'tonemap_proof');
+	});
+
+	toggle_element(tonemap_pressed, 'btn_tonemap_proof', 'tonemap_proof');
+</script>
