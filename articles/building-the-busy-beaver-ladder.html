@@ -310,7 +310,11 @@
 					</p>
 				</sub-block>
 				<p>
-					<strong>Remark:</strong> I cannot find a way to prove \(\text{BB}_{k+1}(n) \geq \text{BB}_{k}(n)\) for all k and n. If you do have a proof (even if it's just for the even or odd case) please send it my way!
+					<strong>Remark:</strong> I cannot find a way to prove \(\text{BB}_{k+1}(n) \geq \text{BB}_{k}(n)\) for all k and n. I conjecture this may be because it's actually false in general, and there may be some obscure case where this fails. If you do have a proof (even if it's just for the even or odd case) please send it my way! However, I can prove the following:
+				</p>
+				<p>
+					<strong>Theorem 3: </strong> \(\text{BB}_k(n) \leq \text{BB}_{k+2}(n)\) for all k and n. This is necessarily true, because one can shift up the order of all the sounds by 2 and not include either of the 2 lowest order sounds. This gives an identical halting problem. My definitions don't stipulate that a higher order machine needs all of the lower order sounds, you'll just get a more boring machine.
+
 				</p>
 				<h3>
 					Extended Standard TM Notation
