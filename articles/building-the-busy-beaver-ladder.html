@@ -95,7 +95,7 @@
 					Let an order-n "sound" correspond to a unique output upon reaching a specific instruction (or set of instructions).
 				</p>
 				<p>
-					Let two order-n sounds be "equivalent" if for each sound, between it and the previous order-n sound (or the start of execution), the same sequence of order-(n-1) sounds occurs. Note that all order-1 sounds are equivalent.
+					Let two order-n sounds be "equivalent" if for each sound, between it and the previous order-n sound (or the start of execution), the same sequence of order-(n-1) sounds occurs (with each order-(n-1) sound also depending on the sequence of order-(n-2) sounds below it, and so on). Note that all order-1 sounds are equivalent.
 				</p>
 				<p>
 					With those definitions out of the way, let the following be my new definition of the order-n halting problem:
