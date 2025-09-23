@@ -40,7 +40,6 @@
 			</header>
 			<hr>
 			<main>
-				<sub-block>Note: This article is in its "draft" stage. There are most likely many improvements to still be made and it is subject to change significantly if necessary.</sub-block>
 				<p>
 					Gaze not into the abyss of arithmetical statements, or it will gaze back.
 				</p>
@@ -93,8 +92,10 @@
 				</h2>
 				<hr>
 				<p>
-					Let an order-n "sound" correspond to a unique output upon reaching a specific instruction (or set of instructions). Let the "tone" of the sound be the exact nature of the output, relying on the quantity and tone of every previous order n-1 sound that comes before it, but after the previous order n sound (or the beginning of tape execution).
-					<br>Note that the order 1 sound has a singular tone that it always plays (corresponding to the fact that there are no order 0 sounds between two order 1 sounds).
+					Let an order-n "sound" correspond to a unique output upon reaching a specific instruction (or set of instructions).
+				</p>
+				<p>
+					Let two order-n sounds be "equivalent" if for each sound, between it and the previous order-n sound (or the start of execution), the same sequence of order-(n-1) sounds occurs. Note that all order-1 sounds are equivalent.
 				</p>
 				<p>
 					With those definitions out of the way, let the following be my new definition of the order-n halting problem:
@@ -104,94 +105,114 @@
 						<strong>Definition 1:</strong> Order-n Halting Problem
 					</p>
 					<p>
-						If n is even, let the order-n halting problem be defined as, "does a specific tone of order-n sound occur infinitely often?". If n is odd, let the order-n halting problem be defined as, "Are there only finitely many tones of order-n sound that occur infinitely often?"
+						If n = 2k, a machine order-n halts on the first step that an order-n sound with a preceding subsequence of order-(n-1) sounds occurs that will later occur infinitely often
 					</p>
 					<p>
-						A machine order-n halts in the even case on the first step that a specific tone of order-n sound occurs that will later occur infinitely often.
-					</p>
-					<p>
-						A machine order-n halts in the odd case on the first step in which all finitely many infinitely playing tones of the order-n sound have been played.
+						If n = 2k+1, a machine order-n halts on the first step that all order-n sounds with preceding subsequences of order-(n-1) sounds, that will later occur infinitely often, have occurred at least once.
 					</p>
 				</sub-block>
 				<p>
-					And now, I offer a proof that each jump to a higher order halting problem is equivalent to a higher order arithmetical hierarchy level.
+					And for those of you that want a more rigorous, mathematically precise definition:
+				</p>
+				<sub-block>
+					<p>
+						<strong>Definition 1:</strong> Order-n Halting Problem (rigorous)
+					</p>
+					<p>
+						Let \(i \equiv_n j \leftrightarrow S_n(i) = S_n(j)\)
+						<br>
+						Let \(S_{n+1}(m) =\) the amount of i such that the \(i\)-th order-n sound is between the \(m\)-th pair of consecutive order-(n+1) sounds and i is in an infinite n-equivalence class (i.e. \(S_n(i) = S_n(j)\) for infinitely many \(j\))
+						<br><br>
+						order-(2n) halt on the \(i\)-th order-n sound, where i is the minimum of the union of infinite n-equivalence classes (i.e. \(i\) is minimal such that \(S_n(i) = S_n(j)\) for infinitely many \(j\))
+						<br><br>
+						order-(2n+1) halt on the \((i+1)\)-th order-n sound, where i is the maximum of the set of minima of infinite n-equivalence classes. (i.e. \(i\) is maximal such that \(S_n(i) = S_n(j)\) for infinitely many \(j\) and \(i\) is minimal for all such \(j\))
+					</p>
+				</sub-block>
+				<p>
+					And now, I offer a proof that any statement on the arithmetical hierarchy can be encoded as a sufficiently strong halting problem with the above construction.
 				</p>
 				<p>
-					<strong>Theorem:</strong> The order-n halting problem of a turing machine (definition 1) is equivalent to either a \(\Sigma_{n + 1}\) or \(\Pi_{n + 1}\) statement.
+					<strong>Theorem:</strong> Any \(\Sigma_{n + 1}\) statement can be encoded into the halting problem of an order-n turing machine.
 				</p>
 				<button id="btn_turing_jmp_proof" class="proof-button"></button>
 				<sub-block id="turing_jmp_proof">
+					<p><strong>Case 1:</strong> \(n = 2k\)</p>
 					<p>
-						Proof by induction
+						Let a \(\Sigma_{n+1}\) statement exist of the form \((\exists a \forall b \exists c... \forall n \exists o) P(a, b, c, d, ...)\)
+						Let each variable be a unique natural number mapped to that number. Now, define a machine that enumerates every statement of that form (which is possible because any set of n-tuples is countable).
 					</p>
 					<p>
-						<strong>Base case:</strong> For this case to work for all higher order machines I only need to prove the case for order-2. The halting problem for order 2 is "There exists an order-2 tone that repeats infinitely often". This is an \(\exists \forall \exists\) statement making it \(\Sigma_2\).
+						Now we need to assign sounds. For each existential variable, assign a sound in decreasing order. Every time a statement is satisfied, start at the last existential variable (call it \(e\)) and work upward.
+						Existential variable \(e\) will have an an order-i sound associated with it. Make the order-(i) sound \(e\) times and then move up to the next existential variable, and repeat. However, only make the highest order sound once.
 					</p>
 					<p>
-						<strong>Inductive step:</strong> Assume the order-n halting problem of an order-n turing machine is equivalent to \(\Sigma_{n + 1}\) or \(\Pi_{n + 1}\). We will prove then that the order-(n+1) halting problem of an order-(n+1) turing machine is equivalent to \(\Sigma_{n+2}\).
+						Define the machine to order-n halt in accordance with the "even case" definition.
 					</p>
 					<p>
-						<strong>Case 1:</strong> n is even.
+						If the statement is true, then there exists a set of existential variables that will allow the statement to always be satisfied regardless of the forall statements. This means there exists an order-(k+1) sound with an order-(k) subsequence that will always be played.
+						If the statement is false, then any set of existential variables can only be satisfied a finite number of times and thus any sequence of order-k sound will only play finitely many times. This indicates the machine will never order-n halt.
 					</p>
 					<p>
-						By inductive hypothesis, the order-n halting problem is \(\Sigma_{n + 1}\). The order n+1 halting problem is asking a question about whether infinitely many sets of order-n tones will be played infinitely often. This is a universal quantifier applied to the halting problem of order n.
-
-						This implies that the order-(n+1) halting problem is \(\Pi_{n+2}\).
+						Therefore this machine's order-n halting problem is equivalent to the \(\Sigma_{n+1}\) statement.
+					</p>
+					<p><strong>Case 2:</strong> \(n = 2k + 1\)</p>
+					<p>
+						Let a \(\Pi_{n+1}\) statement exist of the form \((\forall a \exists b \forall c \exists d... \forall n \exists o) P(a, b, c, d, ...)\).
+						Similarly to the previous case, let each variable be a unique natural number mapped to that number. Again define a machine that enumerates every statement and assign all sounds in the same way.
 					</p>
 					<p>
-						<strong>Case 2:</strong> n is odd.
+						Define the machine to order-n halt in accordance with the "odd case" definition.
 					</p>
 					<p>
-						By inductive hypothesis, the order-n halting problem is \(\Pi_{n + 1}\). Order n+1 will have the halting problem of there existing a tone of n+1 such that a \(Pi_{n + 1}\) statement. Since determining a tone of order-n requires quantification over all tones leading to it, this applies an existential quantifier to a \(\Pi_{n + 1}\) statement, making this halting problem \(\Sigma_{n+2}\)
+						If the statement is true, then there exists infinitely many existential variables that will allow the statement to always be satisfied regardless of the other forall statements. This means there exists infinitely many sequences of order-k sound for each order-(k+1) sound that will always be played and the machine will not order-n halt.
+						If the statement is false, then there exists only finitely many values of \(a\) for which there are existential variables that can satisfy all lower \(\forall\) quantifiers. This indicates the machine will eventually order-n halt as it will have encountered all finitely many such values.
 					</p>
 					<p>
-						Thus by inductive hypothesis, both are true.
-						<br><br>
-						QED
+						Therefore this machine's order-n halting problem is equivalent to the negation of the \(\Pi_{n+1}\) statement which is a \(\Sigma_{n+1}\) problem.
 					</p>
 					<p>
-						<strong>Remark 1:</strong> This stuff isn't my strong suit, so please let me know if there's a mistake here!
-						<br>
-						<strong>Remark 2:</strong> Order 1 is the only violation this pattern, hence I started at order 2.
+						<strong>Remark:</strong> The order-0 and order-1 cases are special because the only cases with only 1 existential quantifier. However, these are both well known to encode any \(\Sigma_1\) and \(\Pi_2\) statement respectively so those cases works too.
+					</p>
+					<p>
+						<strong>QED</strong>
 					</p>
 				</sub-block>
 				<p>
 					You may have some questions about this construction. Allow me to explain.
 				</p>
 				<p>
-					<strong>"Why did you leave the exact way that a tone is defined for an order-n sound unexplained?"</strong>
+					<strong>"Why do you break the mapping from number of sounds to number of arithmetical hierarchy jumps?"</strong>
 				</p>
 				<p>
-					Because it doesn't actually matter! All that matters is that we can map one-to-one between a tone and the sequence of lower level tones that created it which is always possible.
+					This is actually a property that was maintained in the original three constructions! You probably just didn't think about it that way.
+					<br><br>
+					The order-0 and order-1 halting problems only have the beep state. Though you may not think about the original halting problem having the beep state, it's halting problem is to halt the first time it beeps! It's only when you reach order-3 that you have to add a new sound. This fits with the construction.
 				</p>
 				<p>
-					<strong>"Give me a way to define arbitrary order tones!"</strong>
+					<strong>"Is it possible to have a construction in terms of numbers like the beeping booping case instead of leaving it defined as an arbitrary equivalence class?"</strong>
 				</p>
 				<p>
-					Not a question, but sure fine. Here's a construction that can define all tones of arbitrary order.
+					Sure, here's such a construction. Although I am not prescribing this as the best way to encode the problem. As long as the unique equivalence class behavior is maintained, any construction will work.
 				</p>
 				<button id="btn_tonemap_proof" class="proof-button"></button>
 				<sub-block id="tonemap_proof">
 					<p>
-						Define the base case order-1 sound to always have a tone of 1.
+						Define the base case order-1 sound to always have a value of 1.
 					</p>
 					<p>
-						Now, to derive the next highest tone, take the number that corresponds to the tone of each previous lower order sound, and based on the position in the list, and raise it to the power of the next prime number. Then multiply them all together to get the new tone for the higher order sound.
+						Now, to derive the next highest value, take the number that corresponds to the value of each previous lower order sound, and based on the position in the list, and raise it to the power of the next prime number. Then multiply them all together to get the new value for the higher order sound.
 					</p>
 					<p>
-						As an example, for an order 3 construction, if you had "(buzz) 3 5 5 7 (buzz)" the tone of the second buzz would be \(2^{3} \cdot 3^{5} \cdot 5^{5} \cdot 7^{7}\)
+						As an example, for an order 3 construction, if you had "(buzz) 3 5 5 7 (buzz)" the value of the second buzz would be \(2^{3} \cdot 3^{5} \cdot 5^{5} \cdot 7^{7}\)
 					</p>
 					<p>
-						You can continue on, creating larger and larger towers where the height of the exponential tower corresponds to the order of the sound - 1. At all stages, a unique tone will be defined based on the order, tone, and count of each lower level sound by the fundamental theorem of arithmetic. A nice property is that aside from needing to distinguish between different kinds of "1"s, a tone of order n only needs to look at towers of height n - 2.
+						You can continue on, creating larger and larger towers where the height of the exponential tower corresponds to the order of the sound - 1. At all stages, a unique value will be defined based on the order, value, and count of each lower level sound by the fundamental theorem of arithmetic. A nice property is that aside from needing to distinguish between different kinds of "1"s, a value of order n only needs to look at towers of height n - 1.
 					</p>
 					<p>
-						As such, a way to distinguish arbitrarily high order tones exists.
+						As such, a way to distinguish arbitrarily high order values exists.
 					</p>
 					<p>
 						QED
-					</p>
-					<p>
-						<strong>Remark: </strong> As said earlier, you don't need to use this prime number construction if you don't want to. It was just the easiest to illustrate. No matter what construction you use to define a tone (assuming it fits the requirements), the number of steps in a machine's halting problem will remain identical.
 					</p>
 				</sub-block>
 				<p>
@@ -215,6 +236,27 @@
 				</p>
 				<p>
 					Both systems are sufficiently powerful to do anything interesting that the other can do. I'm curious what people think is better. Let me know!
+				</p>
+				<p>
+					<strong>"So why should we use this construction and not some other construction?"</strong>
+				</p>
+				<p>
+					Let's look back at our criterion
+				</p>
+				<p>
+					- It extends the Beeping and Beeping Booping constructions in a natural way. The first one especially is considered by many to almost be a "canonical" way to extend the strength of turing machines. The alternative construction by Racheline also extends the Beeping construction, but requires you to redefine the Beeping Booping construction. Mine allows you to keep that.
+					<br><br>
+					- Adding a higher order sound does not affect the execution of the turing machine on a lower order. This can be interpreted as any machine's tape history will remain identical no matter what sounds you add, but this is even more general. Any machine with a set of order-n sounds will not have its order-n halting problem be affected by adding a new order-(n+1) without overriding other sounds.
+					<br>
+					In my opinion, this is a very nice property.
+					<br><br>
+					- There is a nice correspondence between number of sounds and arithmetical strength. You need exactly \(\lfloor n/2 \rfloor\) sounds to encode any statement of \(n\) strength.
+					<br><br>
+					- Each jump in strength is trivial. You add one sound on the odd cases and a question associated with that sound. You don't even need to define the notion of an oracle to describe a machine's order-n halting problem.
+					<br><br>
+					- The extension to all higher order busy beavers is well defined.
+					<br><br>
+					So, while there are other constructions you can use, this construction has nice properties that many others wont. As mentioned earlier, Racheline's alternative construction also satisfies most of these, but I will discuss that later.
 				</p>
 				<p>
 					<strong>"Can you give an example of a construction of a machine with a higher order (>2) halting problem?"</strong>
@@ -243,11 +285,15 @@
 					The order-3 halting problem asks if there are infinitely many starting strings of consecutive 1s that appear infinitely often. Again, because this is binary, the answer is yes so this machine does not order-3 halt.
 				</p>
 				<p>
+					The order-4 halting problem is equivalent to the order-3 halting problem in this case because a boop only ever occurs once between two buzzes. It's asking, when incrementing in binary, is there a sequence of ones and zeros that will always be encountered, which is true, so this machine order-4 halts at step 2.
+				</p>
+				<p>
 					Wait... what?
 				</p>
 				<h3>
 					A machine order-n halting DOES NOT imply that it order-(n+1) halts!
 				</h3>
+				<hr>
 				<p>
 					You may be asking something along the lines of "Katelyn, what the hell have you done?" or "did you do something wrong?". Worry not! I can explain!
 				</p>
@@ -281,26 +327,26 @@
 					<strong>Theorem 1:</strong> Each \(\text{BB}_{k + 1}(n)\) grows uncomputably faster than \(\text{BB}_{k}(n)\) for all k. This is true because if you had a function that acted as a combination of \(\text{BB}_k(n)\) and any computable function, you could bound \(\text{BB}_{k+1}(n)\) and solve the order-(k+1) halting problem with only an order-k halting oracle, which is impossible.
 				</p>
 				<p>
-					<strong>Theorem 2:</strong> For even k, determining whether a machine has order-(k+1) halted is as hard as solving the order-k halting problem. For odd k, determining a machine hasn't order-(k+1) halted is as hard as solving the order-k halting problem.
+					<strong>Theorem 2:</strong> For even n, determining whether a machine has order-(n+1) halted is as hard as solving the order-n halting problem. For odd n, determining whether a machine has order-(n+1) halted is as hard as solving the order-n halting problem.
 				</p>
 				<button id="btn_halt_diff_proof" class="proof-button"></button>
 				<sub-block id="halt_diff_proof">
 					<p>
-						<strong>Case 1:</strong> Assume k is even. Assume we have a step for which we suspect a machine has order-(k+1) halted.
+						<strong>Case 1:</strong> Let n = 2k. Assume we have a step for which we suspect a machine has order-(n+1) halted.
 					</p>
 					<p>
-						By definition, to prove that it has order-(k+1) halted you have to prove that all finitely many tones of the order-(k+1) sound that is going to be played infinitely often has been played at least once.
+						By definition, to prove that it has order-(n+1) halted you have to prove that all finitely many subsequences of order-k sounds preceeding an order-(k+1) sound that are going to be played infinitely often have been played at least once.
 						<br><br>
-						If you have a list of all such known infinitely playing tones, all you need to do is construct a new machine that follows the same rules except it has exceptions not to play an order-(k+1) sound that has any of those finite tones. Then you can run an order-k halting oracle to prove whether it will ever find a counterexample. This completes case 1 minus one detail that will be proven at the end.
+						If you have a list of all such known infinitely playing sequences, all you need to do is construct a new machine that follows the same rules except it has exceptions not to play an order-(k+1) sound that has any of those subsequences preceeding it. Then you can run an order-n halting oracle to prove whether it will ever find a counterexample. This completes case 1 minus one detail that will be proven at the end.
 					</p>
 					<p>
-						<strong>Case 2:</strong> Assume k is odd. Assume we have a step for which we suspect a machine has order-(k+1) halted.
+						<strong>Case 2:</strong> Let n = 2k + 1. Assume we have a step for which we suspect a machine has order-(n+1) halted.
 					</p>
 					<p>
-						Like last time, we address the definition of order-(k+1) halting. In this case, k+1 is even so it halts on the first step that a specific tone of order-(k+1) sound occurs that will later occur infinitely often.
+						Like last time, we address the definition of order-(n+1) halting. In this case, it halts on the first step that an order-(k+1) sound with a specific preceeding subsequence of order-k sounds occurs that will later occur infinitely often.
 					</p>
 					<p>
-						To show it hasn't halted, we need to show that it will eventually encounter another tone of order-(k+1). To show this, build a new machine that ends up with the exact same values on the tape, but only plays a sequence of order-k sounds if it will produce our desired order-(k+1) tone. Now we apply our order-k oracle. If the oracle says it doesn't order-k halt, then we know that eventually it will stop playing that order-(k+1) tone eventually. Meaning our machine has not yet halted. This partially completes case 2.
+						To show it hasn't halted, we need to show that it will eventually encounter another order-(k+1) sound with a preceeding order-k subsequence. To show this, build a new machine that ends up with the exact same values on the tape, but only plays specific order-k sounds if they will produce our desired order-(k+1). Now we apply our order-k oracle. If the oracle says it doesn't order-k halt, then we know that eventually it will stop playing that order-(k+1) sound eventually. This implies our machine has not yet halted. This partially completes case 2.
 					</p>
 					<p>
 						Quick address for both cases. This sets an upper bound on the difficulty, but a lower bound is trivially derived by the fact that if you could solve these problems with an order-(k-1) oracle, then you could solve the order-k halting problem with an order-(k-1) oracle which is impossible. Doing so will be left as an exercise.
@@ -409,16 +455,38 @@
 					Extending this to solve multi-symbol machines would also be a worthwhile endeavor! As far as I know, research into higher order multi-symbol machines is basically nonexistent as of this moment.
 				</p>
 				<h2>
+					The Single-Beep Construction
+				</h2>
+				<hr>
+				<p>
+					As I was fleshing out this definition, discord user Racheline introduced to me an alternative way of defining higher order halting problems that requires no additional sounds be added to a turing machine beyond the original beep state, while retaining many of the desirable properties we're after. I'll call this the single-beep construction and my construction the multi-beep construction.
+				</p>
+				<p>
+					It works by defining an "n-beep" to be n consecutive beeps in a row. Then for each higher level, you can look at sequences of (n-1)-beeps between n-beeps. This has all the same properties as the multi-beep construction, because an n-beep is functionally identical to a higher order beep in the multi-beep construction.
+				</p>
+				<p>
+					This construction has some advantages, mainly it's in some sense mathematically "simpler". You don't need to define any higher order sounds at all and a machine's higher-order behavior isn't limited by the number of instructions a machine has. As well, for a given set of instructions, the search space for the single-beep construction is smaller meaning it's easier to prove more values of the corresponding higher order busy beavers.
+				</p>
+				<p>
+					I personally, however, prefer the multi-beep construction and that is what I will most likely be using. My justification is that the multi-beep construction contains the definition of the beeping booping construction, so that doesn't have to be thrown out. As well, it makes the execution for a TM cleaner, and I believe you're likely to find more interesting behavior early on with the multi-beep construction even if both constructions have the same power in the limit.
+				</p>
+				<p>
+					The single-beep construction is also more restrictive in that you have to beep consecutively some number of times. You could create a different construction that avoids this, but then you get into the problem that whether a given beep is an n-beep becomes undecidable which is in my opinion an undesirable property.
+				</p>
+				<p>
+					However, this is a very cool construction! I find it fascinating only a single beep is enough to go all the way to arbitrarily complex arithmetical statements, and this specific construction is probably worth investigating on its own.
+				</p>
+				<h2>
 					A Quick Note for the Googologists
 				</h2>
 				<hr>
 				<p>
-					Now that we've defined all \(\text{BB}_k(n)\) for all natural k and n, some may get the temptation to start climbing highter.
+					Using the multi-beep construction, we've defined all \(\text{BB}_k(n)\) for all natural k and n. But now, some may get the temptation to start climbing highter.
 					<br><br>
 					Define the diagonalized \(\text{BB}_{\omega}(n) = \text{BB}_n(n)\). This is a monstrously fast growing function, that has to eventually outgrow all uncomputably faster growing \(\text{BB}_k(n)\) functions with only finite k.
 				</p>
 				<p>
-					Some of you may be thinking about the fast growing hierarchy seeing that, and it does feel very similar! However, I haven't found a way to generalize this notion to higher and higher ordinals while keeping in spirit with what the \(k\) represents.
+					Some of you may be thinking about the fast growing hierarchy seeing that, and it does feel very similar! However, I haven't found a way to generalize this notion to higher and higher ordinals while keeping in spirit with what the \(k\) represents. I'm leaving that as an exercise to the reader :)
 				</p>
 				<p>
 					Scott Aaronson noted in his blog post <a href="https://www.scottaaronson.com/writings/bignumbers.html">Who Can Name the Bigger Number?</a> the following:
@@ -431,6 +499,13 @@
 				</sub-block>
 				<p>
 					In keeping with this statement, I'll now define a number \(D = \text{BB}_{\omega}(10^{100})\). This is a very big number. A big dam number, if you will! It is however certainly smaller than the likes of Rayo's number
+				</p>
+				<h2>
+					Special Thanks
+				</h2>
+				<hr>
+				<p>
+					Wanted to write here to say thank you to Racheline for helping me more rigorously define my construction, as well as defining the single-beep construction. I also want to thank John Tromp for his extensive and helpful feedback on the earlier draft of this article.
 				</p>
 			</main>
 		</article>
