@@ -95,20 +95,23 @@
 					Let an order-n "sound" correspond to a unique output upon reaching a specific instruction (or set of instructions).
 				</p>
 				<p>
-					Let two order-n sounds be "equivalent" if for each sound, between it and the previous order-n sound (or the start of execution), the same sequence of order-(n-1) sounds occurs (with each order-(n-1) sound also depending on the sequence of order-(n-2) sounds below it, and so on). Note that all order-1 sounds are equivalent.
+					Let two order-(n+1) sounds be "equivalent" if for each sound, between it and the previous order-(n+1) sound (or the start of execution), there is the same number of abundant order-n sounds.
 				</p>
 				<p>
-					With those definitions out of the way, let the following be my new definition of the order-n halting problem:
+					Let an order-n sound be "abundant" if it is equivalent to infinitely many other order-n sounds that eventually occur.
+				</p>
+				<p>
+					Let all order-1 sounds (beeps) be equivalent.
 				</p>
 				<sub-block>
 					<p>
 						<strong>Definition 1:</strong> Order-n Halting Problem
 					</p>
 					<p>
-						If n = 2k, a machine order-n halts on the first step that an order-k sound with a preceding subsequence of order-(k-1) sounds occurs that will later occur infinitely often
+						If n = 2k, a machine order-n halts on the first step that an abundant order-k sound occurs.
 					</p>
 					<p>
-						If n = 2k+1, a machine order-n halts on the first step that all order-k sounds with preceding subsequences of order-(k-1) sounds, that will later occur infinitely often, have occurred at least once.
+						If n = 2k+1, a machine order-n halts on the first step that all abundant order-k sounds have occurred at least once.
 					</p>
 				</sub-block>
 				<p>
@@ -219,7 +222,7 @@
 					<strong>"Why the distinction between the odd and even case?"</strong>
 				</p>
 				<p>
-					Because the arithmetical hierarchy makes that distinction. A \(\Pi_1\) statement corresponds to "\(\forall\)", \(\Pi_2\) corresponds to "\(\forall \exists\)", \(\Pi_3\) corresponds to "\(\forall \exists \forall\)" and so on. The value last quantifier depends on the parity of the n in \(\Pi_n\).
+					Because the arithmetical hierarchy makes that distinction. A \(\Pi_1\) statement corresponds to "\(\forall\)", \(\Pi_2\) corresponds to "\(\forall \exists\)", \(\Pi_3\) corresponds to "\(\forall \exists \forall\)" and so on. The value of the last quantifier depends on the parity of the n in \(\Pi_n\).
 					I think it's perfectly natural to think that higher order halting problems should make the distinction.
 				</p>
 				<p>
