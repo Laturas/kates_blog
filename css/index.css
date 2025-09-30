@@ -37,9 +37,9 @@ main {
 	flex-flow: column;
 	align-self: center;
 	font-size: 24pt;
-	height: 210px;
 	margin: 0px;
 	align-items: center;
+	text-align: center;
 	> a {
 		color: white;
 		text-decoration: none;
@@ -83,9 +83,15 @@ main {
 .socials {
 	display: flex;
 	flex-flow: row;
+	flex-wrap: wrap;
 	justify-content: space-between;
 	width: 350px;
 	> a {
+		display: flex;
+		flex: 0 0 50%;
+		justify-content: center;
+		align-self: center;
+		margin-bottom: 20px;
 		background-color: rgba(18, 14, 120, 0);
 		width: 56px;
 		height: 56px;
