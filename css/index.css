@@ -5,8 +5,14 @@ html {
 	font-size: 16px;
 	line-height: 1.5;
 }
+#background-canvas {
+	z-index: -1;
+	pointer-events: none;
+	position: fixed;
+}
 body {
-	background: linear-gradient(to right, #0006, transparent, #0006), url(../media/snowfall_gradient.png);
+	/* background: linear-gradient(to right, #0006, transparent, #0006), url(../media/snowfall_gradient.png); */
+	background: linear-gradient(to right, #0006, transparent, #0006), rgb(40, 42, 68);
 	display: flex;
 	flex-flow: column;
 	color: white;
