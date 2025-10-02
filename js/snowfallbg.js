@@ -10,18 +10,17 @@ const density = 1 / 2000;
 
 function draw_snowfall_bg() {
     context.clearRect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = 'rgba(255, 255, 255, 0.5)';
 
-    for (i = 0; i < (canvas.width * canvas.height) * density; i++) {
+    for (let i = 0; i < (canvas.width * canvas.height) * density; i++) {
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height;
 
         const radius = Math.random() * 2;
         context.beginPath();
         context.arc(x, y, radius, 0, Math.PI * 2);
-        context.fillStyle = 'rgba(255, 255, 255, 0.5)';
         context.fill();
     }
-
 }
 
 function resize_canvas() {
@@ -29,6 +28,7 @@ function resize_canvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         draw_snowfall_bg();
+        return;
     }
     if (window.innerHeight - canvas.height > max_pixel_difference_to_recalculate) {
         canvas.width = window.innerWidth;
@@ -38,4 +38,4 @@ function resize_canvas() {
 }
 window.addEventListener('resize', resize_canvas);
 
-resize_canvas(); draw_snowfall_bg();
+resize_canvas();

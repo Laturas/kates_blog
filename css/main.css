@@ -148,7 +148,7 @@ tr:last-of-type td {
 	width: 40%;
 	text-align: center; }*/
 sub-block {
-	color: rgb(209, 212, 235);
+	color: white;
 	background-color: rgb(87, 93, 187);
 	margin-top: 12px;
 	border: solid rgb(63, 72, 149) 2px;
@@ -163,7 +163,7 @@ sub-block {
 	}
 }
 centered-sub-block {
-	color: rgb(209, 212, 235);
+	color: white;
 	background-color: rgb(87, 93, 187);
 	margin-top: 12px;
 	border: solid rgb(63, 72, 149) 2px;
@@ -181,7 +181,7 @@ centered-sub-block {
 	}
 }
 .proof-button {
-	color: rgb(209, 212, 235);
+	color: white;
 	background-color: rgb(114, 121, 214);
 	margin: 15px;
 	border: solid rgb(63, 72, 149) 2px;
