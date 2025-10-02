@@ -1,0 +1,6 @@
+User-agent: * 
+Disallow: /css/
+Disallow: /js/
+Disallow: /media/
+Disallow: .gitignore
+Disallow: /articles/_*
