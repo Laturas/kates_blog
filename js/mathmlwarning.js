@@ -1,0 +1,2 @@
+function mml_sup() {return document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mtable').hasOwnProperty('rowalign');}
+if (!mml_sup()) {const newSB = document.createElement("sub-block");newSB.textContent = "WARNING: Your browser does not have MathML support. This can be because of lockdown mode on IPhones. Formatting may not work for any math statements (which this article has).";document.body.prepend(newSB);}

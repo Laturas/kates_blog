@@ -56,7 +56,7 @@ Gaze not into the abyss of arithmetical statements, or it will gaze back.
                     That's where Scott Aaronson's Beeping Turing Machines come in. We can move one level up and ask if a specific state is reached infinitely often. Or, for all times that state is reached, there exists a following step for which that state is reached again. The machine "quasihalts" if the state is only reached finitely many times.
                 </p>
                 <p>
-                    You can encode a lot more problems using this construction, but eventually you again run into a wall. How would you encode the problem, "for all collatz maps defined by k (map an integer n to <span><span><math><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mi>k</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo><mi>n</mi><mo>+</mo><mn>1</mn></mrow></semantics></math></span></span> if n is odd, <span><span><math><semantics><mrow><mfrac><mi>n</mi><mn>2</mn></mfrac></mrow></semantics></math></span></span> if it's even), there exists an integer such that repeatedly applying this rule goes to infinity"?
+                    You can encode a lot more problems using this construction, but eventually you again run into a wall. How would you encode the problem, "for all collatz maps defined by k (map an integer n to <span class="katex"><span><math><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mi>k</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo><mi>n</mi><mo>+</mo><mn>1</mn></mrow></semantics></math></span></span> if n is odd, <span class="katex"><span><math><semantics><mrow><mfrac><mi>n</mi><mn>2</mn></mfrac></mrow></semantics></math></span></span> if it's even), there exists an integer such that repeatedly applying this rule goes to infinity"?
                 </p>
 <p>
 A new construction was created by Bram Cohen, named the Beeping Booping Turing Machine. Every time you reach a boop state, count how many times a beep state was reached previously and output that number. The machine "pseudoquasihalts" if there exists a number that is output infinitely often.
@@ -122,34 +122,34 @@ And for those of you that want a more rigorous, mathematically precise definitio
 <strong>Definition 1:</strong> Order-n Halting Problem (rigorous)
 </p>
 <p>
-Let <span><span><math><semantics><mrow><mi>i</mi><msub><mo>≡</mo><mi>n</mi></msub><mi>j</mi><mo>↔</mo><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false">(</mo><mi>j</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+Let <span class="katex"><span><math><semantics><mrow><mi>i</mi><msub><mo>≡</mo><mi>n</mi></msub><mi>j</mi><mo>↔</mo><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false">(</mo><mi>j</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
 <br>
-Let <span><span><math><semantics><mrow><msub><mi>S</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo><mo>=</mo></mrow></semantics></math></span></span> the amount of i such that the <span><span><math><semantics><mrow><mi>i</mi></mrow></semantics></math></span></span>-th order-n sound is between the <span><span><math><semantics><mrow><mi>m</mi></mrow></semantics></math></span></span>-th pair of consecutive order-(n+1) sounds and i is in an infinite n-equivalence class (i.e. <span><span><math><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false">(</mo><mi>j</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> for infinitely many <span><span><math><semantics><mrow><mi>j</mi></mrow></semantics></math></span></span>)
+Let <span class="katex"><span><math><semantics><mrow><msub><mi>S</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo><mo>=</mo></mrow></semantics></math></span></span> the amount of i such that the <span class="katex"><span><math><semantics><mrow><mi>i</mi></mrow></semantics></math></span></span>-th order-n sound is between the <span class="katex"><span><math><semantics><mrow><mi>m</mi></mrow></semantics></math></span></span>-th pair of consecutive order-(n+1) sounds and i is in an infinite n-equivalence class (i.e. <span class="katex"><span><math><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false">(</mo><mi>j</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> for infinitely many <span class="katex"><span><math><semantics><mrow><mi>j</mi></mrow></semantics></math></span></span>)
 <br><br>
-order-(2n) halt on the <span><span><math><semantics><mrow><mi>i</mi></mrow></semantics></math></span></span>-th order-n sound, where i is the minimum of the union of infinite n-equivalence classes (i.e. <span><span><math><semantics><mrow><mi>i</mi></mrow></semantics></math></span></span> is minimal such that <span><span><math><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false">(</mo><mi>j</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> for infinitely many <span><span><math><semantics><mrow><mi>j</mi></mrow></semantics></math></span></span>)
+order-(2n) halt on the <span class="katex"><span><math><semantics><mrow><mi>i</mi></mrow></semantics></math></span></span>-th order-n sound, where i is the minimum of the union of infinite n-equivalence classes (i.e. <span class="katex"><span><math><semantics><mrow><mi>i</mi></mrow></semantics></math></span></span> is minimal such that <span class="katex"><span><math><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false">(</mo><mi>j</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> for infinitely many <span class="katex"><span><math><semantics><mrow><mi>j</mi></mrow></semantics></math></span></span>)
 <br><br>
-order-(2n+1) halt on the <span><span><math><semantics><mrow><mo stretchy="false">(</mo><mi>i</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>-th order-n sound, where i is the maximum of the set of finite n-equivalence classes. (i.e. <span><span><math><semantics><mrow><mi>i</mi></mrow></semantics></math></span></span> is maximal such that <span><span><math><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false">(</mo><mi>j</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> for only finitely many <span><span><math><semantics><mrow><mi>j</mi></mrow></semantics></math></span></span> and <span><span><math><semantics><mrow><mi>i</mi></mrow></semantics></math></span></span> is maximal for all such <span><span><math><semantics><mrow><mi>j</mi></mrow></semantics></math></span></span>)
+order-(2n+1) halt on the <span class="katex"><span><math><semantics><mrow><mo stretchy="false">(</mo><mi>i</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>-th order-n sound, where i is the maximum of the set of finite n-equivalence classes. (i.e. <span class="katex"><span><math><semantics><mrow><mi>i</mi></mrow></semantics></math></span></span> is maximal such that <span class="katex"><span><math><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false">(</mo><mi>j</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> for only finitely many <span class="katex"><span><math><semantics><mrow><mi>j</mi></mrow></semantics></math></span></span> and <span class="katex"><span><math><semantics><mrow><mi>i</mi></mrow></semantics></math></span></span> is maximal for all such <span class="katex"><span><math><semantics><mrow><mi>j</mi></mrow></semantics></math></span></span>)
 </p>
 </sub-block>
 <p>
 And now, I offer a proof that any statement on the arithmetical hierarchy can be encoded as a sufficiently strong halting problem with the above construction.
 </p>
 <p>
-<strong>Theorem:</strong> Any <span><span><math><semantics><mrow><msub><mi mathvariant="normal">Σ</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></semantics></math></span></span> statement can be encoded into the halting problem of an order-n turing machine.
+<strong>Theorem:</strong> Any <span class="katex"><span><math><semantics><mrow><msub><mi mathvariant="normal">Σ</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></semantics></math></span></span> statement can be encoded into the halting problem of an order-n turing machine.
 </p>
 <p>
 <strong>WARNING: </strong>This proof is wrong. I have not had the time to go back and correct it yet. However, the theorem should still be true.
 </p>
 <button id="btn_turing_jmp_proof" class="proof-button"></button>
 <sub-block id="turing_jmp_proof">
-<p><strong>Case 1:</strong> <span><span><math><semantics><mrow><mi>n</mi><mo>=</mo><mn>2</mn><mi>k</mi></mrow></semantics></math></span></span></p>
+<p><strong>Case 1:</strong> <span class="katex"><span><math><semantics><mrow><mi>n</mi><mo>=</mo><mn>2</mn><mi>k</mi></mrow></semantics></math></span></span></p>
 <p>
-Let a <span><span><math><semantics><mrow><msub><mi mathvariant="normal">Σ</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></semantics></math></span></span> statement exist of the form <span><span><math><semantics><mrow><mo stretchy="false">(</mo><mi mathvariant="normal">∃</mi><mi>a</mi><mi mathvariant="normal">∀</mi><mi>b</mi><mi mathvariant="normal">∃</mi><mi>c</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">∀</mi><mi>n</mi><mi mathvariant="normal">∃</mi><mi>o</mi><mo stretchy="false">)</mo><mi>P</mi><mo stretchy="false">(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mo separator="true">,</mo><mi>d</mi><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+Let a <span class="katex"><span><math><semantics><mrow><msub><mi mathvariant="normal">Σ</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></semantics></math></span></span> statement exist of the form <span class="katex"><span><math><semantics><mrow><mo stretchy="false">(</mo><mi mathvariant="normal">∃</mi><mi>a</mi><mi mathvariant="normal">∀</mi><mi>b</mi><mi mathvariant="normal">∃</mi><mi>c</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">∀</mi><mi>n</mi><mi mathvariant="normal">∃</mi><mi>o</mi><mo stretchy="false">)</mo><mi>P</mi><mo stretchy="false">(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mo separator="true">,</mo><mi>d</mi><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
 Let each variable be a unique natural number mapped to that number. Now, define a machine that enumerates every statement of that form (which is possible because any set of n-tuples is countable).
 </p>
 <p>
-Now we need to assign sounds. For each existential variable, assign a sound in decreasing order. Every time a statement is satisfied, start at the last existential variable (call it <span><span><math><semantics><mrow><mi>e</mi></mrow></semantics></math></span></span>) and work upward.
-Existential variable <span><span><math><semantics><mrow><mi>e</mi></mrow></semantics></math></span></span> will have an an order-i sound associated with it. Make the order-(i) sound <span><span><math><semantics><mrow><mi>e</mi></mrow></semantics></math></span></span> times and then move up to the next existential variable, and repeat. However, only make the highest order sound once.
+Now we need to assign sounds. For each existential variable, assign a sound in decreasing order. Every time a statement is satisfied, start at the last existential variable (call it <span class="katex"><span><math><semantics><mrow><mi>e</mi></mrow></semantics></math></span></span>) and work upward.
+Existential variable <span class="katex"><span><math><semantics><mrow><mi>e</mi></mrow></semantics></math></span></span> will have an an order-i sound associated with it. Make the order-(i) sound <span class="katex"><span><math><semantics><mrow><mi>e</mi></mrow></semantics></math></span></span> times and then move up to the next existential variable, and repeat. However, only make the highest order sound once.
 </p>
 <p>
 Define the machine to order-n halt in accordance with the "even case" definition.
@@ -159,11 +159,11 @@ If the statement is true, then there exists a set of existential variables that 
 If the statement is false, then any set of existential variables can only be satisfied a finite number of times and thus any sequence of order-k sound will only play finitely many times. This indicates the machine will never order-n halt.
 </p>
 <p>
-Therefore this machine's order-n halting problem is equivalent to the <span><span><math><semantics><mrow><msub><mi mathvariant="normal">Σ</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></semantics></math></span></span> statement.
+Therefore this machine's order-n halting problem is equivalent to the <span class="katex"><span><math><semantics><mrow><msub><mi mathvariant="normal">Σ</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></semantics></math></span></span> statement.
 </p>
-<p><strong>Case 2:</strong> <span><span><math><semantics><mrow><mi>n</mi><mo>=</mo><mn>2</mn><mi>k</mi><mo>+</mo><mn>1</mn></mrow></semantics></math></span></span></p>
+<p><strong>Case 2:</strong> <span class="katex"><span><math><semantics><mrow><mi>n</mi><mo>=</mo><mn>2</mn><mi>k</mi><mo>+</mo><mn>1</mn></mrow></semantics></math></span></span></p>
 <p>
-Let a <span><span><math><semantics><mrow><msub><mi mathvariant="normal">Π</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></semantics></math></span></span> statement exist of the form <span><span><math><semantics><mrow><mo stretchy="false">(</mo><mi mathvariant="normal">∀</mi><mi>a</mi><mi mathvariant="normal">∃</mi><mi>b</mi><mi mathvariant="normal">∀</mi><mi>c</mi><mi mathvariant="normal">∃</mi><mi>d</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">∀</mi><mi>n</mi><mi mathvariant="normal">∃</mi><mi>o</mi><mo stretchy="false">)</mo><mi>P</mi><mo stretchy="false">(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mo separator="true">,</mo><mi>d</mi><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.
+Let a <span class="katex"><span><math><semantics><mrow><msub><mi mathvariant="normal">Π</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></semantics></math></span></span> statement exist of the form <span class="katex"><span><math><semantics><mrow><mo stretchy="false">(</mo><mi mathvariant="normal">∀</mi><mi>a</mi><mi mathvariant="normal">∃</mi><mi>b</mi><mi mathvariant="normal">∀</mi><mi>c</mi><mi mathvariant="normal">∃</mi><mi>d</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">∀</mi><mi>n</mi><mi mathvariant="normal">∃</mi><mi>o</mi><mo stretchy="false">)</mo><mi>P</mi><mo stretchy="false">(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mo separator="true">,</mo><mi>d</mi><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.
 Similarly to the previous case, let each variable be a unique natural number mapped to that number. Again define a machine that enumerates every statement and assign all sounds in the same way.
 </p>
 <p>
@@ -171,13 +171,13 @@ Define the machine to order-n halt in accordance with the "odd case" definition.
 </p>
 <p>
 If the statement is true, then there exists infinitely many existential variables that will allow the statement to always be satisfied regardless of the other forall statements. This means there exists infinitely many sequences of order-k sound for each order-(k+1) sound that will always be played and the machine will not order-n halt.
-If the statement is false, then there exists only finitely many values of <span><span><math><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> for which there are existential variables that can satisfy all lower <span><span><math><semantics><mrow><mi mathvariant="normal">∀</mi></mrow></semantics></math></span></span> quantifiers. This indicates the machine will eventually order-n halt as it will have encountered all finitely many such values.
+If the statement is false, then there exists only finitely many values of <span class="katex"><span><math><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> for which there are existential variables that can satisfy all lower <span class="katex"><span><math><semantics><mrow><mi mathvariant="normal">∀</mi></mrow></semantics></math></span></span> quantifiers. This indicates the machine will eventually order-n halt as it will have encountered all finitely many such values.
 </p>
 <p>
-Therefore this machine's order-n halting problem is equivalent to the negation of the <span><span><math><semantics><mrow><msub><mi mathvariant="normal">Π</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></semantics></math></span></span> statement which is a <span><span><math><semantics><mrow><msub><mi mathvariant="normal">Σ</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></semantics></math></span></span> problem.
+Therefore this machine's order-n halting problem is equivalent to the negation of the <span class="katex"><span><math><semantics><mrow><msub><mi mathvariant="normal">Π</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></semantics></math></span></span> statement which is a <span class="katex"><span><math><semantics><mrow><msub><mi mathvariant="normal">Σ</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></semantics></math></span></span> problem.
 </p>
 <p>
-<strong>Remark:</strong> The order-0 and order-1 cases are special because the only cases with only 1 existential quantifier. However, these are both well known to encode any <span><span><math><semantics><mrow><msub><mi mathvariant="normal">Σ</mi><mn>1</mn></msub></mrow></semantics></math></span></span> and <span><span><math><semantics><mrow><msub><mi mathvariant="normal">Π</mi><mn>2</mn></msub></mrow></semantics></math></span></span> statement respectively so those cases works too.
+<strong>Remark:</strong> The order-0 and order-1 cases are special because the only cases with only 1 existential quantifier. However, these are both well known to encode any <span class="katex"><span><math><semantics><mrow><msub><mi mathvariant="normal">Σ</mi><mn>1</mn></msub></mrow></semantics></math></span></span> and <span class="katex"><span><math><semantics><mrow><msub><mi mathvariant="normal">Π</mi><mn>2</mn></msub></mrow></semantics></math></span></span> statement respectively so those cases works too.
 </p>
 <p>
 <strong>QED</strong>
@@ -209,7 +209,7 @@ Define the base case order-1 sound to always have a value of 1.
 Now, to derive the next highest value, take the number that corresponds to the value of each previous lower order sound, and based on the position in the list, and raise it to the power of the next prime number. Then multiply them all together to get the new value for the higher order sound.
 </p>
 <p>
-As an example, for an order 3 construction, if you had "(buzz) 3 5 5 7 (buzz)" the value of the second buzz would be <span><span><math><semantics><mrow><msup><mn>2</mn><mn>3</mn></msup><mo>⋅</mo><msup><mn>3</mn><mn>5</mn></msup><mo>⋅</mo><msup><mn>5</mn><mn>5</mn></msup><mo>⋅</mo><msup><mn>7</mn><mn>7</mn></msup></mrow></semantics></math></span></span>
+As an example, for an order 3 construction, if you had "(buzz) 3 5 5 7 (buzz)" the value of the second buzz would be <span class="katex"><span><math><semantics><mrow><msup><mn>2</mn><mn>3</mn></msup><mo>⋅</mo><msup><mn>3</mn><mn>5</mn></msup><mo>⋅</mo><msup><mn>5</mn><mn>5</mn></msup><mo>⋅</mo><msup><mn>7</mn><mn>7</mn></msup></mrow></semantics></math></span></span>
 </p>
 <p>
 You can continue on, creating larger and larger towers where the height of the exponential tower corresponds to the order of the sound - 1. At all stages, a unique value will be defined based on the order, value, and count of each lower level sound by the fundamental theorem of arithmetic. A nice property is that aside from needing to distinguish between different kinds of "1"s, a value of order n only needs to look at towers of height n - 1.
@@ -225,7 +225,7 @@ QED
 <strong>"Why the distinction between the odd and even case?"</strong>
 </p>
 <p>
-Because the arithmetical hierarchy makes that distinction. A <span><span><math><semantics><mrow><msub><mi mathvariant="normal">Π</mi><mn>1</mn></msub></mrow></semantics></math></span></span> statement corresponds to "<span><span><math><semantics><mrow><mi mathvariant="normal">∀</mi></mrow></semantics></math></span></span>", <span><span><math><semantics><mrow><msub><mi mathvariant="normal">Π</mi><mn>2</mn></msub></mrow></semantics></math></span></span> corresponds to "<span><span><math><semantics><mrow><mi mathvariant="normal">∀</mi><mi mathvariant="normal">∃</mi></mrow></semantics></math></span></span>", <span><span><math><semantics><mrow><msub><mi mathvariant="normal">Π</mi><mn>3</mn></msub></mrow></semantics></math></span></span> corresponds to "<span><span><math><semantics><mrow><mi mathvariant="normal">∀</mi><mi mathvariant="normal">∃</mi><mi mathvariant="normal">∀</mi></mrow></semantics></math></span></span>" and so on. The value of the last quantifier depends on the parity of the n in <span><span><math><semantics><mrow><msub><mi mathvariant="normal">Π</mi><mi>n</mi></msub></mrow></semantics></math></span></span>.
+Because the arithmetical hierarchy makes that distinction. A <span class="katex"><span><math><semantics><mrow><msub><mi mathvariant="normal">Π</mi><mn>1</mn></msub></mrow></semantics></math></span></span> statement corresponds to "<span class="katex"><span><math><semantics><mrow><mi mathvariant="normal">∀</mi></mrow></semantics></math></span></span>", <span class="katex"><span><math><semantics><mrow><msub><mi mathvariant="normal">Π</mi><mn>2</mn></msub></mrow></semantics></math></span></span> corresponds to "<span class="katex"><span><math><semantics><mrow><mi mathvariant="normal">∀</mi><mi mathvariant="normal">∃</mi></mrow></semantics></math></span></span>", <span class="katex"><span><math><semantics><mrow><msub><mi mathvariant="normal">Π</mi><mn>3</mn></msub></mrow></semantics></math></span></span> corresponds to "<span class="katex"><span><math><semantics><mrow><mi mathvariant="normal">∀</mi><mi mathvariant="normal">∃</mi><mi mathvariant="normal">∀</mi></mrow></semantics></math></span></span>" and so on. The value of the last quantifier depends on the parity of the n in <span class="katex"><span><math><semantics><mrow><msub><mi mathvariant="normal">Π</mi><mi>n</mi></msub></mrow></semantics></math></span></span>.
 I think it's perfectly natural to think that higher order halting problems should make the distinction.
 </p>
 <p>
@@ -256,7 +256,7 @@ Let's look back at our criterion
 <br>
 In my opinion, this is a very nice property.
 <br><br>
-- There is a nice correspondence between number of sounds and arithmetical strength. You need exactly <span><span><math><semantics><mrow><mo stretchy="false">⌊</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>2</mn><mo stretchy="false">⌋</mo></mrow></semantics></math></span></span> sounds to encode any statement of <span><span><math><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span> strength.
+- There is a nice correspondence between number of sounds and arithmetical strength. You need exactly <span class="katex"><span><math><semantics><mrow><mo stretchy="false">⌊</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>2</mn><mo stretchy="false">⌋</mo></mrow></semantics></math></span></span> sounds to encode any statement of <span class="katex"><span><math><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span> strength.
 <br><br>
 - Each jump in strength is trivial. You add one sound on the odd cases and a question associated with that sound. You don't even need to define the notion of an oracle to describe a machine's order-n halting problem.
 <br><br>
@@ -322,15 +322,15 @@ Higher Order Busy Beavers and Notation
 <p>
 We can define higher order busy beaver functions now, using these higher order halting problems.
 <br><br>
-Let <span><span><math><semantics><mrow><msub><mtext>BB</mtext><mi>k</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> denote the greatest number of steps made by an n-state turing machine with k unique sounds before order-k halting.
-I suspect very few values of these are truly solvable beyond the initial busy beaver domain. You may have more luck with <span><span><math><semantics><mrow><msub><mtext>BBi</mtext><mi>k</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, where in this case
+Let <span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mi>k</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> denote the greatest number of steps made by an n-state turing machine with k unique sounds before order-k halting.
+I suspect very few values of these are truly solvable beyond the initial busy beaver domain. You may have more luck with <span class="katex"><span><math><semantics><mrow><msub><mtext>BBi</mtext><mi>k</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, where in this case
 n denotes the number of instructions.
 </p>
 <h3>
 Properties of Higher Order Busy Beavers
 </h3>
 <p>
-<strong>Theorem 1:</strong> Each <span><span><math><semantics><mrow><msub><mtext>BB</mtext><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> grows uncomputably faster than <span><span><math><semantics><mrow><msub><mtext>BB</mtext><mi>k</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> for all k. This is true because if you had a function that acted as a combination of <span><span><math><semantics><mrow><msub><mtext>BB</mtext><mi>k</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and any computable function, you could bound <span><span><math><semantics><mrow><msub><mtext>BB</mtext><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and solve the order-(k+1) halting problem with only an order-k halting oracle, which is impossible.
+<strong>Theorem 1:</strong> Each <span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> grows uncomputably faster than <span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mi>k</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> for all k. This is true because if you had a function that acted as a combination of <span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mi>k</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and any computable function, you could bound <span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and solve the order-(k+1) halting problem with only an order-k halting oracle, which is impossible.
 </p>
 <p>
 <strong>Theorem 2:</strong> For even n, determining whether a machine has order-(n+1) halted is as hard as solving the order-n halting problem. For odd n, determining whether a machine has order-(n+1) halted is as hard as solving the order-n halting problem.
@@ -362,10 +362,10 @@ QED
 </p>
 </sub-block>
 <p>
-<strong>Remark:</strong> I cannot find a way to prove <span><span><math><semantics><mrow><msub><mtext>BB</mtext><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>≥</mo><msub><mtext>BB</mtext><mi>k</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> for all k and n. I conjecture this may be because it's actually false in general, and there may be some obscure case where this fails. If you do have a proof (even if it's just for the even or odd case) please send it my way! However, I can prove the following:
+<strong>Remark:</strong> I cannot find a way to prove <span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>≥</mo><msub><mtext>BB</mtext><mi>k</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> for all k and n. I conjecture this may be because it's actually false in general, and there may be some obscure case where this fails. If you do have a proof (even if it's just for the even or odd case) please send it my way! However, I can prove the following:
 </p>
 <p>
-<strong>Theorem 3: </strong> <span><span><math><semantics><mrow><msub><mtext>BB</mtext><mi>k</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>≤</mo><msub><mtext>BB</mtext><mrow><mi>k</mi><mo>+</mo><mn>2</mn></mrow></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> for all k and n. This is necessarily true, because one can shift up the order of all the sounds by 2 and not include either of the 2 lowest order sounds. This gives an identical halting problem. My definitions don't stipulate that a higher order machine needs all of the lower order sounds, you'll just get a more boring machine.
+<strong>Theorem 3: </strong> <span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mi>k</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>≤</mo><msub><mtext>BB</mtext><mrow><mi>k</mi><mo>+</mo><mn>2</mn></mrow></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> for all k and n. This is necessarily true, because one can shift up the order of all the sounds by 2 and not include either of the 2 lowest order sounds. This gives an identical halting problem. My definitions don't stipulate that a higher order machine needs all of the lower order sounds, you'll just get a more boring machine.
 
 </p>
 <h3>
@@ -425,7 +425,7 @@ This is why I propose this alternative notation in which you index sound levels 
 I personally lean more towards the lowercase letter notation to prevent future confusion, but I would love to hear what people think on this.
 </p>
 <h3>
-Known values of <span><span><math><semantics><mrow><msub><mtext>BB</mtext><mi>k</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+Known values of <span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mi>k</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
 </h3>
 <hr>
 <table>
@@ -433,29 +433,29 @@ Known values of <span><span><math><semantics><mrow><msub><mtext>BB</mtext><mi>k<
 <th>Domain</th> <th>n=1</th> <th>n=2</th> <th>n=3</th> <th>n=4</th>
 </tr>
 <tr>
-<td><span><span><math><semantics><mrow><msub><mtext>BB</mtext><mn>0</mn></msub></mrow></semantics></math></span></span></td> <td>1</td> <td>6</td> <td>21</td> <td>107</td>
+<td><span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mn>0</mn></msub></mrow></semantics></math></span></span></td> <td>1</td> <td>6</td> <td>21</td> <td>107</td>
 </tr>
 <tr>
-<td><span><span><math><semantics><mrow><msub><mtext>BB</mtext><mn>1</mn></msub></mrow></semantics></math></span></span></td> <td>1</td> <td>6</td> <td>55</td> <td><span><span><math><semantics><mrow><mo>≥</mo><mn>32</mn><mo separator="true">,</mo><mn>779</mn><mo separator="true">,</mo><mn>478</mn></mrow></semantics></math></span></span></td>
+<td><span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mn>1</mn></msub></mrow></semantics></math></span></span></td> <td>1</td> <td>6</td> <td>55</td> <td><span class="katex"><span><math><semantics><mrow><mo>≥</mo><mn>32</mn><mo separator="true">,</mo><mn>779</mn><mo separator="true">,</mo><mn>478</mn></mrow></semantics></math></span></span></td>
 </tr>
 <tr>
-<td><span><span><math><semantics><mrow><msub><mtext>BB</mtext><mn>2</mn></msub></mrow></semantics></math></span></span></td> <td>2</td> <td>17</td> <td>???</td> <td>???</td>
+<td><span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mn>2</mn></msub></mrow></semantics></math></span></span></td> <td>2</td> <td>17</td> <td>???</td> <td>???</td>
 </tr>
 <tr>
-<td><span><span><math><semantics><mrow><msub><mtext>BB</mtext><mn>3</mn></msub></mrow></semantics></math></span></span></td> <td>2</td> <td><span><span><math><semantics><mrow><mo>≥</mo><mn>18</mn></mrow></semantics></math></span></span></td> <td>???</td> <td>???</td>
+<td><span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mn>3</mn></msub></mrow></semantics></math></span></span></td> <td>2</td> <td><span class="katex"><span><math><semantics><mrow><mo>≥</mo><mn>18</mn></mrow></semantics></math></span></span></td> <td>???</td> <td>???</td>
 </tr>
 </tbody></table>
 <p>
-As mentioned earlier, very few values of higher order busy beavers are known! While these problems get incredibly hard very quickly, I would hope that <span><span><math><semantics><mrow><msub><mtext>BB</mtext><mn>1</mn></msub><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><msub><mtext>BB</mtext><mn>2</mn></msub><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><msub><mtext>BB</mtext><mn>3</mn></msub><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><msub><mtext>BB</mtext><mn>4</mn></msub><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> can all be solved.
+As mentioned earlier, very few values of higher order busy beavers are known! While these problems get incredibly hard very quickly, I would hope that <span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mn>1</mn></msub><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><msub><mtext>BB</mtext><mn>2</mn></msub><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><msub><mtext>BB</mtext><mn>3</mn></msub><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><msub><mtext>BB</mtext><mn>4</mn></msub><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> can all be solved.
 </p>
 <p>
-The current value for <span><span><math><semantics><mrow><msub><mtext>BB</mtext><mn>2</mn></msub><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> comes from <tm-code>1RB01LA0_0LA11RA2</tm-code> / <tm-code>1RBa1LAa_0LAb1RAc</tm-code> as proven by discord user racheline
+The current value for <span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mn>2</mn></msub><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> comes from <tm-code>1RB01LA0_0LA11RA2</tm-code> / <tm-code>1RBa1LAa_0LAb1RAc</tm-code> as proven by discord user racheline
 </p>
 <p>
-The current bound for <span><span><math><semantics><mrow><msub><mtext>BB</mtext><mn>3</mn></msub><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> comes from <tm-code>1RBb0LBd_1LAc1RAa</tm-code>
+The current bound for <span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mn>3</mn></msub><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> comes from <tm-code>1RBb0LBd_1LAc1RAa</tm-code>
 </p>
 <p>
-I think the possibility that you encounter cryptids by <span><span><math><semantics><mrow><msub><mtext>BB</mtext><mn>2</mn></msub><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> or <span><span><math><semantics><mrow><msub><mtext>BB</mtext><mn>3</mn></msub><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> is real.
+I think the possibility that you encounter cryptids by <span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mn>2</mn></msub><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> or <span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mn>3</mn></msub><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> is real.
 </p>
 <p>
 Extending this to solve multi-symbol machines would also be a worthwhile endeavor! As far as I know, research into higher order multi-symbol machines is basically nonexistent as of this moment.
@@ -487,12 +487,12 @@ A Quick Note for the Googologists
 </h2>
 <hr>
 <p>
-Using the multi-beep construction, we've defined all <span><span><math><semantics><mrow><msub><mtext>BB</mtext><mi>k</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> for all natural k and n. But now, some may get the temptation to start climbing highter.
+Using the multi-beep construction, we've defined all <span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mi>k</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> for all natural k and n. But now, some may get the temptation to start climbing highter.
 <br><br>
-Define the diagonalized <span><span><math><semantics><mrow><msub><mtext>BB</mtext><mi>ω</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mtext>BB</mtext><mi>n</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>. This is a monstrously fast growing function, that has to eventually outgrow all uncomputably faster growing <span><span><math><semantics><mrow><msub><mtext>BB</mtext><mi>k</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> functions with only finite k.
+Define the diagonalized <span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mi>ω</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mtext>BB</mtext><mi>n</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>. This is a monstrously fast growing function, that has to eventually outgrow all uncomputably faster growing <span class="katex"><span><math><semantics><mrow><msub><mtext>BB</mtext><mi>k</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> functions with only finite k.
 </p>
 <p>
-Some of you may be thinking about the fast growing hierarchy seeing that, and it does feel very similar! However, I haven't found a way to generalize this notion to higher and higher ordinals while keeping in spirit with what the <span><span><math><semantics><mrow><mi>k</mi></mrow></semantics></math></span></span> represents. I'm leaving that as an exercise to the reader :)
+Some of you may be thinking about the fast growing hierarchy seeing that, and it does feel very similar! However, I haven't found a way to generalize this notion to higher and higher ordinals while keeping in spirit with what the <span class="katex"><span><math><semantics><mrow><mi>k</mi></mrow></semantics></math></span></span> represents. I'm leaving that as an exercise to the reader :)
 </p>
 <p>
 Scott Aaronson noted in his blog post <a href="https://www.scottaaronson.com/writings/bignumbers.html">Who Can Name the Bigger Number?</a> the following:
@@ -500,11 +500,11 @@ Scott Aaronson noted in his blog post <a href="https://www.scottaaronson.com/wri
 <sub-block>
 "You might think that now, in the biggest-number contest, you could obliterate even an opponent who uses the Busy Beaver sequence by writing something like this:
 
-<span class="katex-display"><span><span><math display="block"><semantics><mrow><mi>B</mi><msub><mi>B</mi><mn>2</mn></msub><mo stretchy="false">(</mo><mn>11111</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span></span>
+<span class="katex-display"><span class="katex"><span><math display="block"><semantics><mrow><mi>B</mi><msub><mi>B</mi><mn>2</mn></msub><mo stretchy="false">(</mo><mn>11111</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span></span>
 The problem is that I've never seen these "higher-level Busy Beavers" defined anywhere, probably because, to people who know computability theory, they're a fairly obvious extension of the ordinary Busy Beaver numbers. So our reasonable modern mathematician wouldn't know what number you were naming."
 </sub-block>
 <p>
-In keeping with this statement, I'll now define a number <span><span><math><semantics><mrow><mi>D</mi><mo>=</mo><msub><mtext>BB</mtext><mi>ω</mi></msub><mo stretchy="false">(</mo><msup><mn>10</mn><mn>100</mn></msup><mo stretchy="false">)</mo></mrow></semantics></math></span></span>. This is a very big number. A big dam number, if you will! It is however certainly smaller than the likes of Rayo's number
+In keeping with this statement, I'll now define a number <span class="katex"><span><math><semantics><mrow><mi>D</mi><mo>=</mo><msub><mtext>BB</mtext><mi>ω</mi></msub><mo stretchy="false">(</mo><msup><mn>10</mn><mn>100</mn></msup><mo stretchy="false">)</mo></mrow></semantics></math></span></span>. This is a very big number. A big dam number, if you will! It is however certainly smaller than the likes of Rayo's number
 </p>
 <h2>
 Special Thanks
@@ -559,4 +559,5 @@ te(tonemap_pressed, 'btn_tonemap_proof', 'tonemap_proof');
 te(tonemap_pressed, 'btn_tonemap_proof', 'tonemap_proof');
 </script>
 <script defer="" src="../js/snowfallbg.js"></script>
+<script defer="" src="../js/mathmlwarning.js"></script>
 </body></html>

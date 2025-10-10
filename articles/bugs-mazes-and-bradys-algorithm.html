@@ -54,7 +54,7 @@ First, it looks around and finds the cell it has been to the least and will move
 If there is a tie, and one of the tied cells is in the same direction it moved previously, it will move to that cell.
 If none of the tied cells are in the same direction it moved previously, it will choose based on the following (decreasing) priority: Down, Right, Up, Left.
 <br><br>
-If the maze is <span><span><math><semantics><mrow><mi>m</mi><mo>×</mo><mi>n</mi></mrow></semantics></math></span></span>, the bug starts in the top left corner, and has to reach the bottom right corner to escape, what is the maze configuration that takes the bug the longest to escape?
+If the maze is <span class="katex"><span><math><semantics><mrow><mi>m</mi><mo>×</mo><mi>n</mi></mrow></semantics></math></span></span>, the bug starts in the top left corner, and has to reach the bottom right corner to escape, what is the maze configuration that takes the bug the longest to escape?
 </sub-block>
 <p>
 I like this problem because it reminds me a lot of the Busy Beaver problem. However, this is significantly easier while still being challenging.
@@ -63,7 +63,7 @@ I like this problem because it reminds me a lot of the Busy Beaver problem. Howe
 The first way it's easier is that it's provably computable. If a path exists to the exit, the bug will always eventually find it. And if no path exists, that is provable by running a DFS starting from the top left cell.
 </p>
 <p>
-So theoretically, solving the problem is a matter of running an algorithm across all <span><span><math><semantics><mrow><msup><mn>2</mn><mrow><mi>m</mi><mi>n</mi><mo>−</mo><mn>2</mn></mrow></msup></mrow></semantics></math></span></span> configurations. However, this would of course, take forever as soon as <span><span><math><semantics><mrow><mi>m</mi><mi>n</mi></mrow></semantics></math></span></span> gets significantly large. We need a way to reduce the search space.
+So theoretically, solving the problem is a matter of running an algorithm across all <span class="katex"><span><math><semantics><mrow><msup><mn>2</mn><mrow><mi>m</mi><mi>n</mi><mo>−</mo><mn>2</mn></mrow></msup></mrow></semantics></math></span></span> configurations. However, this would of course, take forever as soon as <span class="katex"><span><math><semantics><mrow><mi>m</mi><mi>n</mi></mrow></semantics></math></span></span> gets significantly large. We need a way to reduce the search space.
 </p>
 <p>
 That's where what is quickly becoming my favorite algorithm comes in!
@@ -93,7 +93,7 @@ Consider the following maze:
 </centered-sub-block>
 <p>
 Where "#" = wall, " " = empty cell, "-" = undefined cell, and "*" = start or end cell. There are a lot of undefined cells, which means that it doesn't matter what they are. The bug will never
-need to interact with them. If we were brute forcing these configurations, we'd need to go through all <span><span><math><semantics><mrow><msup><mn>2</mn><mn>24</mn></msup></mrow></semantics></math></span></span> possibilities that all have this exact path. Is there a way to eliminate these duplicates?
+need to interact with them. If we were brute forcing these configurations, we'd need to go through all <span class="katex"><span><math><semantics><mrow><msup><mn>2</mn><mn>24</mn></msup></mrow></semantics></math></span></span> possibilities that all have this exact path. Is there a way to eliminate these duplicates?
 </p>
 <p>
 That's exactly what Brady's Algorithm does. The essence of Brady's Algorithm is that we start with a completely undefined grid of cells, and each time we enter an undefined cell, we fill it in with two copies.
@@ -104,7 +104,7 @@ The algorithm finishes once every configuration has either reached the end, or b
 For such a simple algorithm, it is remarkably effective. In fact I believe this is probably the most efficient possible way to enumerate every unique maze solution.
 </p>
 <p>
-I implemented this in C, and used it to solve the problem for <span><span><math><semantics><mrow><mn>7</mn><mo>×</mo><mn>7</mn></mrow></semantics></math></span></span> grids. The naiive brute-force solution would have required the checking of <span><span><math><semantics><mrow><msup><mn>2</mn><mn>47</mn></msup></mrow></semantics></math></span></span> possibilities, which is far too many for my computer
+I implemented this in C, and used it to solve the problem for <span class="katex"><span><math><semantics><mrow><mn>7</mn><mo>×</mo><mn>7</mn></mrow></semantics></math></span></span> grids. The naiive brute-force solution would have required the checking of <span class="katex"><span><math><semantics><mrow><msup><mn>2</mn><mn>47</mn></msup></mrow></semantics></math></span></span> possibilities, which is far too many for my computer
 to handle. Assuming a configuration takes 1 microsecond to check, I would have been waiting for roughly 4 and a half years! Instead, finding the champion only took an afternoon. That's with a suboptimal implementation too,
 there's a lot of room for improvement in my code (like not running a DFS every time an undefined cell is filled in).
 </p>
@@ -113,14 +113,14 @@ The Champions
 </h2>
 <hr>
 <p>
-The following are the champions for each <span><span><math><semantics><mrow><mi>n</mi><mo>×</mo><mi>n</mi></mrow></semantics></math></span></span> grid:
+The following are the champions for each <span class="katex"><span><math><semantics><mrow><mi>n</mi><mo>×</mo><mi>n</mi></mrow></semantics></math></span></span> grid:
 </p>
 <table>
 <tbody><tr>
 <th>Grid Size</th> <th>Grid</th> <th>Number of steps</th>
 </tr>
 <tr>
-<td><span><span><math><semantics><mrow><mn>3</mn><mo>×</mo><mn>3</mn></mrow></semantics></math></span></span></td>
+<td><span class="katex"><span><math><semantics><mrow><mn>3</mn><mo>×</mo><mn>3</mn></mrow></semantics></math></span></span></td>
 <td>
 <numbered-code-block>
 <code-line>#####</code-line>
@@ -132,7 +132,7 @@ The following are the champions for each <span><span><math><semantics><mrow><mi>
 </td> <td>8</td>
 </tr>
 <tr>
-<td><span><span><math><semantics><mrow><mn>4</mn><mo>×</mo><mn>4</mn></mrow></semantics></math></span></span></td> <td>
+<td><span class="katex"><span><math><semantics><mrow><mn>4</mn><mo>×</mo><mn>4</mn></mrow></semantics></math></span></span></td> <td>
 <numbered-code-block>
 <code-line>######</code-line>
 <code-line>#    #</code-line>
@@ -144,7 +144,7 @@ The following are the champions for each <span><span><math><semantics><mrow><mi>
 </td> <td>20</td>
 </tr>
 <tr>
-<td><span><span><math><semantics><mrow><mn>5</mn><mo>×</mo><mn>5</mn></mrow></semantics></math></span></span></td> <td>
+<td><span class="katex"><span><math><semantics><mrow><mn>5</mn><mo>×</mo><mn>5</mn></mrow></semantics></math></span></span></td> <td>
 <numbered-code-block>
 <code-line>#######</code-line>
 <code-line>#    ##</code-line>
@@ -157,7 +157,7 @@ The following are the champions for each <span><span><math><semantics><mrow><mi>
 </td> <td>42</td>
 </tr>
 <tr>
-<td><span><span><math><semantics><mrow><mn>6</mn><mo>×</mo><mn>6</mn></mrow></semantics></math></span></span></td> <td>
+<td><span class="katex"><span><math><semantics><mrow><mn>6</mn><mo>×</mo><mn>6</mn></mrow></semantics></math></span></span></td> <td>
 <numbered-code-block>
 <code-line>########</code-line>
 <code-line>#      #</code-line>
@@ -171,7 +171,7 @@ The following are the champions for each <span><span><math><semantics><mrow><mi>
 </td> <td>96</td>
 </tr>
 <tr>
-<td><span><span><math><semantics><mrow><mn>7</mn><mo>×</mo><mn>7</mn></mrow></semantics></math></span></span></td> <td>
+<td><span class="katex"><span><math><semantics><mrow><mn>7</mn><mo>×</mo><mn>7</mn></mrow></semantics></math></span></span></td> <td>
 <numbered-code-block>
 <code-line>#########</code-line>
 <code-line>#  ###  #</code-line>
@@ -190,21 +190,21 @@ The following are the champions for each <span><span><math><semantics><mrow><mi>
 Note that I am excluding the outer walls and they're there implicitly. This doesn't change the actual values. The ending cell is also left undefined because my code terminates the simulation upon reaching it so it never gets defined.
 </p>
 <p>
-<span><span><math><semantics><mrow><mn>8</mn><mo>×</mo><mn>8</mn></mrow></semantics></math></span></span> will take much longer to solve. I've left my code running for a while to try and find some long-running configurations but running it to completion will likely require some further optimizations. As of writing, the best my code has found is <span><span><math><semantics><mrow><mn>346</mn></mrow></semantics></math></span></span> but discord user @dyuan has found a configuration running for 468 steps!
-Given that it seems to be growing exponentially, I expect <span><span><math><semantics><mrow><mn>8</mn><mo>×</mo><mn>8</mn></mrow></semantics></math></span></span> to be in the ballpark of 400 to 500.
+<span class="katex"><span><math><semantics><mrow><mn>8</mn><mo>×</mo><mn>8</mn></mrow></semantics></math></span></span> will take much longer to solve. I've left my code running for a while to try and find some long-running configurations but running it to completion will likely require some further optimizations. As of writing, the best my code has found is <span class="katex"><span><math><semantics><mrow><mn>346</mn></mrow></semantics></math></span></span> but discord user @dyuan has found a configuration running for 468 steps!
+Given that it seems to be growing exponentially, I expect <span class="katex"><span><math><semantics><mrow><mn>8</mn><mo>×</mo><mn>8</mn></mrow></semantics></math></span></span> to be in the ballpark of 400 to 500.
 </p>
 <h2>
 Future Work on the Problem
 </h2>
 <hr>
 <p>
-I want to try paralellizing the work to allow enumeration to be done across several computers at once. I also need to optimize the code that checks if a given maze is solvable, as right now it runs a worst-case <span><span><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> search where n number of cells every time a wall is placed.
+I want to try paralellizing the work to allow enumeration to be done across several computers at once. I also need to optimize the code that checks if a given maze is solvable, as right now it runs a worst-case <span class="katex"><span><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> search where n number of cells every time a wall is placed.
 </p>
 <p>
 If you ever have any ideas for heuristics/symmetries/etc to eliminate paths that need to be checked potential champions that would also be very helpful! I'm always open to more ideas.
 </p>
 <p>
-Discord user @dyuan is working on finding an upper bound for the maximum number of steps for a given grid, and others are trying to find good solutions to large grids (Like the original <span><span><math><semantics><mrow><mn>29</mn><mo>×</mo><mn>19</mn></mrow></semantics></math></span></span> grid on codeforces) using heuristic models.
+Discord user @dyuan is working on finding an upper bound for the maximum number of steps for a given grid, and others are trying to find good solutions to large grids (Like the original <span class="katex"><span><math><semantics><mrow><mn>29</mn><mo>×</mo><mn>19</mn></mrow></semantics></math></span></span> grid on codeforces) using heuristic models.
 </p>
 <h2>
 Brady's Algorithm is Really Powerful
@@ -229,4 +229,5 @@ It's just an interesting connection I found I wanted to mention. I think this is
 
 <script defer="" src="../js/snowfallbg.js"></script>
 <script defer="" src="../js/code-block-postprocessing.js"></script>
+<script defer="" src="../js/mathmlwarning.js"></script>
 </body></html>
