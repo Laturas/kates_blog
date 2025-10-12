@@ -41,7 +41,7 @@ body {
 	border-color: rgb(156, 161, 208);
 	border-width: 2px;
 	border-radius: 5px;
-	font-size: 24px;
+	font-size: 21px;
 }
 article {
 	color: rgb(22, 29, 79);
@@ -211,7 +211,7 @@ a {
 	}
 }
 p {
-	font-size: 22px;
+	font-size: 20px;
 	margin-top: 10px;
 	margin-bottom: 15px;
 }
@@ -271,7 +271,7 @@ hr {
 		}
 	}
 	.main-block {
-		font-size: 24px;
+		font-size: 21px;
 		text-align: center;
 	}
 }

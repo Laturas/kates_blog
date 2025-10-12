@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="A story about how I massively improved my site by just being willing to peek behind the curtain.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Take No Dependency For Granted</title>
+	<link rel="stylesheet" href="../css/main.css">
+	<link defer rel="stylesheet" href="../css/katex.supermin.css">
+	<script defer src="../js/katex.min.js"></script>
+	<script defer src="../js/auto-render.min.js"onload="renderMathInElement(document.body);"></script>
+	<link rel="icon" type="image/png" href="../media/favicon.webp"> 
+	<meta name="format-detection" content="telephone=no">
+</head>
+<body>
+	<header class="banner">
+		<h1>Katelyn's Blog</h1>
+	</header>
+	<div class="main-block">
+		<nav class="navigation">
+			<ul>
+				<li>
+					<a href="../index.html">Home</a>
+				</li>
+				<li>
+					<a href="../articles.html">Articles</a>
+				</li>
+				<li>
+					<a href="../projects.html">Projects</a>
+				</li>
+			</ul>
+		</nav>
+		<article id="article_body">
+			<header class="article-header">
+				<h1 class="article-title">
+					Take No Dependency For Granted
+				</h1>
+				<p class="article-date">
+					October 10 2025
+				</p>
+			</header>
+			<hr>
+			<main>
+				<p>
+					I've always been an advocate for both reducing your dependencies as much as possible, and understanding the dependencies you <i>do</i> have when necessary.
+				</p>
+				<p>
+					Today, I'll be discussing the most recent instance in which this philosophy has proven to be useful.
+				</p>
+				<h2>
+					Why
+				</h2>
+				<hr>
+				<p>
+					This blog has a lot of math on it. Ideally, I just want to be able to write LaTeX directly into the HTML and have it render. Now, while I have done almost everything with this blog entirely from scratch, I'm not insane enough to write my own LaTeX parser/renderer. That's where Katex comes in, and lets me do just that. It's incredibly simple to use, just include a declaration near the top and be done with it!
+				</p>
+				<p>
+					\[\int_{-\infty}^{\infty} e^{x^2}dx = \sqrt{\pi}\]
+				</p>
+				<p>
+					That would be the end of the story. That's where I left it for the past while, but there's one thing that irked me. Katex is a pretty big dependency and I had to load it in every single page load. Even minified and compressed and not counting the css it added more than 70kb to each page request - which while this may not sound like a lot, I was curious if it would be possible to avoid this.
+					That thought was spurred on by reading the wonderful article <a href="https://endtimes.dev/why-your-website-should-be-under-14kb-in-size/">Why Your Website Should be Under 14kb In Size</a>. Avoiding the slow start protocol issue by keeping my static blog small would reduce load times especially in areas of spotty connection (which I am in often).
+				</p>
+				<p>
+					Another benefit would be that without Katex, that removes one huge page load time. Every time I load into a page that uses Katex, there's a noticeable delay as Katex goes through the article and does its magic. This makes the page feel less responsive
+				</p>
+				<p>
+					But I couldn't just <i>not</i> use Katex, what else could I do?
+				</p>
+				<h2>
+					And So Began the Preprocessor
+				</h2>
+				<hr>
+				<p>
+					As it turns out, it's possible to pre-run Katex as a command-line program! This began the new plan: make a program that automatically goes through articles I write and do all of the Katex processing. Then, serve the already processed version statically.
+				</p>
+				<p>
+					I wrote a script that does just that, and it worked wonderfully. That was one less huge request I had to make on each page load and I could immediately feel the improvement. All this while keeping my workflow smooth - requiring only one extra command before publishing. Mission accomplished!
+				</p>
+				<p>
+					Except it never quite ends there does it?
+				</p>
+				<h2>
+					The rabbithole
+				</h2>
+				<hr>
+				<p>
+					Now that I had a preprocessed version of my articles, I could actually peer into what it was doing. What I found was mildly scary, it generates a <i>lot</i> of code.
+				</p>
+				<p>
+					While compression certainly helps (especially since html compresses way better than JavaScript empirically), my space needle article would go from around 20kb to well over 120kb uncompressed. That was far from the biggest issue though.
+				</p>
+				<p>
+					My bigger issue was how this affects accessibility and useability. I could only imagine what it would be like for a screen-reader to have to trudge through those mountains of god-knows-what. How much of this was actually necessary? Could we get rid of any of it?
+				</p>
+				<p>
+					By far the biggest issue though is that when copying mathematical equations to the clipboard, sometimes I noticed it would copy two copies of the equations. I always thought this was incredibly weird, and it wasn't specific to my site, either. In addition, as soon as I added an RSS feed to my site, I noticed that in feed readers equations would appear twice - once formatted and once unformatted. That's where I uncovered my biggest discovery - <strong>Katex actually renders the math twice</strong>. Once in HTML, and once in MathML.
+				</p>
+				<p>
+					HTML made sense, and after all that's what was being displayed. What was that MathML thing though? I am still relatively new to web development in the grand scheme of things, I had no idea what it was at the time. For those like me, it's an existing web standard for displaying mathematical notation. 
+				</p>
+				<p>
+					That's right, after all this time, the browser had the capability of directly rendering math! And after a bit of messing about with the devtools, I got the MathML portion to display and it rendered and formatted just as well as the HTML while being way simpler in structure and size.
+				</p>				
+				<p>
+					I cannot - for the life of me - figure out why Katex renders it twice. MathML has been a part of the web standards for a long time, all major browsers support it. It used to have support issues but this isn't 2014 anymore! I also read that it was for accessibility reasons, but all the accessibility is done through the MathML, not the HTML. Why not get rid of the HTML entirely?
+				</p>
+				<p>
+					However, writing MathML directly would be agonizing, and I still much preferred LaTeX. So I did the easier approach of having my preprocessor nuke all of the HTML and make the MathML display instead.
+				</p>
+				<p>
+					Suddenly the footprint of the preprocessed articles reduced drastically (by around half), while retaining all of the nice formatting that I desired. This also immediately fixed the clipboard issues and feed reader issues. The articles were also completely readable as intended in reader view now - which it was not previously. I could also get rid of a lot of the requests to external CSS that Katex asks for further improving page load speed.
+				</p>
+				<p>
+					My work continued to pay off. Since I had already introduced a preprocessor in my pipeline, I could introduce all sorts of other things like automatic minification and code styling while keeping the writing of new articles just as smooth and easy.
+				</p>
+				<h2>
+					Know Your Dependencies - Be Willing to do a Little Work
+				</h2>
+				<hr>
+				<p>
+					By willing to put in a little extra work to understand my tools, I was able to significantly improve my site. I got the following improvements
+				</p>
+				<p>
+					- Avoids a bug with doubled math equations <br>
+					- Significantly reduced the overhead, improving site load times (more than 2x) <br>
+					- Made the site more accessible and readable for those in reader view/reading without css/js <br>
+					- Removed a potential failure point (what if the Katex host went down?) <br>
+				</p>
+			</main>
+		</article>
+	</div>
+</body>
+<script defer src="../js/snowfallbg.js"></script>
+<script defer src="../js/code-block-postprocessing.js"></script>
+</html>
