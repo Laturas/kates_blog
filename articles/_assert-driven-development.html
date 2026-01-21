@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="A story about how I massively improved my site by just being willing to peek behind the curtain.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Assert Driven Development</title>
+	<link rel="stylesheet" href="../css/main.css">
+	<link defer rel="stylesheet" href="../css/katex.supermin.css">
+	<script defer src="../js/katex.min.js"></script>
+	<script defer src="../js/auto-render.min.js"onload="renderMathInElement(document.body);"></script>
+	<link rel="icon" type="image/png" href="../media/favicon.webp"> 
+	<meta name="format-detection" content="telephone=no">
+</head>
+<body>
+	<header class="banner">
+		<h1>Katelyn's Blog</h1>
+	</header>
+	<div class="main-block">
+		<nav class="navigation">
+			<ul>
+				<li>
+					<a href="../index.html">Home</a>
+				</li>
+				<li>
+					<a href="../articles.html">Articles</a>
+				</li>
+				<li>
+					<a href="../projects.html">Projects</a>
+				</li>
+			</ul>
+		</nav>
+		<article id="article_body">
+			<header class="article-header">
+				<h1 class="article-title">
+					Assert Driven Development
+				</h1>
+				<p class="article-date">
+					October 17 2025
+				</p>
+			</header>
+			<hr>
+			<main>
+				<p>
+					This simple macro is probably the cause of the biggest shift in how I code since moving away from object oriented programming.
+				</p>
+				<p>
+					I am not naiive enough to proclaim this as the "one true way" to program. There may also be cases where this style would be quite bad (if you can think of any, I'm curious to know!). However, I have found personal great success in it.
+					I want to present how I use this macro to orient my thought process when writing code in hopes that others may find it useful.
+				</p>
+				<h2>
+					What is the purpose of the assert macro?
+				</h2>
+				<hr>
+				<p>
+					Assert tests a given condition, and kills the program should the condition fail, printing out useful debug info in the process like the line number.
+				</p>
+				<p>
+					To understand why this behavior is useful, I want to go over the "hierarchy of bugs". It's a rough categorization I have in my head of what bugs are preferable to see.
+				</p>
+				<p>
+					<b>Type 1:</b> Compilation errors <br>
+					<b>Type 2:</b> Loud errors <br>
+					<b>Type 3:</b> Silent errors
+				</p>
+				<p>
+					Compilation errors are usually the easiest to fix by far. Examples would be a syntax error, or a package is missing. It indicates something is wrong before even running anything. I would count warnings under this category as well.
+				</p>
+				<p>
+					Loud errors are ones that make themselves known. These are crashes, segfaults, and other such bugs that fail hard. These bugs are noticeable as soon
+					as it goes wrong, and tracking down where these occur are (generally) a bit easier. That's why we have debuggers!
+				</p>
+				<p>
+					Silent errors are the nastiest ones. These are ones that quietly break part of the system in a way that may not be immediately noticeable.
+					They may lead to loud effects later on down the road, but their immediate effects are hard to pinpoint. All of the most infamous bugs fall into
+					this category, like data race errors and memory corruption. I would also include timing attacks like Specter/Meltdown.
+				</p>
+				<p>
+					This is of course a very rough guideline. I have found really hard type 2 errors and incredibly easy type 3 errors. There are also more factors to consider like
+					having readily accessible information on hand about the state of the program when the error occurred, or the proximity to the noticeable behavior with which it occurs. We'll get to some of those later.
+				</p>
+				<p>
+					I posit that the rough goal of many tools we use to write more reliable software is to move things up the hierarchy. If you can prevent a
+					segfault from occurring before even building via compiler errors/warnings or other tools, this makes it far easier to fix.
+					<br><br>
+					This is why people love languages like Rust and TypeScript. They move many type 2 and 3 bugs up to type 1. Same with static analyzers.
+					It's also why I believe in any language you should always work with all warnings and errors enabled. Try and orient your thinking to how you can move problems up the hierarchy.
+				</p>
+				<p>
+					This is where the assert macro comes in. Its job is to move any potential type 3 error to a type 2 error as soon as possible. When applicable, static assertions are even better.
+				</p>
+				<h2>
+					Using the Assert Macro - Evaluating Assumptions
+				</h2>
+				<hr>
+				<p>
+					I use assertions in a few different ways. The most common type is the "explosive comment" denoting expected preconditions and postconditions or other assumptions about my program.
+					From my experience, 90% of bugs I have are due to a bad underlying assumption. "This system call will never fail", "The data will always have this format", "This library does something like this", and so on.
+				</p>
+				<p>
+					Now with the assert macro, I have a way to encode those assumptions into the logic of the program itself. If I ever have a nontrivial assumption, I assert that assumption.
+					If it's ever wrong, I know immediately which assumption I made that turned out to be wrong and I can even print out a helpful error message with a line number and file.
+				</p>
+				<p>
+					This greatly improves my workflow. As a small example, if I am pretty sure that a function I'm writing will never be called with a null pointer, I can put an assert and be done with it. I don't need to add in extra error handling for something that never happens.
+				</p>
+				<p>
+					Then after thorough testing and introducing real error handling in place of assertions that get hit, when compiling for release, I can turn all of the assert macros into no-ops (or leave them enabled if necessary) making them completely zero cost.
+				</p>
+				<p>
+					This is better than a simple comment, because comments can be wrong. Code surrounding the comment can change while leaving the comment not reflecting that change. Asserts will remain correct until the condition fails, and then you <i>know</i> it fails.
+				</p>
+				<p>
+					It also allows me to get something working way faster. I don't have to be constantly writing error handling code for things that may or may not happen that itself could have bugs. It reduces cognitive load, doesn't break flow state, and allows me to focus on the exact problem I'm trying to solve.
+				</p>
+			</main>
+		</article>
+	</div>
+</body>
+<script defer src="../js/snowfallbg.js"></script>
+<script defer src="../js/code-block-postprocessing.js"></script>
+</html>

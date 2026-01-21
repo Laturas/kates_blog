@@ -52,7 +52,8 @@
 				</h2>
 				<hr>
 				<p>
-					This blog has a lot of math on it. Ideally, I just want to be able to write LaTeX directly into the HTML and have it render. Now, while I have done almost everything with this blog entirely from scratch, I'm not insane enough to write my own LaTeX parser/renderer. That's where Katex comes in, and lets me do just that. It's incredibly simple to use, just include a declaration near the top and be done with it!
+					This blog has a lot of math on it. Ideally, I just want to be able to write LaTeX directly into the HTML and have it render.
+					Now, while I have done almost everything with this blog entirely from scratch, I'm not insane enough to write my own LaTeX parser/renderer. That's where Katex comes in, and lets me do just that. It's incredibly simple to use, just include a declaration near the top and be done with it! I can inline latex and just have it render like so:
 				</p>
 				<p>
 					\[\int_{-\infty}^{\infty} e^{x^2}dx = \sqrt{\pi}\]
@@ -65,7 +66,7 @@
 					Another benefit would be that without Katex, that removes one huge page load time. Every time I load into a page that uses Katex, there's a noticeable delay as Katex goes through the article and does its magic. This makes the page feel less responsive
 				</p>
 				<p>
-					But I couldn't just <i>not</i> use Katex, what else could I do?
+					But I couldn't just <i>not</i> use Katex, and it didn't seem like any other Latex rendering libraries avoided these probelms. What else could I do?
 				</p>
 				<h2>
 					And So Began the Preprocessor
@@ -88,44 +89,46 @@
 					Now that I had a preprocessed version of my articles, I could actually peer into what it was doing. What I found was mildly scary, it generates a <i>lot</i> of code.
 				</p>
 				<p>
-					While compression certainly helps (especially since html compresses way better than JavaScript empirically), my space needle article would go from around 20kb to well over 120kb uncompressed. That was far from the biggest issue though.
+					While compression certainly helps (especially since html compresses way better than JavaScript empirically), my space needle article would go from around (uncompressed) 20kb to well over 120kb. That was far from the biggest issue though.
 				</p>
 				<p>
-					My bigger issue was how this affects accessibility and useability. I could only imagine what it would be like for a screen-reader to have to trudge through those mountains of god-knows-what. How much of this was actually necessary? Could we get rid of any of it?
+					There were far bigger issues though. There seemed to be some duplicate logic going on. I first noticed this when I would try copying an equation to clipboard. It would seem to copy the equation twice, and this was consistent across several sites that used Katex.
+					While mildly annoying, these duplicates became a serious problem as soon as I implemented an RSS feed for my site. As soon as someone opened an article in an RSS feed reader, once again, the equations would appear twice. I had to get to the bottom of this.
 				</p>
+				<p>That's where I uncovered my biggest discovery - <strong>Katex actually renders the math twice</strong>. Once in HTML, and once in MathML.</p>
 				<p>
-					By far the biggest issue though is that when copying mathematical equations to the clipboard, sometimes I noticed it would copy two copies of the equations. I always thought this was incredibly weird, and it wasn't specific to my site, either. In addition, as soon as I added an RSS feed to my site, I noticed that in feed readers equations would appear twice - once formatted and once unformatted. That's where I uncovered my biggest discovery - <strong>Katex actually renders the math twice</strong>. Once in HTML, and once in MathML.
-				</p>
-				<p>
-					HTML made sense, and after all that's what was being displayed. What was that MathML thing though? I am still relatively new to web development in the grand scheme of things, I had no idea what it was at the time. For those like me, it's an existing web standard for displaying mathematical notation. 
+					HTML made sense I thought, as after all that's what was being displayed. What was that MathML thing though? This is where I have to disclaim I am still relatively new to web development in the grand scheme of things, I had no idea what it was at the time. For those like me, it's an existing web standard for displaying mathematical notation. 
 				</p>
 				<p>
 					That's right, after all this time, the browser had the capability of directly rendering math! And after a bit of messing about with the devtools, I got the MathML portion to display and it rendered and formatted just as well as the HTML while being way simpler in structure and size.
-				</p>				
-				<p>
-					I cannot - for the life of me - figure out why Katex renders it twice. MathML has been a part of the web standards for a long time, all major browsers support it. It used to have support issues but this isn't 2014 anymore! I also read that it was for accessibility reasons, but all the accessibility is done through the MathML, not the HTML. Why not get rid of the HTML entirely?
 				</p>
 				<p>
-					However, writing MathML directly would be agonizing, and I still much preferred LaTeX. So I did the easier approach of having my preprocessor nuke all of the HTML and make the MathML display instead.
+					I cannot - for the life of me - figure out why Katex renders it twice. MathML has been a part of the web standards for a long time, all major browsers support it. It used to have support issues but this isn't 2014 anymore! I also read that it was for accessibility reasons, but all the accessibility is done through the MathML, not the HTML. And if RSS feed readers were displaying the equations twice, screen readers would almost certainly have that problem, too. Why not get rid of the HTML entirely?
+				</p>
+				<p>
+					The clear solution is to avoid the HTML. However, writing MathML directly would be agonizing, and I still much preferred LaTeX. So I did the easier approach of having my preprocessor nuke all of the HTML after Katex did its thing, and make the MathML display instead.
 				</p>
 				<p>
 					Suddenly the footprint of the preprocessed articles reduced drastically (by around half), while retaining all of the nice formatting that I desired. This also immediately fixed the clipboard issues and feed reader issues. The articles were also completely readable as intended in reader view now - which it was not previously. I could also get rid of a lot of the requests to external CSS that Katex asks for further improving page load speed.
 				</p>
-				<p>
-					My work continued to pay off. Since I had already introduced a preprocessor in my pipeline, I could introduce all sorts of other things like automatic minification and code styling while keeping the writing of new articles just as smooth and easy.
-				</p>
 				<h2>
-					Know Your Dependencies - Be Willing to do a Little Work
+					Know Your Dependencies
 				</h2>
 				<hr>
 				<p>
-					By willing to put in a little extra work to understand my tools, I was able to significantly improve my site. I got the following improvements
+					By willing to put in a little extra work to understand my tools, I was able to significantly improve my site. I got the following improvements:
 				</p>
 				<p>
-					- Avoids a bug with doubled math equations <br>
-					- Significantly reduced the overhead, improving site load times (more than 2x) <br>
-					- Made the site more accessible and readable for those in reader view/reading without css/js <br>
+					- Avoiding a bug with doubled math equations <br>
+					- Significantly reduced the overhead, improving site load times (more than 2x on average) <br>
+					- Made the site more accessible and easier to parse <br>
 					- Removed a potential failure point (what if the Katex host went down?) <br>
+				</p>
+				<p>
+					This pattern is consistent. I'll use a tool, I notice something strange or I want to make an improvement, I fall down a rabbithole and I emerge with better solutions or at the very least an understanding of why things are the way they are. Most of the things I've learned about programming has come through this sort of cycle.
+				</p>
+				<p>
+					There is a limit, obviously. If you just spend all your time chasing answers to questions that you don't need to know in the moment, you won't actually build anything useful. However, I also think the opposite approach of leaving everything behind black boxes and refusing to understand them leads to terrible software.
 				</p>
 			</main>
 		</article>
