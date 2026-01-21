@@ -163,3 +163,24 @@ hr {
 		}
 	}
 }
+
+@media (max-width: 1250px) {
+	.project {
+		margin-left: 0;
+		margin-right: 0;
+		display: flex;
+		flex-flow: column;
+		&.reverse {
+			flex-flow: column;
+			> div > h2, p {
+				text-align: center;
+			}
+		}
+		> div {
+			padding-left: 0;
+			> h2 {
+				text-align: center;
+			}
+		}
+	}
+}
