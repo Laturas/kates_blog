@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="My first blog post!">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>C99 is Dependable</title>
+	<link rel="stylesheet" href="../css/main.css">
+	<link rel="icon" type="image/png" href="../media/favicon.webp"> 
+	<meta name="format-detection" content="telephone=no">
+</head>
+<body>
+	<header class="banner">
+		<h1>Katelyn's Blog</h1>
+	</header>
+	<div class="main-block">
+		<nav class="navigation">
+			<ul>
+				<li>
+					<a href="../index.html">Home</a>
+				</li>
+				<li>
+					<a href="../articles.html">Articles</a>
+				</li>
+				<li>
+					<a href="../projects.html">Projects</a>
+				</li>
+			</ul>
+		</nav>
+		<article id="article_body">
+			<header class="article-header">
+				<h1 class="article-title">
+					How Much C Should You Use?
+				</h1>
+				<p class="article-date">
+					December 20 2025
+				</p>
+			</header>
+			<hr>
+			<main>
+				<p>
+					C is my favorite programming language. C is also weird. It's in many ways very different from a lot of other languages.
+					It is deliberately a tiny language, with a spec that evolves at a glacial pace. It's meant to be portable to any platform no matter how esoteric the architecture.
+
+					It's a bit funny then that many of the language's features are unreliable and unportable.
+				</p>
+				<p>
+					The adoption of the newest standard (C23) is very slow, with few compilers and toolchains fully implementing it. Some features are more commonly implemented than others.
+					So how do we know what we can use and expect to work on other platforms - both now and in the future?
+				</p>
+				<p>
+					That's when I happened across Eskil Steenberg's Dependable C. He argues that a subset of C89 is in fact the ideal way to program C while still having strong guarantees of portability.
+				</p>
+				<p>
+					Now I can finally tell you what this article is about. I certainly respect the goal of portability and do in fact agree with a lot of Steenberg's points, but I will argue against some of his perspectives as I feel that they may have been true in the past but are now outdated.
+					My personal subset of C adds a few features of C99, and some features that can be easily worked around on porting.
+				</p>
+			</main>
+		</article>
+	</div>
+</body>
+<script defer src="../js/snowfallbg.js"></script>
+</html>
