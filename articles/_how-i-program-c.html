@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="Tackling a computer science problem about a bug trapped in a maze using an underappreciated algorithm.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bugs, Mazes, and the Unreasonably Effective Brady's Algorithm</title>
+	<link rel="stylesheet" href="../css/main.css">
+	<link defer rel="stylesheet" href="../css/katex.supermin.css">
+	<script defer src="../js/katex.min.js"></script>
+	<!-- Automatically renders math in text elements -->
+	<script defer src="../js/auto-render.min.js"onload="renderMathInElement(document.body);"></script>
+	<link rel="icon" type="image/png" href="../media/favicon.webp"> 
+	<meta name="format-detection" content="telephone=no">
+</head>
+<body>
+	<header class="banner">
+		<h1>Katelyn's Blog</h1>
+	</header>
+	<div class="main-block">
+		<nav class="navigation">
+			<ul>
+				<li>
+					<a href="../index.html">Home</a>
+				</li>
+				<li>
+					<a href="../articles.html">Articles</a>
+				</li>
+				<li>
+					<a href="../projects.html">Projects</a>
+				</li>
+			</ul>
+		</nav>
+		<article id="article_body">
+			<header class="article-header">
+				<h1 class="article-title">
+					My Personal C Programming Style
+				</h1>
+				<p class="article-date">
+					February 17 2026
+				</p>
+			</header>
+			<hr>
+			<main>
+				<h2>
+					Goals of Programming Style
+				</h2>
+				<p>
+					I believe you should aim for your style of programming to facilitate your goals with whatever codebase you're in.
+					As such, my goals with code in which my style should facilitate, are the following:
+				</p>
+				<p>
+					- <b>The code should be accessible.</b> I want my code to be readable by people with limited programming knowledge. We all remember the times way back
+					when we first stepped foot in an established codebase as a new programmer and got lost immediately in hidden knowledge, obscure language features, and bad documentation.
+					I want anyone, including people newer to programming, to be able to learn from the code I write.
+					<br><br>
+					- <b>The code should be consistent.</b> Consistency in a codebase helps massively with both onboarding, and being able to navigate it.
+					Consistent conventions maximize productivity for everyone.
+					<br><br>
+					- <b>The code should be reliable.</b> Building your code on top of strong foundations which are performant, free of bugs, and have stable API's, will make your code last for decades.
+					People argue for "maintainability" in code, which I believe is the wrong attitude. Maintainable code is not the goal.
+					The best code is the code that works reliably, is clearly documented and readable, and never has to be touched for decades.
+					You don't want a car that is easy to fix but breaks constantly, you want a car that never breaks.
+				</p>
+				<h2>C Standard Version</h2>
+				<p>
+					I strictly use a subset of C99. I don't use the standard library at all where I can, I don't use VLA's, and I don't use features that are now deprecated, optional, or broken in later C standards.
+					This is because I want my code to be easily portable to other platforms and C99 is the second most widely supported C standard.
+				</p>
+				<p>
+					Ok yeah, C89 is more portable, but this isn't the early 2000's anymore. Especially since Microsoft finally stopped dragging their feet, C99 is well supported on dang near any platform in existence today, and will have to be well supported
+					on future platforms or such a platform will miss out on many of the modern C projects that keep computing alive.
+				</p>
+				<p>
+					If we look in practical terms, a quick glance at the <a href="https://en.wikipedia.org/wiki/C99#Implementations">C99 implementations page on Wikipedia</a> shows that a reasonable subset of C99 is supported by nearly any C compiler in existence today.
+				</p>
+				<h2>Naming Things</h2>
+				<p>
+					I have a strict set of rules for naming things in my code base. For actual formatting of the names:
+				</p>
+				<centered-sub-block>
+					<numbered-code-block>
+						<code-line>function_names()</code-line>
+						<code-line>TypeNames</code-line>
+						<code-line>variable_names</code-line>
+						<code-line>MACRO_IDENTIFIERS</code-line>
+						<code-line>ENUM_IDENTIFIERS</code-line>
+					</numbered-code-block>
+				</centered-sub-block>
+				<p>
+					I have settled on this for a while, and believe I have decent arguments for it beyond just aesthetics (though, I suppose that's what all of this is at the end of the day).
+					I want my code to be readable with no syntax highlighting, so there are important things to distinguish. Macros need to be clearly identifiable so they are in UPPER_SNAKE_CASE.
+
+					I choose to make enums named the same way, because at the end of the day there's little difference between a #define'd constant and an enum member in terms of functionality for the code.
+				</p>
+				<p>
+					Type names are the most important to distinguish after that. PascalCase is ideal for this purpose, because type names should be really short (in my opinion, they should not exceed 3 words), are typed often, and should convey importance.
+					PascalCase doesn't add extra characters, is readable when short, and is easy to type. I believe the uppercase letters in PascalCase also somewhat signal importance, as they're large and strong.
+				</p>
+				<!-- TODO: Prefix example -->
+				<p>
+					Lastly, variable and function names both use lower_snake_case. You may argue that this adds confusion, but functions rarely appear without parentheses immediately following them.
+					The only time this happens is with function pointers - and if that happens I clearly delineate that in the name of any such functions via a prefix.
+				</p>
+				<p>
+					I believe lower_snake_case is the easiest case to read as it is closest to how we read text. Being able to read code is more important than being able to write it, thus variables and functions (being the two most common things in a codebase) should have maximum readability.
+				</p>
+				<h3>Typedefs</h3>
+				<p>
+					I always typedef structs and enums immediately. Having to constantly type struct or enum before the type in my opinion is both a waste of time and makes the code harder to read.
+					It adds unnecessary noise, rarely adds information that can't be easily inferred, and doesn't solve issues with namespace collisions.
+				</p>
+				<p>
+					Another massive benefit this adds is that I can trivially jump to the definition by simply searching for "struct name" or "enum name".
+					This will always take me to the definition because this is the only place where the struct or enum keywords appear. This comes up in practice more than you'd think.
+				</p>
+				<p>
+					I also typedef my own basic numeric types
+				</p>
+				<p>
+					u8, u16, u32, u64 - Unsigned integers
+				</p>
+				<p>
+					i16, i32, i64 - Signed integers
+				</p>
+				<p>
+					f32, f64 - Floating point numbers
+				</p>
+				<p>
+					I typedef these because they're used extremely often, and the default C naming conventions are terrible. I've seen some people claim this is unreadable but:
+					<br><br>
+					A - you can't tell me "unsigned long long" is more readable to the average person than "u64"
+					<br>
+					B - These naming conventions don't come from nowhere. They're already used in languages like Rust, Odin, and Zig.
+					<br>
+					C - These names provide valuable information you don't glean from the standard C names. "int" could theoretically be 16 bits. "long int" is 32bits on Windows and 64bits on Linux.
+					But an i64 is only one possible thing - a signed 64 bit integer. I can typedef whatever weird platform requirements I need to make it fit.
+				</p>
+				<p>
+					I've also seen the claim that typedef'ing these makes it more likely for namespace collisions if I integrate someone else's codebase, but in practicality what that means is that I delete my typedefs and use theirs instead.
+					The beauty of the names is that they clearly delineate their properties so I can be sure they won't cause issues.
+				</p>
+				<p>
+					Lastly, I <b>never</b> typedef pointers. Anyone that does this needs to be tried for war crimes.
+				</p>
+				<h3>No Namespaces?</h3>
+				<p>
+					This is one of the biggest annoyances people cite with C. However, I've found it's not too hard to work around this with good naming conventions.
+				</p>
+				<p>
+					I prefix all enum members with the same prefix.
+				</p>
+				<centered-sub-block>
+					<numbered-code-block>
+						<code-line>typedef enum EntityID {</code-line>
+						<code-line>    EID_NONE = 0,</code-line>
+						<code-line>    EID_PLAYER,</code-line>
+						<code-line>    EID_MONSTER,</code-line>
+						<code-line>    EID_BOSS,</code-line>
+						<code-line>    /* ... */</code-line>
+						<code-line>} EntityID;</code-line>
+					</numbered-code-block>
+				</centered-sub-block>
+				<p>
+					And I name functions in a very specific way. It is always "module_data_action". I feel very strongly that this is the best way to name functions. For example, let's consider some functions from the module I made to draw the WIP editor UI in my game engine.
+					As a challenge, see if you can determine what they do from their function signatures!
+				</p>
+				<centered-sub-block>
+					<numbered-code-block>
+						<code-line>bool       ui_region_is_mouse_hovered(Rectangle region);</code-line>
+						<code-line>MouseState ui_element_mouse_state(Rectangle element_rect);</code-line>
+						<code-line>void       ui_editor_object_list_draw(i32 x_pos, i32 y_pos);</code-line>
+						<code-line>void       ui_editor_draw();</code-line>
+					</numbered-code-block>
+				</centered-sub-block>
+				<p>
+					The names themselves begin to act like namespaces! I immediately know where in my code a function named ui_... is located, and then what it acts on and what it does.
+					There is much debate over long names, but I fall squarely into the camp of "descriptive names are good". I want someone reading my code, with no prior knowledge about the internals, to understand what is going on and where to find things.
+				</p>
+			</main>
+		</article>
+	</div>
+</body>
+<script defer src="../js/snowfallbg.js"></script>
+<script defer src="../js/code-block-postprocessing.js"></script>
+</html>
