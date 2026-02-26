@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="Tackling a computer science problem about a bug trapped in a maze using an underappreciated algorithm.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bugs, Mazes, and the Unreasonably Effective Brady's Algorithm</title>
+	<link rel="stylesheet" href="../css/main.css">
+	<link defer rel="stylesheet" href="../css/katex.supermin.css">
+	<script defer src="../js/katex.min.js"></script>
+	<!-- Automatically renders math in text elements -->
+	<script defer src="../js/auto-render.min.js"onload="renderMathInElement(document.body);"></script>
+	<link rel="icon" type="image/png" href="../media/favicon.webp"> 
+	<meta name="format-detection" content="telephone=no">
+</head>
+<body>
+	<header class="banner">
+		<h1>Katelyn's Blog</h1>
+	</header>
+	<div class="main-block">
+		<nav class="navigation">
+			<ul>
+				<li>
+					<a href="../index.html">Home</a>
+				</li>
+				<li>
+					<a href="../articles.html">Articles</a>
+				</li>
+				<li>
+					<a href="../projects.html">Projects</a>
+				</li>
+			</ul>
+		</nav>
+		<article id="article_body">
+			<header class="article-header">
+				<h1 class="article-title">
+					Why I Love C
+				</h1>
+				<p class="article-date">
+					February 25 2026
+				</p>
+			</header>
+			<hr>
+			<main>
+				<p>
+					C is easily my favorite programming language. When I express this, usually that's met with some combination of shock, horror and confusion.
+					C is, unrightfully I feel, viewed as a language that is unreasonably difficult to do anything in - one that's viewed as a language that only the most
+					hardcore control freaks and masochists would use to challenge themselves. It comes with a barebones and terrible standard library, a sparse
+					few language features, and the ever present threat of zero memory safety mechanisms.
+				</p>
+				<p>
+					So, why do I love this language? 
+				</p>
+				<p>
+
+				</p>
+				<h2>
+					C is Dependable
+				</h2>
+				<hr>
+				<p>
+					C has been around for 54 years. C99 (my version of choice) is approaching 30. C is so old and so load bearing, you can expect 100 years from now that code you write in C can compile and work with minimal
+					changes. Breaking changes to the spec aren't going to force a rewrite decades down the line.
+				</p>
+				<p>
+					When looking at so many other languages, you do not get that same security. The upgrade from Python2 to Python3 destroyed so much legacy code for little good reason. Languages like Ruby or Perl have been on
+					the decline for a long time. C++ continues to do whatever the hell it's doing. Features get deprecated all the time in languages - who knows if those deprecated features will make it into the future?
+				</p>
+				<p>
+					My hot take is that you don't want "maintainable code". You don't want code that breaks constantly but is easy to fix. You want code that never breaks, and never needs to be touched.
+
+					C will give you that sort of guarantee in a way few other languages can claim to.
+				</p>
+				<h2>
+					C is understandable by everyone
+				</h2>
+				<hr>
+				<p>
+					C's limited feature set means that it (for the most part...) only admits features that are truly necessary. 
+
+					Thus, in a world where new languages are insistent on heaping on new language features, nearly all of C's features can be found in other languages. Combined with the fact that with its age
+					it has had the ability to influence the future design of languages for decades, this leaves C in a unique position.
+				</p>
+				<p>
+					99% of features in C exist in some capacity in every other language, thus 99% of C code can be understood by anyone with existing experience with programming.
+				</p>
+				<p>
+					A fun story I can point to that illustrates this well is when I was a wee lass I had only ever programmed in some combination of Java, Python, and Rust. My very first ever experience with C
+					is when I asked a math phd for his code he used to disprove a conjecture. It was ancient C89 code using GMP in which he self admittedly didn't even know how it worked.
+				</p>
+				<p>
+					And yet, because it was C, I was still able to read it. I had to look up two things (preprocessor directives and pointers) but even those were pretty simple. I was able to learn from the
+					code despite never having used the language in my life.
+				</p>
+				<p>
+					C code is far, far easier to translate to any other language than almost any other existing language out there. Nearly every language has C's control flow structures (if, while, for, etc),
+					a concept of functions (even if moved into methods), a concept of grouped data (whether it be structs or objects), a concept of referenced memory (via pointers or references), and so on.
+
+					Not every language will have, for instance, pattern matching, the concept of a defer keyword, templates/generics, and so on.
+				</p>
+				<p>
+					The biggest surprise for me learning C was how easy it was to pick up. While difficult to master, the primitives of C are so simple someone experienced with programming can probably learn it all in an afternoon.
+
+					From there you can jump into any codebase and be able to follow along. You can now understand the Linux kernel, cpython, curl, and many other projects that keep the world running.
+				</p>
+				<p>
+					You don't get that in any language other than C.
+				</p>
+				<h2>
+					C is understandable by code
+				</h2>
+				<hr>
+				<p>
+					C is not just a lingua franca among developers. It is also a lingua franca in an arguably more important domain - among programs.
+				</p>
+				<p>
+					C's ABI is nearly universally understood which allows you to interface with it via any other systems programming language. It has to be understood because every major operating system today is written in C.
+					If you don't get the C ABI, you don't get communication with the OS. However, this power goes even deeper.
+					
+					You can also compile it to JVM bytecode or .NET bytecode. You can compile it to WASM and get things running on the web (well, mostly. It's complicated but you can do it).
+
+					Python can call C libraries for important high-performance tasks. 
+				</p>
+				<p>
+					And the best part? C is such a small language that if any new esoteric compilation target comes out you can bet you'll be able to write C code that can interface with it.
+				</p>
+				<p>
+					People write libraries for others to use in languages like Java or Python but the reality is if you truly want to write a library <i>for everyone</i>, the choice to go for is a C library.
+
+					C will not lock down a project to live within a specific ecosystem. Anyone can use C.
+				</p>
+				<h2>
+					It is just close enough to assembly to be useful
+				</h2>
+				<hr>
+				<p>
+					I do not take this argument as far as some do. You'll often hear the mantra that "C is a high level assembly language", but I don't think that's quite accurate because of the amount that
+					it abstracts away.
+				</p>
+				<p>
+					With that being said, C and assembly do seem to have a special relationship. When you program in C and look at the code, you can have a decent approximation of what the naiive-ouput assembly that runs
+					on your computer will actually look like, barring compiler optimizations and the like of course. This matters a lot.
+				</p>
+				<p>
+					For one, when programming in C, you have a very good idea as you're writing it what the potential danger zones are for speed. There is a reason that people that care about performance often write in C.
+
+					You don't <i>need</i> to write assembly to get great performance. Hell, you can get great performance in any language. But C makes it so much easier to immediately know where hotspots and danger zones will be in this regard.
+
+					In languages like JavaScript or C++, things can be secretly copying massive swathes of data or laying out data in some abstract esoteric way. A method call might become just a function call, or it could go through some secret vetable behind the scenes.
+				</p>
+				<p>
+					Ever wonder why decompilers decompile to C and not something like C++?
+
+					C may not be a high level assembly, but it is just close enough to one that you get 99% of the benefits that a high level assembly would provide.
+				</p>
+				<h2>
+					It is far enough away from assembly to be useful - but no more
+				</h2>
+				<hr>
+				<p>
+					I have programmed signficant projects in plenty of other languages. I've extensively used C#, Java, Python, JS, Rust and have dabbled in far more beyond that. I still really haven't found the killer feature that would make me want to switch away from C.
+				</p>
+				<p>
+					C is remarkably productive. I can get features done in C at the same speed as I would in any other language, if not faster because it offers the flexibility that so many other languages lack.
+
+					There is no bug in any language I couldn't fix in a few lines of C. It has everything I need to get work done.
+				</p>
+				<p>
+					Don't get me wrong, C is not a perfect language. There are, in fact, languages that do certain things better than C. Rust's tagged unions are probably the best feature in the language,
+					and C does have certain difficulties like null-terminated strings being a nightmare.
+
+					But I find these small things really don't matter as much as you'd think. C has unions even if you have to manually tag them and they don't provide strict type safety, and you don't have to
+					use null terminated strings if you wrap them in a struct with a length and don't use the standard library (which you mostly shouldn't anyways for other reasons).
+				</p>
+				<p>
+					built-in bounds checking is nice-ish, but failing a bounds check and getting a crash rarely solves a problem. In the real world, with applications shipping to users, you rarely want to ever crash.
+
+					Bounds checking addresses a symptom, not the cause of a bug. If you really want robust software, you write code in a way that makes accessing out of bounds nigh-impossible. There are a lot of ways to handle this,
+					but no amount of runtime safety checks will help you write that code well.
+				</p>
+				<p>
+					People don't like the barebones and quite bad standard library of C, but you don't need the standard library. No it doesn't have a hashmap, but simple hashmaps are not hard to make. Neither are dynamic arrays or trees or lists.
+
+					And if you really need a well-tested and high quality library for these things, C doesn't prohibit you from using libraries. You can just find an implementation somewhere and use it. There is no package manager but all that means is you
+					won't accidentally stumble into dependency hell.
+				</p>
+				<p>
+					Many of the difficulties of C become way more manageable with good tooling as well.
+				</p>
+				<h2>
+					C's Tooling is Awesome
+				</h2>
+				<hr>
+				<p>
+					C is old, used everywhere, and simple. This is the perfect trifecta to a good tooling ecosystem.
+				</p>
+				<p>
+					When I program in C I basically exclusively run the code inside of a debugger because there are some incredible C debuggers out there. RADdebugger on Windows is extremely powerful
+					and while on Linux the situation isn't as great there are still decent options for graphical debuggers.
+				</p>
+				<p>
+					ASAN also fixes many of the footguns people cite as reasons C is unusable. I don't use malloc/free in my applications nearly at all (look up memory arenas!)
+					so I pretty much never have issues with memory leaks, but if you need to use malloc/free and encounter issues with memory leaks, valgrind is an incredible tool that will tell you exactly where all your problems are.
+				</p>
+				<p>
+					Type safety issues have admittedly given me some of the biggest headaches ever, and switch fallthrough bugs have gotten me once or twice. There's an easy fix for this on modern compilers though - maximize as many warnings as possible.
+					<!-- Note: I don't use Werror -->
+					On gcc I enable -Wall -Wextra and -Wpedantic from the start. It's a little bit more annoying but gives you a lot more confidence that you haven't introduced one of those bugs accidentally. gcc has the -Wimplicit-fallthrough flag which fixes a lot of this.
+				</p>
+				<p>
+					Was your code mangled by a compiler bug or you're not sure what the compiler is doing with your code? Godbolt's compiler explorer has you covered! You can directly see the assembly output your code will turn into.
+				</p>
+				<p>
+					There are <a href="https://github.com/qarmin/Instrukcje-i-Tutoriale/blob/master/AnalizatoryCC%2B%2BENG.md#useful-tools-for-checking-and-fixing-cc-code-and-others-languages-too">even more tools</a> beyond what is shown here though.
+					With modern tooling and good strategies for writing it, C is no less safe than any other language. And if you really want maximum safety, you could use Fil-C which in many ways is <b>even safer than Rust</b>.
+				</p>
+				<p>
+					And the best part - if tooling doesn't exist for C, you can write it yourself! C is a small enough language that that is a doable project for one person. Nobody has written a borrow checker for C but if you really want it, I'm sure you could do it. 
+				</p>
+				<h2>
+					Compilers
+				</h2>
+				<hr>
+				<p>
+					This is related to tooling, but it's significant enough to deserve its own spotlight. C has the honor of being the language with <b>the most compilers</b> available.
+
+					In the vast majority of languages, you're stuck with 1, maybe 2 compilers, and they often suck.
+				</p>
+				<p>
+					C has so many compilers available that they can be tailor-made for specific use cases. If you want top of the line performance you can use something like GCC or Clang or some LLVM-based compiler.
+					If you want a compilation speed of near 1 million lines of code per second, you can find that! If you want to bootstrap your own platform, you can find or make your own compiler for it from scratch.
+				</p>
+				<p>
+					Good luck bootstrapping Rust on a new platform for your OS! Have fun building your own JavaScript engine, or your own backend for LLVM IR. Making a compiler for C is not <i>easy</i>,
+					but it isn't nigh-impossible in the same way it would be for most modern languages.
+				</p>
+				<h2>
+					It's nothing personal, kid
+				</h2>
+				<hr>
+				<p>
+					At the end of the day, which language you choose is personal preference. I could go on and on about why I think C is awesome but the main reason I use it is because it's such a joy to use - a statement I can't really justify beyond vibes.
+
+					I love writing C because it's like writing in the programming language that my brain thinks in. C's constructs arise so naturally in the world of computing for my brain it scratches an itch I can't get scratched otherwise.
+				</p>
+				<p>
+					In my opinion, it wont matter how many useful constructs a language has if you hate writing it. You should program in the language you love using. If you love JS, program in JS. If you love Rust, program in Rust.
+				</p>
+				<p>
+					I program in C, because I love C.
+				</p>
+			</main>
+		</article>
+	</div>
+</body>
+<script defer src="../js/snowfallbg.js"></script>
+<script defer src="../js/code-block-postprocessing.js"></script>
+</html>

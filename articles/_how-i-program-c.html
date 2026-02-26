@@ -42,9 +42,22 @@
 			</header>
 			<hr>
 			<main>
+				<p>
+					If there's one thing programmers can't agree on, it's formatting and code styling. The problem is ultimately the discussions are based in personal aesthetic preferences.
+
+					However, I do think that the argument over code aesthetics is both important and has real interesting things to discuss. I've spent a lot of time in the past thinking about code styling
+					and at this point I believe I've settled on a style that really works for me.
+				</p>
+				<p>
+					This is in no way an "objectively best way to style your code", rather, it's the style I've settled on as my preferred way to write it after quite a bit of time.
+
+					I do have arguments for why I think my code style is good, which is what I will be focusing on in this article, but ultimately what matters is what you're productive in.
+					Also it goes without saying, but if you're working in someone else's codebase, you should code in whatever pre-established style there is. Consistent styling is more important than anything.
+				</p>
 				<h2>
 					Goals of Programming Style
 				</h2>
+				<hr>
 				<p>
 					I believe you should aim for your style of programming to facilitate your goals with whatever codebase you're in.
 					As such, my goals with code in which my style should facilitate, are the following:
@@ -61,8 +74,15 @@
 					People argue for "maintainability" in code, which I believe is the wrong attitude. Maintainable code is not the goal.
 					The best code is the code that works reliably, is clearly documented and readable, and never has to be touched for decades.
 					You don't want a car that is easy to fix but breaks constantly, you want a car that never breaks.
+					<br><br>
+					-  <b>The code should be navigable.</b> It should be as trivial as possible to jump to any arbitrary block of code you want.
+
+					So it should be organized in a logical manner in a way that it's easy to deduce where to find a specific piece of code. As well, in my opinion, the king of navigation is find (ctrl+f).
+					Nearly every text editor in existence has a find feature. Thus I use an even stricter requirement than "it should be greppable".
+					I don't want to type a regex to go to a function or struct definition. I want to just search for it.
 				</p>
 				<h2>C Standard Version</h2>
+				<hr>
 				<p>
 					I strictly use a subset of C99. I don't use the standard library at all where I can, I don't use VLA's, and I don't use features that are now deprecated, optional, or broken in later C standards.
 					This is because I want my code to be easily portable to other platforms and C99 is the second most widely supported C standard.
@@ -75,6 +95,7 @@
 					If we look in practical terms, a quick glance at the <a href="https://en.wikipedia.org/wiki/C99#Implementations">C99 implementations page on Wikipedia</a> shows that a reasonable subset of C99 is supported by nearly any C compiler in existence today.
 				</p>
 				<h2>Naming Things</h2>
+				<hr>
 				<p>
 					I have a strict set of rules for naming things in my code base. For actual formatting of the names:
 				</p>
@@ -97,13 +118,20 @@
 					Type names are the most important to distinguish after that. PascalCase is ideal for this purpose, because type names should be really short (in my opinion, they should not exceed 3 words), are typed often, and should convey importance.
 					PascalCase doesn't add extra characters, is readable when short, and is easy to type. I believe the uppercase letters in PascalCase also somewhat signal importance, as they're large and strong.
 				</p>
-				<!-- TODO: Prefix example -->
 				<p>
 					Lastly, variable and function names both use lower_snake_case. You may argue that this adds confusion, but functions rarely appear without parentheses immediately following them.
-					The only time this happens is with function pointers - and if that happens I clearly delineate that in the name of any such functions via a prefix.
+					The only time this happens is with function pointers - and if that happens I clearly delineate that in the name of any such functions via postfixing "fptr". Function pointers are very rare
+					in my codebase anyways though, as I find they often add more complexity than they take away.
 				</p>
 				<p>
 					I believe lower_snake_case is the easiest case to read as it is closest to how we read text. Being able to read code is more important than being able to write it, thus variables and functions (being the two most common things in a codebase) should have maximum readability.
+				</p>
+				<p>
+					This makes variable and function names quite long. Yes, this makes the code slightly slower to type, but the amount of time you spend typing is miniscule in terms of the actual process of software development - especially if you work with a text editor with a working autocomplete.
+					
+					<b>Typing code rarely matters - reading code always matters.</b>
+
+					In the tradeoff between typing speed (writeability) and clarity (readability), clarity should always win.
 				</p>
 				<h3>Typedefs</h3>
 				<p>
@@ -140,8 +168,31 @@
 					I've also seen the claim that typedef'ing these makes it more likely for namespace collisions if I integrate someone else's codebase, but in practicality what that means is that I delete my typedefs and use theirs instead.
 					The beauty of the names is that they clearly delineate their properties so I can be sure they won't cause issues.
 				</p>
+				<h3>Pointers</h3>
 				<p>
-					Lastly, I <b>never</b> typedef pointers. Anyone that does this needs to be tried for war crimes.
+					I <b>never</b> typedef pointers. Anyone that does this needs to be tried for war crimes. The only case it would be useful is avoiding a problem I'll discuss in just a second.
+				</p>
+				<p>
+					While we're on the topic of pointers, I also put the * with the pointer type. My argument for this is that the * indicates it's a pointer type, so it should... go with the type. I suspect the reason that this isn't done often is that you run into a problem with this code:
+				</p>
+				<centered-sub-block>
+					<numbered-code-block>
+						<code-line>int* a, b, c;</code-line>
+					</numbered-code-block>
+				</centered-sub-block>
+				<p>
+					In the above code, only a is a pointer. b and c are both just integers because the * only applied to a. This is also why I would guess people typedef pointers. There's an easy way around this though. Don't write code like the above!
+					Each variable declaration gets its own line. Which, yes, inflates the line count, but in my opinion it's clearer and it encourages you to declare variables where they're used or give them an initialization.
+				</p>
+				<centered-sub-block>
+					<numbered-code-block>
+						<code-line>int*  a = NULL;</code-line>
+						<code-line>int** b = &a;</code-line>
+						<code-line>int*  c = some_function();</code-line>
+					</numbered-code-block>
+				</centered-sub-block>
+				<p>
+					This is also what people coming from other languages are more likely to expect. It's more readable and less error prone for everyone.
 				</p>
 				<h3>No Namespaces?</h3>
 				<p>
@@ -176,6 +227,176 @@
 				<p>
 					The names themselves begin to act like namespaces! I immediately know where in my code a function named ui_... is located, and then what it acts on and what it does.
 					There is much debate over long names, but I fall squarely into the camp of "descriptive names are good". I want someone reading my code, with no prior knowledge about the internals, to understand what is going on and where to find things.
+				</p>
+				<h2>
+					Fun with Whitespace
+				</h2>
+				<hr>
+				<p>
+					Ah yes, the great debate over spaces vs tabs. I personally think this debate is nuts because as far as I'm concerned there's a correct answer here. Tabs all the way.
+				</p>
+				<p>
+					<b>Argument 1: Tabs are consistent with scope rules.</b> The rule is obvious and impossible to break. 1 tab = 1 scope level. That's it. Indentation is meant to indicate scope, so if you're using say 4 spaces, the idea you could even have such a thing as half indentation is a mistake. Similarly,
+					<br><br>
+					<b>Argument 2: Tabs are easier to work with.</b> The fact that 1 tab = 1 character = 1 scope is a strict rule means that it's trivial to work with them no matter your editor. If your editor doesn't have auto indentation or scope lines or something along those lines it's way easier to deal with tabs than spaces in my opinion.
+					<br><br>
+					<b>Argument 3: Tabs cost less.</b> This doesn't matter as much I suppose but I figure I'll throw it in anyways. A tab character is 1 byte. 4 spaces is 4 bytes and 8 spaces is 8 bytes. Does this matter?
+					The Linux kernel uses tabs instead of spaces and an indentation width of 8. If we assume each line has an average of 1 scope, and the codebase is ~35 million lines, this translates into a difference of 35Mb to 280Mb of file size out of the roughly 1.7GB of code (excluding version control, though that wouldn't change the percentage most likely).
+					That's nothing to sneeze at, I feel!
+				</p>
+				<p>
+					You may argue that the fact that the tab character doesn't have a consistent size would be bad. Alright, cool, but I don't know how much this actually matters in practice?
+					If you have column width requirements, just specify how wide a tab is and what code will be judged by. If you absolutely need your code to appear exactly the same completely unaltered between VSCode and the GitHub code viewer, go off I guess?
+				</p>
+				<p>
+					Also, I don't use tabs for aligning things horizontally between lines. Spaces are indeed better for that. But that's a distinctly different use case than what I am arguing.
+				</p>
+				<h3>Newlines</h3>
+				<p>
+					I use the K&R style with the curly brace on the same line as the item declaring the scope
+				</p>
+				<centered-sub-block>
+					<numbered-code-block>
+						<code-line>if (condition) {</code-line>
+						<code-line>    /* Code */</code-line>
+						<code-line>}</code-line>
+					</numbered-code-block>
+				</centered-sub-block>
+				<p>
+					This is so that the start of a scope and end of a scope are the same - they're 1 line. It makes it clearer in my opinion the relation between the opening scope and the thing opening it.
+					However, I must state I don't feel that strongly about this. The Allman style of having the curly brace on the next line is fine and readable, just not what I personally write.
+				</p>
+				<p>
+					Any other formatting style of braces and newlines are horrible though (looking at you GNU). Please use K&R or Allman style, I beg of you.
+				</p>
+				<p>
+					Similarly, I try to keep short function declarations all on one line. If it's long, then I break the arguments onto their own lines.
+					I don't have a hard rule for when a function definition is "too long". It's mostly vibes based. Extra note: typedef-ing structs and enums also helps keep function definitions on one line which is another reason I do that.
+				</p>
+				<centered-sub-block>
+					<numbered-code-block>
+						<code-line>/**</code-line>
+						<code-line>* Short, single line declaration</code-line>
+						<code-line>*/</code-line>
+						<code-line>void short_function(int arg1, int arg2) {</code-line>
+						<code-line>    /* Code */</code-line>
+						<code-line>}</code-line>
+						<code-line></code-line>
+						<code-line>/**</code-line>
+						<code-line>* Many argument definition</code-line>
+						<code-line>*/</code-line>
+						<code-line>void long_function( </code-line>
+						<code-line>    int arg1,</code-line>
+						<code-line>    int arg2,</code-line>
+						<code-line>    const char* arg3,</code-line>
+						<code-line>    int* arg4,</code-line>
+						<code-line>) {</code-line>
+						<code-line>    /* Code */</code-line>
+						<code-line>}</code-line>
+					</numbered-code-block>
+				</centered-sub-block>
+				<p>
+					I do the same for when I am calling functions, but I don't need to break those as often because the lack of types reduces the length of the lines significantly.
+				</p>
+				<h3>To Space or Not to Space?</h3>
+				<p>
+					I put spaces around math operations
+				</p>
+				<centered-sub-block>
+					<numbered-code-block>
+						<code-line>int y = (x * 5) + 3</code-line>
+					</numbered-code-block>
+				</centered-sub-block>
+				<p>
+					I also tend to parenthesize quite a lot, even when not necessary for maximum clarity (like the above).
+					Even if I removed the parentheses because of operator precedence it would parse correctly, but I think the parentheses help make it more immediately clear when skimming.
+				</p>
+				<p>
+					I put spaces between ifs/whiles/fors/etc and their arguments, but I don't for functions and macros.
+				</p>
+				<centered-sub-block>
+					<numbered-code-block>
+						<code-line>/* Must be 16 bytes for alignment reasons */</code-line>
+						<code-line>ASSERT(sizeof(I32Array) == 16)</code-line>
+						<code-line>I32Array array = config_file_read();</code-line>
+						<code-line>bool is_valid = validate_array(array);</code-line>
+						<code-line></code-line>
+						<code-line>if (is_valid) {</code-line>
+						<code-line>    for (int i = 0; i < I32Array.length; i++) {</code-line>
+						<code-line>        printf("%d\n", array[i]);</code-line>
+						<code-line>    }</code-line>
+						<code-line>}</code-line>
+					</numbered-code-block>
+				</centered-sub-block>
+				<p>
+					Also, ifs/fors/whiles/etc always need a curly brace following them, even if it's all on the same line. If it is on the same line I like to add spaces for a bit more breathing room.
+					It's always a pain in the rear to fix it otherwise if you need to add more functionality.
+				</p>
+				<centered-sub-block>
+					<numbered-code-block>
+						<code-line>/* ok */</code-line>
+						<code-line>if (condition) { function(); }</code-line>
+						<code-line>/* not ok */</code-line>
+						<code-line>if (condition) function();</code-line>
+					</numbered-code-block>
+				</centered-sub-block>
+				<p>
+
+				</p>
+				<h2>Macros</h2>
+				<hr>
+				<p>
+					Don't use them for anything complicated. I only use macros for a few operations:
+					<br><br>
+					- #define-ing constants that don't work inside enums.<br><br>
+					- Extremely simple functions, like an absolute value, so I can guarantee they get inlined<br><br>
+					- Getting compile time information with things like sizeof, __LINE__, __FILE__, etc.<br><br>
+					- Assertions and related<br><br>
+					- Replacing existing function calls in your codebase for debug purposes (e.g. #define malloc(x) debug_malloc(x, __LINE__, __FILE__))
+				</p>
+				<p>
+					That's basically it. Macros are dangerous because the error messages from them can be horrifying and they can be hard to debug.
+					For example, I think the Linux kernel's embedded data structure macros are awful to use.
+					Just embed and use data structures manually, or if you really have to, use a function so I get type checking with errors that are actually readable.
+				</p>
+				<h2>Build system</h2>
+				<hr>
+				<p>
+					You may argue this extends a little bit out of the code styling territory. However, it influences how you organize your code so I think it's fine to include here.
+				</p>
+				<p>
+					What build system do I use? I don't use one. At all. Make and its consequences have been a disaster for humanity.
+				</p>
+				<p>
+					I do what the industry calls a "unity build". The entirety of my code is a single translation unit that gets chewed through in a straight line.
+				</p>
+				<p>
+					I have a single header file that is included by the main.c file, that itself includes every file in the project that needs to be built in its dependency order.
+				</p>
+				<p>
+					For the game engine I am working on, thus, this is the entire build script for the project: 
+				</p>
+				<centered-sub-block>
+					<numbered-code-block>
+						<code-line>gcc main.c -o afterhours.exe \</code-line>
+						<code-line>    -g3 -O0 \</code-line>
+						<code-line>    -I libs/include \</code-line>
+						<code-line>    libs/lib/windows/libraylib.a \</code-line>
+						<code-line>    -lm -lpthread -ldl -lgdi32 -lwinmm</code-line>
+					</numbered-code-block>
+				</centered-sub-block>
+				<p>
+					Having a complete lack of a build system has a number of advantages. For one, absolutely any basic C lsp can understand the codebase immediately. You don't have to explain to it the build
+					order or anything. This matters way more than you think - because I've had to constantly fiddle with Vscode's LSP for various projects I've interacted with because everything is abstracted
+					away by the build system. It's awful and sucks.
+				</p>
+				<p>
+					Another advantage is build time. You'd think that unity builds would be slower than incremental, but I rarely find this to matter in practice. For one, incremental builds bring with them overhead of their own.
+					Their advantages only begin to appear with truly massive projects. I currently just use gcc since it's what I have on my system and is fast enough currently, but considering during development I don't want heavy optimizations, I could always switch to compilers that actually compile C in a reasonable amount of time.
+					As an example, <a href="https://wiki.alopex.li/LanguageCompilationSpeed#tcc">TCC can compile tens of thousands to a hundred thousand lines of code a second</a>.
+				</p>
+				<p>
+					There is no world where my game + engine exceeds a few hundred thousand lines of code.
 				</p>
 			</main>
 		</article>
