@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="description" content="Tackling a computer science problem about a bug trapped in a maze using an underappreciated algorithm.">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Bugs, Mazes, and the Unreasonably Effective Brady's Algorithm</title>
+	<title>Why I Love C</title>
 	<link rel="stylesheet" href="../css/main.css">
 	<link defer rel="stylesheet" href="../css/katex.supermin.css">
 	<script defer src="../js/katex.min.js"></script>
@@ -49,10 +49,8 @@
 					few language features, and the ever present threat of zero memory safety mechanisms.
 				</p>
 				<p>
-					So, why do I love this language? 
-				</p>
-				<p>
-
+					Despite that, I love it - as do many other people. This language has some real strengths that rarely get talked about. I've read a lot of articles
+					from people that also love C and I feel almost none capture the same benefits that I get out of it.
 				</p>
 				<h2>
 					C is Dependable
@@ -67,8 +65,12 @@
 					the decline for a long time. C++ continues to do whatever the hell it's doing. Features get deprecated all the time in languages - who knows if those deprecated features will make it into the future?
 				</p>
 				<p>
-					My hot take is that you don't want "maintainable code". You don't want code that breaks constantly but is easy to fix. You want code that never breaks, and never needs to be touched.
-
+					Much ink is spilled on "maintainable code", but I believe what most people really want is not "maintainable code", but rather "invulnerable code". You don't want code that breaks constantly but is easy to fix - you want code that never breaks, and never needs to be touched.
+				</p>
+				<p>
+					Sure, that Rust code will be more memory safe, but will it compile with no changes even 5 years down the line? From my experience, that hasn't been the case.
+				</p>
+				<p>
 					C will give you that sort of guarantee in a way few other languages can claim to.
 				</p>
 				<h2>
@@ -185,6 +187,13 @@
 					won't accidentally stumble into dependency hell.
 				</p>
 				<p>
+					Another virtue of C of not having a lot of features is that it avoids many of the anti-features that are present in so many other languages.
+					I think exceptions were a mistake because they obfuscate control flow and make you think about error handling in a way that I believe creates worse software.
+					Dynamic typing not only adds runtime overhead and makes a language harder to parse for tooling, but it makes code hell to maintain long term.
+					Operator overloading makes math with vectors and such slightly easier to work with at the cost of allowing for some of the worst crimes against software.
+					Objects lead to OOP hell. I could go on and on with examples, but the point is that C not having any of these guides programmers in C towards better ways of doing things.
+				</p>
+				<p>
 					Many of the difficulties of C become way more manageable with good tooling as well.
 				</p>
 				<h2>
@@ -206,6 +215,9 @@
 					Type safety issues have admittedly given me some of the biggest headaches ever, and switch fallthrough bugs have gotten me once or twice. There's an easy fix for this on modern compilers though - maximize as many warnings as possible.
 					<!-- Note: I don't use Werror -->
 					On gcc I enable -Wall -Wextra and -Wpedantic from the start. It's a little bit more annoying but gives you a lot more confidence that you haven't introduced one of those bugs accidentally. gcc has the -Wimplicit-fallthrough flag which fixes a lot of this.
+				</p>
+				<p>
+					(I would like to note though that I don't enable -Werror, which upgrades all warnings to errors, like a lot of people recommend. It just enables more friction which hurts productivity while not actually giving me more information.)
 				</p>
 				<p>
 					Was your code mangled by a compiler bug or you're not sure what the compiler is doing with your code? Godbolt's compiler explorer has you covered! You can directly see the assembly output your code will turn into.
@@ -235,7 +247,7 @@
 					but it isn't nigh-impossible in the same way it would be for most modern languages.
 				</p>
 				<h2>
-					It's nothing personal, kid
+					Do What You Love
 				</h2>
 				<hr>
 				<p>
