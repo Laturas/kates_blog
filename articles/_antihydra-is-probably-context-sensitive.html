@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="An exploration of a very interesting, and very difficult turing machine">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Antihydra is Probably Context Sensitive</title>
+	<link rel="stylesheet" href="../css/main.css">
+	<link defer rel="stylesheet" href="../css/katex.supermin.css">
+	<script defer src="../js/katex.min.js"></script>
+	<!-- Automatically renders math in text elements -->
+	<script defer src="../js/auto-render.min.js"onload="renderMathInElement(document.body);"></script>
+	<link rel="icon" type="image/png" href="../media/favicon.webp"> 
+	<meta name="format-detection" content="telephone=no">
+</head>
+<body>
+	<header class="banner">
+		<h1>Katelyn's Blog</h1>
+	</header>
+	<div class="main-block">
+		<nav class="navigation">
+			<ul>
+				<li>
+					<a href="../index.html">Home</a>
+				</li>
+				<li>
+					<a href="../articles.html">Articles</a>
+				</li>
+				<li>
+					<a href="../projects.html">Projects</a>
+				</li>
+			</ul>
+		</nav>
+		<article id="article_body">
+			<header class="article-header">
+				<h1 class="article-title">
+					Antihydra is Probably Context Sensitive
+				</h1>
+				<p class="article-date">
+					April 17 2026
+				</p>
+			</header>
+			<hr>
+			<main>
+				<p>
+					I am making this article the hopes someone can free me from my suffering.
+					I was so certain I could make this proof work but it is just unwieldy enough I am not sure I can complete it. I will lay out everything I know and some potential skeletons for a proof.
+				</p>
+				<h1>
+					Background
+				</h1>
+				<p>
+					The Busy Beaver Challenge community is one that is dedicated to - among other things - proving whether given Turing machines halt or not in an effort to find the elusive Busy Beaver numebrs.
+
+					One problem is that there are a <i>lot</i> of Turing machines, and most of them are boring. So we create programs called "deciders" which can take in a machine and automatically attempt to generate a proof that it halts or doesn't halt.
+
+					This allows us busy beaver hunters to only have to deal with a small subset of machines that are too complex to automatically decide with automated proof techniques.
+				</p>
+				<p>
+					One such class of deciders are called Closed Tape Language (CTL) deciders. This is a very broad category of techniques but they all do something roughly akin to this:
+				</p>
+				<p>
+					1 - Create a set of languages (regular or context free usually, we'll get to this), that can describe a superset of all tape configurations the machine can generate
+				</p>
+				<p>
+					2 - Show this set of languages is closed under single step (the machine can't leave this set) and that the machine enters this set.
+				</p>
+				<p>
+					3 - Show that this set of languages does not contain any halting configurations
+				</p>
+				<p>
+					If you can show those 3, then you have a proof that no matter what the machine does, it can't ever halt. Early CTL deciders (e.g. Finite Automata Reduction) used regular languages
+					because of their nice properties but with the discovery of irregular machines in BB5, stronger techniques like Weighted Finite Automata Reduction, etc, were developed capable of tackling some machines whose behavior cannot be captured by regular languages.
+				</p>
+				<p>
+					But now in the domain of BB6, we have encountered machines that seem <i>mathematically</i> hard. One such machine is Antihydra, which follows these rules:
+				</p>
+				<centered-sub-block>
+					<p>
+						let \(A(a,b) := 0^\infty 1^a 0 1^b \text{ E}> 0^\infty\). Then:
+					</p>
+					<p>
+						\(
+						A(a, 2n) \rightarrow A(a + 2, 3n + 2)
+						\)
+					</p>
+					<p>
+						\(
+						A(a + 1, 2n+1) \rightarrow A(a, 3n + 3)
+						\)
+					</p>
+					<p>
+						\(
+						A(0, 2n+1) \rightarrow \text{HALT}
+						\)
+					</p>
+				</centered-sub-block>
+				<p>
+					There have been examples of machines that seem fairly difficult and intimidating (not on the scale of Antihydra) that got solved suddenly by running existing deciders for long enough.
+					There was a set of languages that could describe the long-term behavior, we just hadn't found it yet. To my knowledge, there has not been a machine found in which it is known to be context-sensitive, i.e. it is not solvable with an automatic CTL decider that can only employ the strength of context free languages.
+				</p>
+				<p>
+					I am very certain that the machine listed above is one such machine. I will be providing my justification of why I believe that, but I lack a rigorous proof because unfortunately the transformation rules it follows is just too unwieldy to do arithmetic with.
+				</p>
+				<h2>
+					What Can Be Shown?
+				</h2>
+				<p>
+					We will consider a subset of a hypothetical CTL for Antihydra. Consider a set R such that R is the finite set of regular languages \(R_1 \dots R_k\) such that each \(R_i\) describes a regular language over the tape configurations \(0^\infty 1^a 0 1^b \text{ E}> 0^\infty\).
+				</p>
+				<p>
+					Why regular and not context free you ask? Well, Antihydra's "b" counter is a singleton alphabet. This means we can employ Parikh's Theorem, which as a corollary demonstrates that any context free language over a singleton alphabet is regular.
+
+					What this means is that we can show that Antihydra is either regular or not context free, which I think by itself is a cool result already.
+				</p>
+				<p>
+					Furthermore, we can reduce each such element into the form \(1^x(1^y)^*\) which itself is equivalent to stating \(b \equiv x \bmod y\). If we have a bunch of these equivalences for each element in the set, we can unify all of them to a common modulus to reduce the set of regular languages into a statement about Antihydra's residues in some finite modular space that looks like the following:
+				</p>
+				<sub-block>
+					If Antihydra is regular, then there exists a modulus N and a set \( \{c_1, c_2, c_3, ...\} \) such that for all b values Antihydra encounters, exactly one of the following holds:
+					\[
+					b \equiv c_1 \bmod N
+					\]
+					\[
+					b \equiv c_2 \bmod N
+					\]
+					\[
+					...
+					\]
+				</sub-block>
+				<p>
+					This is an extremely strong statement about Antihydra's behavior - in particular one that is almost certainly false.
+					In fact, part of the difficulty of simulating Antihydra and other such machines out to incredible distances is that a modulus operation destroys information necessary to accurately simulate it.
+				</p>
+				<p>
+					If Antihydra runs forever, which we believe to be very likely, then this adds an even harsher criterion to these equivalence classes. Let \(b = c + Nk\). If Antihydra were regular, this would imply we cannot change k to create any sequence that would halt (via pumping lemma) but I would conjecture the opposite:
+				</p>
+				<p>
+					<b>Conjecture: </b> Consider the hydra function \(A(a,b)\). For any \(c, N, e\), there exists \(k, s\) such that for \(b = c + Nk\), the net change on a is e after s rule applications.
+				</p>
+				<p>
+					If you could demonstrate the above conjecture to be true, then you would be able to prove that if Antihydra is nonhalting then it is not context free.
+				</p>
+				<p>
+					But this is unfortunately where I got stuck. This statement does not seem easy to prove at all even if in my opinion it should be true.
+				</p>
+			</main>
+		</article>
+	</div>
+</body>
+<script>
+	function toggle_element(show_element, button_id, proof_id) {
+		button = document.getElementById(button_id);
+		if (show_element) {
+			document.getElementById(proof_id).style.display = "";
+			button.textContent = "[Click to hide proof]";
+			button.style.marginBottom = "0px";
+		} else {
+			document.getElementById(proof_id).style.display = "none";
+			button.textContent = "[Click to show proof]";
+			button.style.marginBottom = "12px";
+		}
+	}
+	
+	seq_rewrite_pressed = false;
+	document.getElementById('btn_seq_proof').addEventListener('click', function() {
+		seq_rewrite_pressed = !seq_rewrite_pressed;
+		toggle_element(seq_rewrite_pressed, 'btn_seq_proof', 'seq_proof');
+	});
+
+	toggle_element(seq_rewrite_pressed, 'btn_seq_proof', 'seq_proof');
+
+	backward_reasoning_pressed = false;
+	document.getElementById('btn_br_proof').addEventListener('click', function() {
+		backward_reasoning_pressed = !backward_reasoning_pressed;
+		toggle_element(backward_reasoning_pressed, 'btn_br_proof', 'br_proof');
+	});
+
+	toggle_element(backward_reasoning_pressed, 'btn_br_proof', 'br_proof');
+</script>
+<script defer src="../js/snowfallbg.js"></script>
+</html>

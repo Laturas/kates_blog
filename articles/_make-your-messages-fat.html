@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="Tackling a computer science problem about a bug trapped in a maze using an underappreciated algorithm.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bugs, Mazes, and the Unreasonably Effective Brady's Algorithm</title>
+	<link rel="stylesheet" href="../css/main.css">
+	<link defer rel="stylesheet" href="../css/katex.supermin.css">
+	<script defer src="../js/katex.min.js"></script>
+	<!-- Automatically renders math in text elements -->
+	<script defer src="../js/auto-render.min.js"onload="renderMathInElement(document.body);"></script>
+	<link rel="icon" type="image/png" href="../media/favicon.webp"> 
+	<meta name="format-detection" content="telephone=no">
+</head>
+<body>
+	<header class="banner">
+		<h1>Katelyn's Blog</h1>
+	</header>
+	<div class="main-block">
+		<nav class="navigation">
+			<ul>
+				<li>
+					<a href="../index.html">Home</a>
+				</li>
+				<li>
+					<a href="../articles.html">Articles</a>
+				</li>
+				<li>
+					<a href="../projects.html">Projects</a>
+				</li>
+			</ul>
+		</nav>
+		<article id="article_body">
+			<header class="article-header">
+				<h1 class="article-title">
+					Make Your Messages Fat
+				</h1>
+				<p class="article-date">
+					February 17 2026
+				</p>
+			</header>
+			<hr>
+			<main>
+				<p>
+					I am building a desktop mp3 player called Pinetree.
+					While it's working and people are using it, as I'm building I'm having to deal with the frustration of a suboptimal design decision I made early on: I made my thread communication too fine-grained.
+				</p>
+				<h2>
+					The Situation :tm:
+				</h2>
+				<p>
+					For a decent mp3 player you need at least two threads because you need to handle the GUI and the playing of the audio. And of course, those threads have to communicate. The audio thread needs to know when the user does something on the GUI end, and the GUI needs information like which song is currently playing to accurately display it to the user.
+				</p>
+				<p>
+					This isn't a very difficult problem so I chose to implement a mailbox system. I built a vector that stores messages which can either be requests for data or a signal to update something (like pausing the current song) and then a mutex and condvar for the synchronization.
+				</p>
+				<p>
+					When all is said and done, you get an interface that looks something like this:
+				</p>
+				<centered-sub-block>
+					<numbered-code-block>
+						<code-line>enum MessageToAudioThread {</code-line>
+						<code-line>    SetPaused(bool),</code-line>
+						<code-line>    SeekToPosition(usize),</code-line>
+						<code-line>    /* ... */</code-line>
+						<code-line>}</code-line>
+						<code-line></code-line>
+						<code-line>fn audio_thread() {</code-line>
+						<code-line>    loop {</code-line>
+						<code-line>        /* TODO: Fill this out */</code-line>
+						<code-line>        while !queue_is_empty() {</code-line>
+						<code-line>            </code-line>
+						<code-line>        }</code-line>
+						<code-line>    }</code-line>
+						<code-line>}</code-line>
+					</numbered-code-block>
+				</centered-sub-block>
+				<p>
+
+				</p>
+			</main>
+		</article>
+	</div>
+</body>
+<script defer src="../js/snowfallbg.js"></script>
+<script defer src="../js/code-block-postprocessing.js"></script>
+</html>
