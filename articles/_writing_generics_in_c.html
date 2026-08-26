@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="A description of what I believe are the best ways of creating reusable modules for C code">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Writing Generic Code in C (Template Headers)</title>
+	<link rel="stylesheet" href="../css/main.css">
+	<link defer rel="stylesheet" href="../css/katex.supermin.css">
+	<script defer src="../js/katex.min.js"></script>
+	<!-- Automatically renders math in text elements -->
+	<script defer src="../js/auto-render.min.js"onload="renderMathInElement(document.body);"></script>
+	<link rel="icon" type="image/png" href="../media/favicon.webp"> 
+	<meta name="format-detection" content="telephone=no">
+</head>
+<body>
+	<header class="banner">
+		<h1>Katelyn's Blog</h1>
+	</header>
+	<div class="main-block">
+		<nav class="navigation">
+			<ul>
+				<li>
+					<a href="../index.html">Home</a>
+				</li>
+				<li>
+					<a href="../articles.html">Articles</a>
+				</li>
+				<li>
+					<a href="../projects.html">Projects</a>
+				</li>
+			</ul>
+		</nav>
+		<article id="article_body">
+			<header class="article-header">
+				<h1 class="article-title">
+					Writing Generic Code in C (Template Headers)
+				</h1>
+				<p class="article-date">
+					August 26 2026
+				</p>
+			</header>
+			<hr>
+			<main>
+				<p>
+					I actually debated whether to write this article at all - as this isn't exactly anything new that I'm showcasing here. Every technique listed in this article is an established pattern.
+				</p>
+				<p>
+					That being said, I very rarely see the primary pattern I want to discuss being recommended, when I believe it is just unequivocably the best in many cases.
+					And rather, I keep seeing what I believe to be bad techniques recommended as the go-to method for handling this problem. So my hope is that this article is one you or I can easily link to as a reference.
+				</p>
+				<p>
+					Without further ado, what is this ultimate secret to writing generic code in C?
+				</p>
+				<p></p>
+				<h2>
+					Template Headers
+				</h2>
+				<hr>
+				<p>
+					The concept of a template header is very simple, and is similar to how you would write generic code in any other language, except because it's C we do it using the preprocessor.
+				</p>
+				<p>
+					Say I want to define my own custom array type that looks like the following:
+				</p>
+				<numbered-code-block>
+					<code-line><code-keyword>struct</code-keyword> <code-type>ArrayStruct</code-type> {</code-line>
+					<code-line>    <code-type>ArrayElemType</code-type>* <code-var>elements</code-var>;</code-line>
+					<code-line>    <code-type>int</code-type> <code-var>length</code-var>;</code-line>
+					<code-line>};</code-line>
+				</numbered-code-block>
+				<p>
+					This general pattern can be repeated throughout the codebase, but each time there are two things that need to be changed. Mainly, ArrayStruct and ArrayElemType.
+				</p>
+				<p>
+					All the C preprocessor really is at the end of the day is a very fancy find+replace tool. What we can do is require the user to preprocess #define what to replace these with, and then undefine them at the end.
+				</p>
+				<numbered-code-block>
+					<code-line><code-comment>/* ArrayStruct and ArrayElemType will be replaced by what the user</code-comment></code-line>
+					<code-line><code-comment>passes in for ARRAY_STRUCT_TYPE and ARRAY_ELEM_TYPE respectively */</code-comment></code-line>
+					<code-line><code-comptime>#define</code-comptime> <code-type>ArrayStruct</code-type> <code-constant>ARRAY_STRUCT_TYPE</code-constant></code-line>
+					<code-line><code-comptime>#define</code-comptime> <code-type>ArrayElemType</code-type> <code-constant>ARRAY_ELEM_TYPE</code-constant></code-line>
+					<code-line></code-line>
+					<code-line><code-keyword>struct</code-keyword> <code-type>ArrayStruct</code-type> {</code-line>
+					<code-line>    <code-type>ArrayElemType</code-type>* <code-var>elements</code-var>;</code-line>
+					<code-line>    <code-type>int</code-type> <code-var>length</code-var>;</code-line>
+					<code-line>};</code-line>
+					<code-line></code-line>
+					<code-line><code-comptime>#undef</code-comptime> <code-constant>ARRAY_STRUCT_TYPE</code-constant></code-line>
+					<code-line><code-comptime>#undef</code-comptime> <code-constant>ARRAY_ELEM_TYPE</code-constant></code-line>
+					<code-line><code-comptime>#undef</code-comptime> <code-type>ArrayStruct</code-type></code-line>
+					<code-line><code-comptime>#undef</code-comptime> <code-type>ArrayElemType</code-type></code-line>
+				</numbered-code-block>
+				<p>
+					You can also check ahead of time to make sure that they are #define'd ahead of time and use the #error directive to break compilation and give a helpful error message if not.
+				</p>
+				<numbered-code-block>
+					<code-line><code-comptime>#ifndef</code-comptime> <code-constant>ARRAY_ELEMENT_TYPE</code-constant></code-line>
+					<code-line>    <code-comptime>#error</code-comptime> <code-string>No type defined for generic array element type \</code-string></code-line>
+					<code-line>    <code-string>above the #include, please #define ARRAY_ELEMENT_TYPE to the array element type</code-string></code-line>
+					<code-line><code-comptime>#endif</code-comptime></code-line>
+				</numbered-code-block>
+				<p>
+					That's really all there is to it. I added in some extra boilerplate for adding the ability to typedef the resulting struct (I typedef by default but I know some others don't like that) but in principle that's all there is.
+				</p>
+				<p>
+					Then you save this to a separate file (something like "generic_array.h"), and then can use it around your program like so:
+				</p>
+				<numbered-code-block>
+					<code-line><code-comptime>#define</code-comptime> <code-constant>ARRAY_ELEMENT_TYPE</code-constant> <code-type>int</code-type></code-line>
+					<code-line><code-comptime>#define</code-comptime> <code-constant>ARRAY_STRUCT_TYPE</code-constant> <code-type>IntArray</code-type></code-line>
+					<code-line><code-comment>/* Creates an IntArray struct that can be used around the program */</code-comment></code-line>
+					<code-line><code-comptime>#include</code-comptime> <code-string>"generic_array.h"</code-string></code-line>
+				</numbered-code-block>
+				<p>
+					You may be wondering what possible effort this saves - and for a simple case like this it doesn't really. However, doing it this way even for an array of this simplicity has its benefits. For one, it guarantees a consistent convention across the codebase.
+					The amount of elements is always array.length, the elements can always be accessed with array.elements, and it's simply modifiable (for instance, migrating from 32-bit to 64-bit you could change int to a larger type)
+				</p>
+				<p>
+					I personally find it nice to enforce consistent conventions across my personal projects, and doing it this way guarantees that.
+				</p>
+				<p>
+					But the real benefits of this technique start to show itself when you consider more complex generic structures, as well as the other half of the equation: functions.
+				</p>
+				<p>
+					The C preprocessor, as it turns out, is way more powerful than you'd think. The token paste operator ## is a rarely used but extremely versatile feature. In our case, it's capable of handling automatic name mangling according to a pattern.
+				</p>
+				<numbered-code-block>
+					<code-comment>/* Defines the "xar_get" symbol to be replaced with XAR_GET_(XAR_FN_POSTFIX) */</code-comment>
+					<code-line><code-comptime>#define</code-comptime> <code-constant>xar_get         XAR_GET_(XAR_FN_POSTFIX)</code-constant></code-line>
+					<code-comment>/* XAR_FN_POSTFIX needs to be expanded to its definition, so we need a second here */</code-comment>
+					<code-line><code-comptime>#define</code-comptime> <code-constant>XAR_GET_(type)  XAR_GET__(type)</code-constant></code-line>
+					<code-comment>/* Now we can directly paste its expansion onto the end of the xar_get_ signature.*/</code-comment>
+					<code-line><code-comptime>#define</code-comptime> <code-constant>XAR_GET__(type) xar_get_##type</code-constant></code-line>
+				</numbered-code-block>
+				<p>
+					If you don't know what a xar is, don't worry you won't need to for this post. (I will explain in a future post because they're cool though!)
+				</p>
+				<p>
+					What the above code does is replace any instance of "xar_get" with xar_get_(whatever we pass as XAR_FN_POSTFIX). So #define'ing XAR_FN_POSTFIX as string will replace all instances of xar_get with xar_get_string
+				</p>
+				<p>
+					For the implementation of the actual function then, it becomes extremely simple and readable. You can pretty much just read/write it like any other function.
+				</p>
+				<numbered-code-block>
+					<code-line><code-type>XarType</code-type> <code-var>xar_get</code-var>(<code-type>XarStruct</code-type> <code-var>xar_struct</code-var>, <code-type>int</code-type> <code-var>index</code-var>) {</code-line>
+					<code-line>    <code-comment>/* You can just use xar_struct here like any variable */</code-comment></code-line>
+					<code-line>}</code-line>
+				</numbered-code-block>
+				<p>
+					And usage code just looks like this:
+				</p>
+				<numbered-code-block>
+					<code-line><code-comptime>#define</code-comptime> <code-constant>XAR_ELEMENT_TYPE</code-constant> <code-type>int</code-type></code-line>
+					<code-line><code-comptime>#define</code-comptime> <code-constant>XAR_STRUCT_TYPE</code-constant> <code-type>IntXar</code-type></code-line>
+					<code-line><code-comptime>#define</code-comptime> <code-constant>XAR_FN_POSTFIX</code-constant> <code-type>int</code-type></code-line>
+					<code-line><code-comptime>#include</code-comptime> <code-string>"generic_xar.h"</code-string></code-line>
+					<code-line></code-line>
+					<code-line><code-type>int</code-type> <code-var>main</code-var>(<code-keyword>void</code-keyword>) {</code-line>
+					<code-line>    <code-type>IntXar</code-type> <code-var>xar</code-var>;</code-line>
+					<code-line>    <code-comment>/* ... */</code-comment></code-line>
+					<code-line>    <code-type>int</code-type> <code-var>value</code-var> = <code-var>xar_get_int</code-var>(<code-var>xar</code-var>, 0);</code-line>
+					<code-line>}</code-line>
+				</numbered-code-block>
+				<p>
+					Everything just kinda works! That's really all there is to it.
+				</p>
+				<p>
+					If you wanted to get really fancy with it, you could use the _Generic keyword introduced in C17 to achieve function overloading. Instead of calling xar_get_int, you could call xar_get and it will dispatch to the correct function definition at compile time!
+					However, I don't use this because I program in C99 (C17 still has compatibility issues for me)
+				</p>
+				<p>
+					Another thing I like to do is separate implementation from header usage in the STB style by having an, e.g., extra #define XAR_IMPLEMENTATION above the header that generates the actual function definitions. This avoids the issue of multiple definitions if you want to use this across modules.
+				</p>
+				<p></p>
+				<h2>
+					Why Template Headers are AWESOME
+				</h2>
+				<hr>
+				<p>
+					I believe this is the best technique for writing generic C code for non-pointer datastructures (we'll get to those later) for several reasons.
+				</p>
+				<p>
+					The first reason they're great is that this is entirely legal C with no extra compiler extensions or outside scripts, that works as far back as C89 (unless you use _Generic). So this is an extremely portable setup with minimal changes.
+					It also frees you from external build systems and is agnostic to how you generally set up your project.
+				</p>
+				<p>
+					The next reason, building off of the first, is that it is an extremely friendly technique to external tooling. Any old C LSP can read a template header definition and give you full autocomplete, goto definition, syntax highlighting, and more.
+					It also works fantastically with debuggers! It'll show you the genericized code when stepping through, which is still readable enough to be able to reasonably debug.
+				</p>
+				<p>
+					It is a very flexible technique, and depending on how crazy you want to get with writing preprocessor code, you can give people very thorough control over how things get setup while not needing to worry about implementation details.
+				</p>
+				<p>
+					The last reason, and my number one reason I use this technique, is it offers <strong>type safety</strong>. If you pass the wrong type to a generated function or expect the wrong output, it throws an error at compile time. This catches bugs for me very regularly.
+				</p>
+				<p>
+					GingerBill cited the lack of the ability to create a type-safe hashmap as one of his reasons for making a new language with proper generic support. I agree that this is important, and while it wasn't the easiest, I did manage to create a template header for a 100% type safe hash map implementation that I regularly use across projects.
+					The productivity boost from this cannot be understated, and along with my other generic data structures, lets me write C projects at a speed comparable to any other high level language.
+				</p>
+				<p></p>
+				<h2>
+					What Datastructures Should You NOT Use Template Headers For?
+				</h2>
+				<hr>
+				<p>
+					I do not use Template Headers for pointer based data structures: (double or singly linked) lists, trees, etc. Instead, for these I follow the intrusive pattern in pretty much the same way that the Linux Kernel does.
+				</p>
+				<p>
+					I won't be going in-depth on how the intrusive data structure pattern works here, though you can find a good explanation here: <a href="https://www.data-structures-in-practice.com/intrusive-linked-lists/">https://www.data-structures-in-practice.com/intrusive-linked-lists/</a>
+				</p>
+				<p>
+					In doing this, you definitely lose type safety and could potentially run into some nasty bugs. However, when I tried applying the template-header pattern to this, I found it to be far more cumbersome and was more of a detriment to my productivity.
+					In addition, the intrusive data structure pattern offers an incredible amount of flexibility, in that a single blob of data can be a part of multiple data structures at once, which has come in handy a few times.
+				</p>
+				<p>
+					Intrusive data structures also prevent you from needing to allocate the data structure separately from the instances of data. This is especially nice if you're working with allocating/deallocating specific elements, but is still nice in a batch allocation context because you don't need to consider the sizes separately. You just have one structure.
+				</p>
+				<p>
+					So my rule of thumb is the following: If you can only think of it in terms of the data structure containing your data (arrays, dynamic arrays, hash maps, etc) - then template headers are a great fit. If it's better to think of your data containing a node in a tree, then the intrusive pattern is better.
+				</p>
+			</main>
+		</article>
+	</div>
+</body>
+<script defer src="../js/snowfallbg.js"></script>
+<script defer src="../js/code-block-postprocessing.js"></script>
+</html>

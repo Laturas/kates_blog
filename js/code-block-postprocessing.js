@@ -5,6 +5,7 @@ code_blocks.forEach(code_block => {
     const lines = document.createElement('code-body');
     for (i = 0; i < count; i++) {
         const num = document.createElement('code-number');
+		num.ariaHidden="true";
         num.appendChild(document.createTextNode(i));
         numbers.append(num);
 
@@ -12,7 +13,9 @@ code_blocks.forEach(code_block => {
         lines.append(new_line);
         lines.append(document.createElement('br'));
     }
-    const new_block = document.createElement('code-block');
+    const new_pre = document.createElement('pre');
+    const new_block = document.createElement('code');
+	new_pre.append(new_block)
     new_block.append(numbers);
     new_block.append(lines);
     if (code_block.id) {
@@ -22,5 +25,5 @@ code_blocks.forEach(code_block => {
         new_block.className = code_block.className;
     }
 
-    code_block.parentNode.replaceChild(new_block, code_block);
+    code_block.parentNode.replaceChild(new_pre, code_block);
 });

@@ -81,7 +81,7 @@ I will explain how it works in the context of this game.
 Consider the following maze:
 </p>
 <centered-sub-block>
-<code-block><code-numberings><code-number>0</code-number><code-number>1</code-number><code-number>2</code-number><code-number>3</code-number><code-number>4</code-number><code-number>5</code-number><code-number>6</code-number></code-numberings><code-body><code-line>#########</code-line><br><code-line>#*------#</code-line><br><code-line># ------#</code-line><br><code-line># ------#</code-line><br><code-line># ------#</code-line><br><code-line>#      *#</code-line><br><code-line>#########</code-line><br></code-body></code-block>
+<pre><code><code-numberings><code-number aria-hidden="true">0</code-number><code-number aria-hidden="true">1</code-number><code-number aria-hidden="true">2</code-number><code-number aria-hidden="true">3</code-number><code-number aria-hidden="true">4</code-number><code-number aria-hidden="true">5</code-number><code-number aria-hidden="true">6</code-number></code-numberings><code-body><code-line>#########</code-line><br><code-line>#*------#</code-line><br><code-line># ------#</code-line><br><code-line># ------#</code-line><br><code-line># ------#</code-line><br><code-line>#      *#</code-line><br><code-line>#########</code-line><br></code-body></code></pre>
 </centered-sub-block>
 <p>
 Where "#" = wall, " " = empty cell, "-" = undefined cell, and "*" = start or end cell. There are a lot of undefined cells, which means that it doesn't matter what they are. The bug will never
@@ -114,27 +114,27 @@ The following are the champions for each <span class="katex"><span><math><semant
 <tr>
 <td><span class="katex"><span><math><semantics><mrow><mn>3</mn><mo>×</mo><mn>3</mn></mrow></semantics></math></span></span></td>
 <td>
-<code-block><code-numberings><code-number>0</code-number><code-number>1</code-number><code-number>2</code-number><code-number>3</code-number><code-number>4</code-number></code-numberings><code-body><code-line>#####</code-line><br><code-line>#   #</code-line><br><code-line># # #</code-line><br><code-line># #-#</code-line><br><code-line>#####</code-line><br></code-body></code-block>
+<pre><code><code-numberings><code-number aria-hidden="true">0</code-number><code-number aria-hidden="true">1</code-number><code-number aria-hidden="true">2</code-number><code-number aria-hidden="true">3</code-number><code-number aria-hidden="true">4</code-number></code-numberings><code-body><code-line>#####</code-line><br><code-line>#   #</code-line><br><code-line># # #</code-line><br><code-line># #-#</code-line><br><code-line>#####</code-line><br></code-body></code></pre>
 </td> <td>8</td>
 </tr>
 <tr>
 <td><span class="katex"><span><math><semantics><mrow><mn>4</mn><mo>×</mo><mn>4</mn></mrow></semantics></math></span></span></td> <td>
-<code-block><code-numberings><code-number>0</code-number><code-number>1</code-number><code-number>2</code-number><code-number>3</code-number><code-number>4</code-number><code-number>5</code-number></code-numberings><code-body><code-line>######</code-line><br><code-line>#    #</code-line><br><code-line>#  ###</code-line><br><code-line>#    #</code-line><br><code-line>#  #-#</code-line><br><code-line>######</code-line><br></code-body></code-block>
+<pre><code><code-numberings><code-number aria-hidden="true">0</code-number><code-number aria-hidden="true">1</code-number><code-number aria-hidden="true">2</code-number><code-number aria-hidden="true">3</code-number><code-number aria-hidden="true">4</code-number><code-number aria-hidden="true">5</code-number></code-numberings><code-body><code-line>######</code-line><br><code-line>#    #</code-line><br><code-line>#  ###</code-line><br><code-line>#    #</code-line><br><code-line>#  #-#</code-line><br><code-line>######</code-line><br></code-body></code></pre>
 </td> <td>20</td>
 </tr>
 <tr>
 <td><span class="katex"><span><math><semantics><mrow><mn>5</mn><mo>×</mo><mn>5</mn></mrow></semantics></math></span></span></td> <td>
-<code-block><code-numberings><code-number>0</code-number><code-number>1</code-number><code-number>2</code-number><code-number>3</code-number><code-number>4</code-number><code-number>5</code-number><code-number>6</code-number></code-numberings><code-body><code-line>#######</code-line><br><code-line>#    ##</code-line><br><code-line>#     #</code-line><br><code-line>#     #</code-line><br><code-line># # ###</code-line><br><code-line># #  -#</code-line><br><code-line>#######</code-line><br></code-body></code-block>
+<pre><code><code-numberings><code-number aria-hidden="true">0</code-number><code-number aria-hidden="true">1</code-number><code-number aria-hidden="true">2</code-number><code-number aria-hidden="true">3</code-number><code-number aria-hidden="true">4</code-number><code-number aria-hidden="true">5</code-number><code-number aria-hidden="true">6</code-number></code-numberings><code-body><code-line>#######</code-line><br><code-line>#    ##</code-line><br><code-line>#     #</code-line><br><code-line>#     #</code-line><br><code-line># # ###</code-line><br><code-line># #  -#</code-line><br><code-line>#######</code-line><br></code-body></code></pre>
 </td> <td>42</td>
 </tr>
 <tr>
 <td><span class="katex"><span><math><semantics><mrow><mn>6</mn><mo>×</mo><mn>6</mn></mrow></semantics></math></span></span></td> <td>
-<code-block><code-numberings><code-number>0</code-number><code-number>1</code-number><code-number>2</code-number><code-number>3</code-number><code-number>4</code-number><code-number>5</code-number><code-number>6</code-number><code-number>7</code-number></code-numberings><code-body><code-line>########</code-line><br><code-line>#      #</code-line><br><code-line># ### ##</code-line><br><code-line># #   ##</code-line><br><code-line># #    #</code-line><br><code-line>#  # ###</code-line><br><code-line>#  #  -#</code-line><br><code-line>########</code-line><br></code-body></code-block>
+<pre><code><code-numberings><code-number aria-hidden="true">0</code-number><code-number aria-hidden="true">1</code-number><code-number aria-hidden="true">2</code-number><code-number aria-hidden="true">3</code-number><code-number aria-hidden="true">4</code-number><code-number aria-hidden="true">5</code-number><code-number aria-hidden="true">6</code-number><code-number aria-hidden="true">7</code-number></code-numberings><code-body><code-line>########</code-line><br><code-line>#      #</code-line><br><code-line># ### ##</code-line><br><code-line># #   ##</code-line><br><code-line># #    #</code-line><br><code-line>#  # ###</code-line><br><code-line>#  #  -#</code-line><br><code-line>########</code-line><br></code-body></code></pre>
 </td> <td>96</td>
 </tr>
 <tr>
 <td><span class="katex"><span><math><semantics><mrow><mn>7</mn><mo>×</mo><mn>7</mn></mrow></semantics></math></span></span></td> <td>
-<code-block><code-numberings><code-number>0</code-number><code-number>1</code-number><code-number>2</code-number><code-number>3</code-number><code-number>4</code-number><code-number>5</code-number><code-number>6</code-number><code-number>7</code-number><code-number>8</code-number></code-numberings><code-body><code-line>#########</code-line><br><code-line>#  ###  #</code-line><br><code-line>#      ##</code-line><br><code-line># # ##  #</code-line><br><code-line>#  #   ##</code-line><br><code-line>#  #    #</code-line><br><code-line>#   # ###</code-line><br><code-line>#  #-  -#</code-line><br><code-line>#########</code-line><br></code-body></code-block>
+<pre><code><code-numberings><code-number aria-hidden="true">0</code-number><code-number aria-hidden="true">1</code-number><code-number aria-hidden="true">2</code-number><code-number aria-hidden="true">3</code-number><code-number aria-hidden="true">4</code-number><code-number aria-hidden="true">5</code-number><code-number aria-hidden="true">6</code-number><code-number aria-hidden="true">7</code-number><code-number aria-hidden="true">8</code-number></code-numberings><code-body><code-line>#########</code-line><br><code-line>#  ###  #</code-line><br><code-line>#      ##</code-line><br><code-line># # ##  #</code-line><br><code-line>#  #   ##</code-line><br><code-line>#  #    #</code-line><br><code-line>#   # ###</code-line><br><code-line>#  #-  -#</code-line><br><code-line>#########</code-line><br></code-body></code></pre>
 </td> <td>218</td>
 </tr>
 </tbody></table>

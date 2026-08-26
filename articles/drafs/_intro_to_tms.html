@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="An exploration of a very interesting, and very difficult turing machine">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Beaver Catcher Academy</title>
+	<link rel="stylesheet" href="../css/main.css">
+	<link defer rel="stylesheet" href="../css/katex.supermin.css">
+	<script defer src="../js/katex.min.js"></script>
+	<!-- Automatically renders math in text elements -->
+	<script defer src="../js/auto-render.min.js"onload="renderMathInElement(document.body);"></script>
+	<link rel="icon" type="image/png" href="../media/favicon.webp"> 
+	<meta name="format-detection" content="telephone=no">
+</head>
+<body>
+	<header class="banner">
+		<h1>Katelyn's Blog</h1>
+	</header>
+	<div class="main-block">
+		<nav class="navigation">
+			<ul>
+				<li>
+					<a href="../index.html">Home</a>
+				</li>
+				<li>
+					<a href="../articles.html">Articles</a>
+				</li>
+				<li>
+					<a href="../projects.html">Projects</a>
+				</li>
+			</ul>
+		</nav>
+		<article id="article_body">
+			<header class="article-header">
+				<h1 class="article-title">
+					Beaver Catcher Academy
+				</h1>
+				<p class="article-date">
+					July 18 2026
+				</p>
+			</header>
+			<hr>
+			<main>
+				<h2 id="toc-1">1. Foreword</h2>
+				<hr>
+				<p>
+					So, you want to learn about Turing Machines? You want to aid in the quest to narrow down the elusive <a href="https://en.wikipedia.org/wiki/Busy_beaver">Busy Beaver Numbers</a>? Well, look no further!
+				</p>
+				<p>
+					I'm making this guide to serve as an accessible introduction to analyzing Turing Machines (which I will be referring to as TMs from here on out). As it turns out, you don't need a ton of prerequisite knowledge to be able to contribute! However, there is a lot
+					of jargon and notation that can seem intimidating the first time you encounter it, but I promise it's really not that bad!
+				</p>
+				<p>
+					The main prerequisite knowledge I will be assuming is the following:
+				</p>
+				<ul>
+					<li>Some basic number theory (mainly modular arithmetic)</li>
+					<li>Some idea of math proofs. Proofs by contradiction, induction, etc. My aim is to keep everything straightforward but some idea of how proofs work is definitely going to be helpful</li>
+				</ul>
+				<p>
+					And of course, please reach out to me if anything doesn't make sense, or you find any errors!
+				</p>
+				<ol class="table-of-contents">
+					<h1>Table of Contents</h1>
+					<li>
+						<a href="#toc-1">Foreword</a>
+					</li>
+					<li>
+						<a href="#toc-2">Intro to TMs and Common Notations</a>
+						<ol>
+							<li>
+								<a href="#toc-2-1">Turing Machine Codes</a>
+							</li>
+							<li>
+								<a href="#toc-2-2">Compressed Tape Notation</a>
+							</li>
+						</ol>
+					</li>
+					<li>
+						<a href="">Tree Normal Form / Brady's Algorithm</a>
+					</li>
+					<li>
+						<a href="">Simple Turing Machine Classes</a>
+						<ol>
+							<li>
+								<a href="">Translated Cyclers</a>
+							</li>
+							<li>
+								<a href="">Bells</a>
+							</li>
+							<li>
+								<a href="">Binary Counters</a>
+							</li>
+						</ol>
+					</li>
+				</ol>
+
+				<h2 id="toc-2">2. Intro to TMs and Common Notations</h2>
+				<hr>
+				<p>
+					A TM is an extremely simple model of a computer. At any given point in time, it has exactly one <b>state</b> it is in. It runs on a <b>tape</b>, a string of infinite symbols in both directions of which it looks at exactly one symbol at any given time, and a table of <b>instructions</b>, which tell the TM how to run.
+				</p>
+				<p>
+					The TM runs in <b>steps</b>, which is defined as the execution of a single instruction. One instruction is made up of three components:
+				</p>
+				<ul>
+					<li>The value to write into the current cell it is looking at</li>
+					<li>The direction to move (left or right), by exactly one cell</li>
+					<li>Which state to enter next</li>
+				</ul>
+				<p>
+					Which instruction gets executed at any given time is determined by:
+				</p>
+				<ul>
+					<li>The symbol it is currently looking at</li>
+					<li>The state it is currently in</li>
+				</ul>
+				<p>
+					Distinct symbols are usually denoted with an integer (0 &lt;=), and states are denoted with a letter (A-Z). 
+					Thus, a turing machine program is representable by a lookup table, that looks something like the following:
+				</p>
+				<table>
+					<tr>
+						<th>State</th> <th>0</th> <th>1</th>
+					</tr>
+					<tr>
+						<td>A</td> <td title="Write a 1 into the current cell, shift 1 cell right, then enter state B">1RB</td> <td title="Write a 0 into the current cell, shift 1 cell right, then enter state B">0RB</td>
+					</tr>
+					<tr>
+						<td>B</td> <td title="Write a 1 into the current cell, shift 1 cell left, then enter state A">1LA</td> <td title="Write a 0 into the current cell, shift 1 cell left, then enter state A">0LA</td>
+					</tr>
+				</table>
+				<p>
+					The first cell and first column is thus read as: "Upon reading a 0 while in state A, write a 1 into the current cell, shift 1 cell right, then enter state B"
+				</p>
+				<p>
+					We can see what the machine looks like in executing from a tape of all zeros in the following demonstration:
+				</p>
+				<p>TODO</p>
+				<p>
+					Now, there's one last thing to cover: the HALT instruction. The HALT instruction is special, because it tells the machine to stop running, and whatever is on the tape when it is finished executing is considered the output of that TM program.
+				</p>
+				<p>
+					This necessitates the question: How do we represent this all in a compact form? Tables are helpful, but when you have a lot of machines it would be really helpful to have a way of referring to them.
+				</p>
+				<h3 id="toc-2-1">TM Codes</h3>
+				<hr>
+				<p>
+					We can compactify a table into a string by denoting each instruction by 3 characters splitting each state with an "_", and having the read symbol act as an index within each state.
+					As an example, 1RB0RB_1LA0LA is equivalent to the table at the beginning of chapter 2.
+				</p>
+				<p>
+					So how do we represent the HALT state? There are two distinct common conventions with slightly different interpretations. "---" is used to indicate an instruction that's undefined, either because it is never executed, or because we don't know whether it is executed.
+					Meanwhile, "1RZ" is used to indicate an explicit halting instruction, meaning it is both reached, and stops the program. "Z" is used as a stand-in for an undefined transition. In the early days, "H" used to be the common denotation for this state,
+					but it came too early in the alphabet and caused problems, so Z was switched to instead.
+				</p>
+				<p>
+					This raises the natural question of course of what happens if we need to represent a TM with more than 25 states or 10 symbols? To which the answer is, "ah, don't worry about it". (There's no agreed upon solution to this yet).
+				</p>
+				<p>
+					This allows us to infer some information rather quickly. As an example, we can deduce from the TM code 1RB3LA1RA0LA_2LA---1RZ3RA that the instruction for reading a 1 in state B is never reached, and the machine halts upon reading a "2" in state B.
+				</p>
+				<h3 id="toc-2-2">Compressed Tape Notation</h3>
+				<hr>
+				<p>
+					When discussing the current state of a tape that a machine is working on, it's common to write it out with a compressed form, like so:
+				</p>
+				<centered-sub-block>
+					\[0^\infty (1^{50}) \text{ A> } ((101)^{10}111)^{13} 0^\infty\]
+				</centered-sub-block>
+				<p>
+					This seems utterly horrifying to read, but it's actually fairly straightforward. Repetitions are denoted with exponential notation, so 1^50 means "fifty 1's in a row", and the infinite zeros on either end indicate that there are infinitely many untouched zeros from then on shooting off into infinity.
+					(You'll also often see "$" be used as a shorthand for 0^infinity. They mean the same thing).
+				</p>
+				<p>
+					The "A&gt;" is known as <b>directed head notation</b>. The arrow points to the current symbol the machine is looking at, and the letter indicates the current state of the machine at that step.
+				</p>
+			</main>
+		</article>
+	</div>
+</body>
+<script>
+	function toggle_element(show_element, button_id, proof_id) {
+		button = document.getElementById(button_id);
+		if (show_element) {
+			document.getElementById(proof_id).style.display = "";
+			button.textContent = "[Click to hide proof]";
+			button.style.marginBottom = "0px";
+		} else {
+			document.getElementById(proof_id).style.display = "none";
+			button.textContent = "[Click to show proof]";
+			button.style.marginBottom = "12px";
+		}
+	}
+	
+	seq_rewrite_pressed = false;
+	document.getElementById('btn_seq_proof').addEventListener('click', function() {
+		seq_rewrite_pressed = !seq_rewrite_pressed;
+		toggle_element(seq_rewrite_pressed, 'btn_seq_proof', 'seq_proof');
+	});
+
+	toggle_element(seq_rewrite_pressed, 'btn_seq_proof', 'seq_proof');
+
+	backward_reasoning_pressed = false;
+	document.getElementById('btn_br_proof').addEventListener('click', function() {
+		backward_reasoning_pressed = !backward_reasoning_pressed;
+		toggle_element(backward_reasoning_pressed, 'btn_br_proof', 'br_proof');
+	});
+
+	toggle_element(backward_reasoning_pressed, 'btn_br_proof', 'br_proof');
+</script>
+<script defer src="../js/snowfallbg.js"></script>
+</html>
