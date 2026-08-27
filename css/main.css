@@ -333,6 +333,61 @@ main {
 			margin-top: 10px;
 		}
 	}
+	> ul.article {
+		display: flex;
+		flex-flow: row;
+		list-style: none;
+		background-color: rgb(85, 94, 192);
+		border-radius: 10px;
+		margin-top: 0px;
+		margin-right: auto;
+		padding-left: 0;
+		>  li {
+			margin-top: 0;
+			display: flex;
+			align-self: stretch; /* Keeps all items the same height */
+			&:first-child {
+				> a, p {
+					border-top-left-radius: 6px;
+					border-bottom-left-radius: 6px;
+				}
+			}
+			&:last-child {
+				> a, p {
+					border-top-right-radius: 6px;
+					border-bottom-right-radius: 6px;
+					border-right: 2px rgb(197, 201, 237) solid;
+				}
+			}
+			> p {
+				margin: 0px;
+				font-size: 16px;
+				display: flex;
+				padding: 15px;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				color: white;
+				transition: color 0.1s ease;
+				border: 2px solid rgb(197, 201, 237);
+				border-right: 1px;
+			}
+			> a {
+				font-size: 16px;
+				display: flex;
+				padding: 15px;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				color: white;
+				transition: color 0.1s ease;
+				border: 2px solid rgb(197, 201, 237);
+				border-right: 1px;
+				color: rgb(225, 184, 240);
+			}
+			>  a:hover {
+				color: rgb(184, 106, 236);
+			}
+		}
+	}
 }
 ol.table-of-contents {
 	background-color: rgb(85, 94, 192);
@@ -422,7 +477,7 @@ hover-text {
 @media (max-width: 900px) {
 	main {
 		flex-flow: column;
-		& > ul {
+		& > ul.article {
 			align-self: center;
 			display: flex;
 			flex-flow: column;
