@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta name="description" content="An introduction to the best way to write reusable generic code in C with just a little bit of preprocessor abuse!">
+	<meta name="description" content="As it turns out, C *does* have generics - it just a little bit of preprocessor abuse!">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Writing Generic Code in C (Template Headers)</title>
+	<title>Writing Generic Code in C With Template Headers</title>
 	<link rel="stylesheet" href="../css/main.css">
 	<link defer rel="stylesheet" href="../css/katex.supermin.css">
 	<script defer src="../js/katex.min.js"></script>
@@ -50,7 +50,7 @@
 					And rather, I keep seeing what I believe to be bad techniques recommended as the go-to method for handling this problem. So my hope is that this article is one you or I can easily link to as a reference.
 				</p>
 				<p>
-					Without further ado, what is this ultimate secret to writing generic code in C?
+					Anyways, the solution is template headers!
 				</p>
 				<p></p>
 				<h2>
@@ -73,7 +73,8 @@
 					This general pattern can be repeated throughout the codebase, but each time there are two things that need to be changed. Mainly, ArrayStruct and ArrayElemType.
 				</p>
 				<p>
-					All the C preprocessor really is at the end of the day is a very fancy find+replace tool. What we can do is require the user to preprocess #define what to replace these with, and then undefine them at the end.
+					All the C preprocessor really is at the end of the day is a very fancy find+replace tool, so if we #define something, it will replace the leftmost identifier from then on with anything to the right.
+					If you think about it, a generic is really just taking in a type parameter and pasting it to where it needs to go. We can absolutely do the same in C! All we have to do is require the user to #define types to put into our relevant fields.
 				</p>
 				<numbered-code-block>
 					<code-line><code-comment>/* ArrayStruct and ArrayElemType will be replaced by what the user</code-comment></code-line>
@@ -92,7 +93,7 @@
 					<code-line><code-comptime>#undef</code-comptime> <code-type>ArrayElemType</code-type></code-line>
 				</numbered-code-block>
 				<p>
-					You can also check ahead of time to make sure that they are #define'd ahead of time and use the #error directive to break compilation and give a helpful error message if not.
+					The user could of course forget to define everything they need to, which is why we can add in some #ifdef statements to make sure everything looks good before proceeding. If not, we can toss them an error message with the #error directive
 				</p>
 				<numbered-code-block>
 					<code-line><code-comptime>#ifndef</code-comptime> <code-constant>ARRAY_ELEMENT_TYPE</code-constant></code-line>
@@ -101,7 +102,7 @@
 					<code-line><code-comptime>#endif</code-comptime></code-line>
 				</numbered-code-block>
 				<p>
-					That's really all there is to it. I added in some extra boilerplate for adding the ability to typedef the resulting struct (I typedef by default but I know some others don't like that) but in principle that's all there is.
+					That's really all there is to it! I added in some extra boilerplate for adding the ability to typedef the resulting struct (I typedef by default but I know some others don't like that) but in principle that's all there is.
 				</p>
 				<p>
 					Then you save this to a separate file (something like "generic_array.h"), and then can use it around your program like so:
@@ -113,17 +114,23 @@
 					<code-line><code-comptime>#include</code-comptime> <code-string>"generic_array.h"</code-string></code-line>
 				</numbered-code-block>
 				<p>
-					You may be wondering what possible effort this saves - and for a simple case like this it doesn't really. However, doing it this way even for an array of this simplicity has its benefits. For one, it guarantees a consistent convention across the codebase.
-					The amount of elements is always array.length, the elements can always be accessed with array.elements, and it's simply modifiable (for instance, migrating from 32-bit to 64-bit you could change int to a larger type)
+					For those not familiar, the #include directive is just secretly copy and paste. In C, everything is just treated as one enormous file, and #include directly pastes the content of another file in its place.
+					Thus the #include copies our genericized code into its place, that then gets modified according to the #define's the user provides.
 				</p>
 				<p>
-					I personally find it nice to enforce consistent conventions across my personal projects, and doing it this way guarantees that.
+					You may be wondering what possible effort this saves - and for a simple case like this it doesn't really. However, doing it this way even for an array of this simplicity has its benefits. For one, it guarantees a consistent convention across the codebase, which is incredibly helpful.
+					The amount of elements is always array.length, the elements can always be accessed with array.elements. In addition, it's simply modifiable (for instance, migrating from 32-bit to 64-bit you could change int to a larger type)
 				</p>
 				<p>
 					But the real benefits of this technique start to show itself when you consider more complex generic structures, as well as the other half of the equation: functions.
 				</p>
 				<p>
-					The C preprocessor, as it turns out, is way more powerful than you'd think. The token paste operator ## is a rarely used but extremely versatile feature. In our case, it's capable of handling automatic name mangling according to a pattern.
+					C doesn't have function overloading, so we run into an obvious problem - if we need a function associated with our generic datastructure (the *algorithms* in data structures and algorithms ;)), how do we do that? This is where my favorite niche feature of C comes in.
+				</p>
+				<p>
+					The token paste operator ## is a rarely used but extremely versatile feature. For some parameter A, ##A will be replaced with whatever is passed as A.
+					
+					In our case, it's capable of handling automatic name mangling according to a pattern.
 				</p>
 				<numbered-code-block>
 					<code-comment>/* Defines the "xar_get" symbol to be replaced with XAR_GET_(XAR_FN_POSTFIX) */</code-comment>
@@ -186,7 +193,7 @@
 				</p>
 				<p>
 					The next reason, building off of the first, is that it is an extremely friendly technique to external tooling. Any old C LSP can read a template header definition and give you full autocomplete, goto definition, syntax highlighting, and more.
-					It also works fantastically with debuggers! It'll show you the genericized code when stepping through, which is still readable enough to be able to reasonably debug.
+					It also works fantastically with debuggers! It'll show you the genericized code when stepping through, which is still readable enough to be reasonably debuggable.
 				</p>
 				<p>
 					It is a very flexible technique, and depending on how crazy you want to get with writing preprocessor code, you can give people very thorough control over how things get setup while not needing to worry about implementation details.
