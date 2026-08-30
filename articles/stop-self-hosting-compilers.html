@@ -1,0 +1,220 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="description" content="A PSA for all people designing programming languages. DON'T DO IT, IT'S A BAD IDEA!!!">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stop self hosting compilers!!</title>
+<link rel="stylesheet" href="/css/main.css">
+<link defer="" rel="stylesheet" href="/css/katex.supermin.css">
+
+
+
+<link rel="icon" type="image/png" href="/media/favicon.webp"> 
+<meta name="format-detection" content="telephone=no">
+</head>
+<body>
+<header class="banner">
+<h1>Katelyn's Blog</h1>
+</header>
+<div class="main-block">
+<nav class="navigation">
+<ul>
+<li>
+<a href="../index.html">Home</a>
+</li>
+<li>
+<a href="../articles.html">Articles</a>
+</li>
+<li>
+<a href="../projects.html">Projects</a>
+</li>
+</ul>
+</nav>
+<article id="article_body">
+<header class="article-header">
+<h1 class="article-title">
+Stop self hosting compilers!!
+</h1>
+<p class="article-date">
+August 30 2026
+</p>
+</header>
+<hr>
+<main>
+<p>
+This is a desperate plea to every person making a programming language -
+you should not self host your compiler, outside of perhaps some extremely obscure circumstance, but you probably aren't in that circumstance.
+
+It is, best case scenario, a massive waste of time, and at worst, actively detrimental to your language.
+</p>
+<p>
+For those unfamiliar, the concept of self-hosting a programming language is when one writes the compiler in the same language it compiles.
+
+This is an extremely common practice, to the point where it's almost seen as a rite of passage.
+</p>
+<p>
+I'll cover the reasons that people advocate for doing this in a later section, but first I want to cover the potential problems it introduces.
+</p>
+<h2>
+Why it sucks
+</h2>
+<hr>
+<h3>
+1) It makes boostrapping a nightmare
+</h3>
+<p>
+This is my main reason for disliking this practice. If you want your programming language to be taken at all seriously, it needs to be able to work on different platforms to some degree.
+People will not want to write programs in your language if they don't have any idea whether the code they write will be useable in the future. What if you want to switch hardware for an upgrade? Switch operating system? etc.
+</p>
+<p>
+To port the language, you need to port your compiler. How do you do that? If you don't self host, the path for this is very simple:
+</p>
+<p>
+Make the necessary changes to your compiler -&gt; get a compiler for the language it is written in on your new platform -&gt; compile the compiler
+</p>
+<p>
+The second step could be annoying, depending on the language your compiler is written in, and whether *that* language has been ported - but in principle it's possible to simplify that.
+</p>
+<p>
+Regardless, self-hosting makes this worse. How do you compile your compiler? You use the previous version of your compiler. How do you compile that one? Well, you get the previous version of that, etc. Ad infinitum!
+</p>
+<p>
+Until, eventually, you get to the first non-self-hosted version of your compiler. And then you're back to our original scenario. But even then, it's not just a long chain of having to compile things, you need to potentially <i>actively make changes</i> every step of the way so that the next version can support your previous version.
+You can try and program around this, but nobody can predict the future. The new platform could be fundamentally different in a way that you can't predict and makes it hard to account for.
+</p>
+<p>
+But then - oh god forbid! What if the language you wrote it in is self hosted and not yet ported? Now you need to do this whole song and dance <i>for someone else's compiler</i>!
+</p>
+<p>
+Even compilers for extremely well supported languages, like GCC for compiling C, fall victim to this. GCC is written in C++, so you have a lot of steps to go before you could even get there.
+
+The difference is that some level of C support is basically a requirement for any platform out there. But your language? You need to make it either as easy as possible to port, or give people an extremely good reason to port it, otherwise it's dead in the water.
+</p>
+<h3>
+2) Recursive bug propagation
+</h3>
+<p>
+Bugs can always be introduced in the self-hosting process, which leads to a potential recursive nightmare. Say you accidentally introduced a bug in your self-hosted compiler several iterations down the line in a way that affects future compilation output.
+You would have to go all the way back to before the bug was introduced, or even the original non-self-hosted compiler to fix it. Then you have to subsequently fix it up the chain until it's fixed in the latest version
+</p>
+<p>
+This would be an absolute nightmare. So the alternative is maintaining *two* compilers, one self-hosted, and one non-self-hosted. At that point you've doubled the work (and destroyed the theoretical benefits of self hosting, in my opinion at least). A compiler is hard enough, you don't want to have to maintain two at once and keep them in sync.
+</p>
+<p>
+A lot of this is quite like <a href="https://dl.acm.org/doi/epdf/10.1145/358198.358210">Ken Thompson's "Reflections on Trusting Trust"</a>, but unintentional and non-malicious.
+</p>
+<h3>
+3) There are better things you should be doing
+</h3>
+<p>
+Rewriting an entire compiler in a new language, especially if different from your non-self-hosted one, is going to take a lot of time. That's time you could spend in far more productive ways for your language's development. Here's a short list:
+</p>
+<p>
+- Improving documentation and learning resources for your language
+</p>
+<p>
+- Fixing bugs or improving efficiency in the compiler (or adding features if needed)
+</p>
+<p>
+- Building tooling for your language to ease development
+</p>
+<p>
+- Building libraries that people can use (they're in an entirely new toolchain with your language, you need to give them tools!)
+</p>
+<p>
+- <b>Building literally anything else in your language</b>
+</p>
+<p>
+To speak on the last point, a quick way people will judge whether they should bother with your language at all is whether it can be utilized to do useful work.
+
+Compilers are weird programs, and in my opinion, don't really showcase the power of a language as is relevant to most programmers.
+They burn fast, bright, and ideally quickly. They rarely if ever interact with user input, they communicate with very few other programs, they barely connect to the internet*, etc.
+</p>
+<details>
+<summary>*</summary>
+<p>I'm assuming the package manager is a separate program. I'm talking about the compiler itself.</p>
+</details>
+<p>
+This is in stark contrast to most useful programs in the modern day, I would argue. Most programs need to deal with persistent state, user input, inter-process communication, and so on.
+</p>
+<p>
+Building something closer to what people will use your language for will reveal the important design problems to address; a compiler for your language is the first thing that is going to exist, so you probably shouldn't be testing the viability of your language at writing compilers.
+</p>
+<p>
+Let's also hope there isn't any deep design problems you need to rework after already going through the hell of self-hosting! :)
+</p>
+<p>
+To show your language is awesome, you should build things with it! If your language is built for a specific use case, build something for that use case! Give people a reason to care.
+</p>
+<h2>
+Why people say it's good
+</h2>
+<hr>
+<p>
+We've covered why I think self-hosting a compiler is a bad idea, but clearly people think it's a good idea. Why is that? There's a few primary arguments I see for it.
+</p>
+<h3>
+1) Dogfooding
+</h3>
+<p>
+The argument is if you/your team are working on a compiler in the language it targets, you'll more quickly notice problems and be able to address them.
+</p>
+<p>
+I mostly agree with this argument, with caveats I've mentioned previously. Building things in your language *is* good! You should dogfood and build things in your language.
+But a compiler is probably not the best thing to test that with.
+</p>
+<h3>
+2) Attracting contributors
+</h3>
+<p>
+The argument goes that if you self-host, people that like your language will be willing to help build your compiler if it's in that same language.
+</p>
+<p>
+If you're making a closed source compiler this obviously doesn't apply to you. But if you're making an open source compiler, like most compilers are nowadays, I think this benefit is often exaggerated.
+</p>
+<p>
+Firstly, you probably won't attract any contributors to your project whatsoever until the language is stable and viable enough that people have a reason to care. By that point, having a high volume of contributors loses some importance since most of the hard work on the compiler itself will have been taken care of.
+</p>
+<p>
+Secondly, even if I were to grant the argument in its entirety, building a programming language involves so much more work than *just* the compiler. A language is not entirely separate from its ecosystem of libraries and tooling, and that ecosystem I would argue is potentially even more important than the compiler itself.
+</p>
+<p>
+Were I making a language, given the choice between having a lot of contributors to the compiler and a small ecosystem, or being the only person that works on the compiler but having many passionate people building real applications with it, I would choose the latter every single time.
+</p>
+<p>
+There is plenty of helpful work providable by the hypothetical people that want to contribute to your language, but are unwilling to program in anything but your language.
+</p>
+<p>
+Thirdly, I question the prevalance of those hypothetical people anyways. The type of people that are both passionate enough about your language to contribute to it, and skilled enough to contribute to a mature compiler, probably aren't the kind of people that would be easily swayed by language choice.
+Unless it's written in a really weird language, but you should probably write your compiler in a reasonable language anyways.
+</p>
+<p>
+The secret to making a language people will contribute to is to make a language worth contributing to.
+</p>
+<h3>
+3) Ecosystem/tooling integration with the compiler
+</h3>
+<p>
+This argument is one of being able to integrate the compiler itself and its utilities as things that can directly be referenced by others using your language. E.G, for writing programs that can parse your language.
+</p>
+<p>
+This is A) fairly niche, and B) something you can do without having to entirely self-host the compiler if you really want to. You can provide the code for the parts people need and not have to do all of the hard work of rebuilding the entire compiler again.
+</p>
+<p>
+For parsers specifically, you should probably make your language easy to parse to begin with regardless.
+</p>
+<h3>
+4) It's fun
+</h3>
+<p>
+This is probably true. This is what I think is the actual reason people self host. At the end of the day if you really want to self host I can't stop you, I'm not your mom.
+If you're just writing a compiler for fun and don't care about getting others to use it, by all means self-host.
+</p>
+<p>
+However, if you're trying to make a robust platform that others can build off of with high guarantees of longevity and future maintainability, I merely ask you to reconsider.
+</p>
+</main>
+</article>
+</div>
+
+<script defer="" src="../js/snowfallbg.js"></script>
+</body></html>
