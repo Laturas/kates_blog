@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="description" content="Thoughts on the latest result with the recent Riemann Hypothesis proof">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Day Math Died</title>
+<link rel="stylesheet" href="/css/main.css">
+<link defer="" rel="stylesheet" href="/css/katex.supermin.css">
+
+
+
+<link rel="icon" type="image/png" href="/media/favicon.webp"> 
+<meta name="format-detection" content="telephone=no">
+</head>
+<body>
+<header class="banner">
+<h1>Katelyn's Blog</h1>
+</header>
+<div class="main-block">
+<nav class="navigation">
+<ul>
+<li>
+<a href="../index.html">Home</a>
+</li>
+<li>
+<a href="../articles.html">Articles</a>
+</li>
+<li>
+<a href="../projects.html">Projects</a>
+</li>
+</ul>
+</nav>
+<article id="article_body">
+<header class="article-header">
+<h1 class="article-title">
+The Day Math Died
+</h1>
+<p class="article-date">
+November 11 2026
+</p>
+</header>
+<hr>
+<main>
+<p>
+Today has been a weird day.
+</p>
+<p>
+I was just at work, it was a relatively relaxed day coming off of a hellish previous week so I expected very little.
+</p>
+<p>
+That was, until, my officemate, transfixed on his screen stated matter of factly, "Riemann Hypothesis got solved"
+</p>
+<p>
+"...What??" I responded, incredulously
+</p>
+<p>
+I look over at his screen, and sure enough there was the article announcing it. An Anthropic employee announced that with the help of Claude, a gigantic Lean proof was just formalized that proves the Riemann Hypothesis.
+</p>
+<p>
+It was hard to contain my excitement! The Riemann Hypothesis is in some sense the crown jewel of mathematics. It's a problem so transfixing, beautiful, and wide-reaching that it has an illustrious lure to it.
+It was when I first entered calculus I began to learn of the problem (at an admittedly surface level) and developed the same love for it so many mathematicians have.
+</p>
+<p>
+So often I'd stumble across a wikipedia page around some math theorem or problem, and it'd mention a result contingent on the Riemann Hypothesis being true. Its tendrils reached far and wide.
+</p>
+<p>
+If you proved the Riemann Hypothesis, you would have been a legend among legends, a status few problems reach. *Everybody* in math circles knows of and cares about the Riemann Hypothesis.
+</p>
+<p>
+All this to say, this is easily one of the biggest results in mathematics history. And as I read I began to become more bewildered. Not *only* was it a solution to the RH, but the *Generalized* Riemann Hypothesis, with potential to extend it even to the <i>Extended Riemann Hypothesis</i>?
+</p>
+<p>
+But also with that excitement, was a sense of loss. This is a result that indicates something different. It's the canary in the coal mine pointing to the death of a tradition that's been alive since the dawn of formalized mathematics.
+</p>
+<h2>
+Something Different
+</h2>
+<hr>
+<p>
+I wouldn't call myself a mathematician, but I certainly dabble and have been formally taught in it. I do end up on the outer edges of the mathematical community due to the circles I run in so I see a lot of things going on.
+</p>
+<p>
+To say there has been a shift would be an understatement.
+</p>
+<p>
+Formal verification software has been quietly developing for a while now. For those unfamiliar, formal verification software is basically like a compiler that takes in a statement you want to prove, and then your proof according to the specification of the language, and then checks it with a set of rules
+to quickly verify whether it's a valid proof. Several of these softwares exist, like Rocq, or more pertinently to this situation, Lean.
+</p>
+<p>
+Formal verification, while absolutely useful and a helpful tool on its own, would've probably been doomed to be a more niche thing in the mathematics world if not for LLMs.
+</p>
+<p>
+It's a match made in heaven: an intelligent, blazingly fast thinking machine that sometimes makes mistakes, combined with a model checker that guarantees the absence of mistakes.
+</p>
+<p>
+There has been a remarkably rapid shift in mathematical capability by LLMs in very recent times. They have gotten so good that it's possible to point them at the many problems that nobody has had time to investigate properly yet and there's a good chance they'll one-shot many of them.
+
+The usual concerns with mathematical review, even of other humans, stopped applying. You don't even need to read the proof to know it's correct. The Lean compiles, the proof could be slop but it doesn't matter if all you care about is the result.
+</p>
+<p>
+But at the end of the day, the LLMs still had their limits. They could only prove so difficult of problems.
+</p>
+<p>
+But that bar began to rise
+</p>
+<p>
+and rise
+</p>
+<p>
+Until eventually, they beat the best of us. Much like Gary Kasparov finally losing to Deep Blue in chess. 
+</p>
+<p>
+There has been an unhelpful tendency to try and deny what has just happened, usually from people out of the loop on the details. The general public is at all times roughly 2 years behind where the state of the art work is.
+There's a lot of assumptions people have about the proof due to past issues with LLMs that don't hold up to scrutiny in this case.
+</p>
+<h3>
+What if it exploited a bug in Lean?
+</h3>
+<p>
+This is extremely unlikely. Lean has been independently implemented several times to minimize the chance of bugs in any one implementation. On top of that, recently a Lean kernel was itself formally proven to be correct (short of an issue in <i>that</i> formalization, or an inherent contradiction in the mathematical model itself)
+</p>
+<p>
+On top of that, bugs in Lean are pretty rare. When LLMs have found bugs in Lean, it's been due to specific instruction to search for them, and they're usually hard to find.
+</p>
+<p>
+It's never impossible, but it's also not impossible there's some fundamental flaw in some other well-accepted proof by a human everyone has missed. It's all about probabilities and I'm putting my bets on Lean. 
+</p>
+<h3>
+What if the result didn't actually prove the RH but something else and it formalized the wrong thing?
+</h3>
+<p>
+It's extremely easy to check that it's proving the correct result and the code is public.
+</p>
+<h3>
+This doesn't have any real application anyways this doesn't matter
+</h3>
+<p>
+This is literally all of math I'm sorry to say lol. The things that matter are rarely the proofs themselves but the techniques used to get there. In this case I think that this was possible at all says a lot.
+</p>
+<h3>
+This is just brute force work that doesn't show anything new
+</h3>
+<p>
+This just isn't really true. LLM's are not SAT solvers, they're an algorithm capable of general reasoning. Even then, it was being actively directed by a mathematician most of the way to the proof according to Levent Apologe (the guy responsible for the result). It did the same thing a human would do, just way faster. You can't solve the Riemann Hypothesis by just checking a load of cases. 
+</p>
+<h3>
+It probably just stole it from someone
+</h3>
+<p>
+Not really. Unless they stole a 250,000 page paper's worth of results. The human paper that dropped recently also announcing a proof of the GRH has multiple significant problems (whether they're fixable remains to be seen), and even then proves it in a much different way. This outcome seems unlikely.
+</p>
+<h3>
+It was probably just basically already solved and the few remaining issues were what were solved
+</h3>
+<p>
+This is along the lines of thinking with the Navier Stokes problem, which us meat-based lifeforms were in fact pretty close to solving before the OpenAI solution was released.
+</p>
+<p>
+Unfortunately this isn't true for the Riemann Hypothesis. If you asked any mathematician before this how far they thought we were to resolving this problem they would have guessed way further away. Absolutely nobody on earth thought this was close to being solved.
+</p>
+<h3>
+It wasn't that hard and the mathematicians were just dumb. The LLM didn't do anything impressive
+</h3>
+<p>
+I'd hardly call a 15 million line Lean proof a trivial solution that any well-trained mathematician that just happened to look at it in a different way could have come up with.
+</p>
+<hr>
+<p>
+This is <i>why</i> I think this is a fundamentally different result. A problem beyond our grasp to solve was completely legitimately solved by an LLM.
+It's not a case you can just brush away, it's a blaring siren that we have created something that has fundamentally bested us at mathematics.
+
+For this reason, I think we need to be prepared for what is coming.
+</p>
+<h2>
+What the Future Holds
+</h2>
+<hr>
+<p>
+If developments in AI have taught me anything, it's that it isn't slowing down. It certainly hasn't shown signs of stopping any time soon in mathematics.
+
+In fact I expect it to accelerate. Unlike in a lot of domains, mathematics proofs can be self-reinforcing for LLMs. Again, it doesn't matter if the proof is slop because it's correct.
+</p>
+<p>
+I think the timeline we are quickly heading to is that the most viable way to make progress in math is to formalize interesting or useful problems to solve and chuck huge amounts of compute at them. 
+</p>
+<p>
+This is the melancholy I mention. Mathematics since its dawn has been filled with the stories of people looking at the shining problems on the hill and searching the vast forests of logic for solutions.
+
+Someone would finally crack a particularly tough problem and it would be a triumph, a victory for mankind. Someone would become a hero. 
+</p>
+<p>
+But now? There aren't really any more heroes. Proofs I forsee will now be done by machines. Humans will be relegated to those that ask the questions, until eventually they maybe even get better at that than us.
+</p>
+<p>
+If you only care about progress for progress' sake, then you might not mind this. We know a lot more now than we did yesterday, we've gained a lot in that regard.
+But I personally feel something has been fundamentally lost today.
+</p>
+<p>
+I consider today, in a way, to be the day math died.
+</p>
+</main>
+</article>
+</div>
+
+<script>
+function te(show_element, button_id, proof_id) {
+button = document.getElementById(button_id);
+if (show_element) {
+document.getElementById(proof_id).style.display = "";
+button.textContent = "[Click to hide proof]";
+button.style.marginBottom = "0px";
+} else {
+document.getElementById(proof_id).style.display = "none";
+button.textContent = "[Click to show proof]";
+button.style.marginBottom = "12px";
+}
+}
+
+seq_rewrite_pressed = false;
+document.getElementById('btn_seq_proof').addEventListener('click', function() {
+seq_rewrite_pressed = !seq_rewrite_pressed;
+te(seq_rewrite_pressed, 'btn_seq_proof', 'seq_proof');
+});
+
+te(seq_rewrite_pressed, 'btn_seq_proof', 'seq_proof');
+
+backward_reasoning_pressed = false;
+document.getElementById('btn_br_proof').addEventListener('click', function() {
+backward_reasoning_pressed = !backward_reasoning_pressed;
+te(backward_reasoning_pressed, 'btn_br_proof', 'br_proof');
+});
+
+te(backward_reasoning_pressed, 'btn_br_proof', 'br_proof');
+</script>
+<script defer="" src="../js/snowfallbg.js"></script>
+</body></html>
